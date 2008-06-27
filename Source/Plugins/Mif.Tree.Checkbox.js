@@ -9,7 +9,7 @@ Mif.Tree.implement({
 		this.wrapper.addEvent('click',this.checkboxClick.bindWithEvent(this));
 		if(this.checkboxType=='simple') return;
 		this.addEvent('loadChildren', function(node){
-			if(node.state.checked=='unchecked') return;
+			if(!node || node.state.checked=='unchecked') return;
 			node.recursive(function(){
 				this.state.checked='checked';
 			});
