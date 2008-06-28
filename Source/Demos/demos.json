@@ -1,0 +1,48 @@
+{
+	"Tree":{
+		"SimpleTree":{
+			"title": "Simple Tree"
+		},
+		"Select":{
+			"title": "Tree select event demo"
+		},
+		"Toggle":{
+			"title": "Tree toggle event demo"
+		},
+		"TreeOtherStyle":{
+			"title": "Tree other style"
+		},
+		"FileTree":{
+			"title": "File tree"
+		},
+		"DOMTree":{
+			"title": "DOM Tree"
+		},
+		"HTMLTree":{
+			"title": "HTML Tree"
+		}
+	},
+	"Plugins":{
+		"KeyNav":{
+			"title": "Key navigation implementation demo"
+		},
+		"CheckboxSimple":{
+			"title": "Tree simple checkboxes"
+		},
+		"CheckboxDeps":{
+			"title": "Tree dependences checkboxes"
+		},
+		"Row":{
+			"title": "Tree row highlighting."
+		},
+		"DragAndDrop":{
+			"title": "Tree drag'n'drop"
+		},
+		"Rename":{
+			"title": "Rename node"
+		},
+		"SortableTree":{
+			"title": "sortable tree"
+		}
+	}
+}

@@ -1,0 +1,41 @@
+[	
+	{
+		"property": {
+			"name": "root"
+		},
+		"children": [
+			{
+				"property": {
+					"name": "node1"
+				}
+			},
+			{
+				"property": {
+					"name": "node2"
+				},
+				"children":[
+					{
+						"property": {
+							"name": "node2.1"
+						}
+					},
+					{
+						"property": {
+							"name": "node2.2"
+						}
+					}
+				]
+			},
+			{
+				"property": {
+					"name": "node3"
+				}
+			},
+			{
+				"property": {
+					"name": "node4"
+				}
+			}
+		]
+	}
+]

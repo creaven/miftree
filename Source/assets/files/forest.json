@@ -1,0 +1,126 @@
+[
+	{
+		"property": {
+			"name": "<b>node1.1</b>"
+		},
+		"type": "book"
+	},
+	{
+		"property": {
+			"name": "drag me! sorry imposible"
+		},
+		"type": "disabled",
+		"children":[
+			{
+				"property": {
+					"name": "anode1.3.1"
+				},
+				"type": "folder"
+			},
+			{
+				"property": {
+					"name": "node1.3.0"
+				},
+				"type": "folder"
+			}
+		]
+	},
+	{
+		"property": {
+			"name": "node1.2",
+			"loadable":"true"
+		},
+		"type": "folder"
+	},
+	{
+		"property": {
+			"name": "node1.3"
+		},
+		"data": {
+			"a": "aaa"
+		},
+		"type": "folder",
+		"children":[
+			{
+				"property": {
+					"name": "node1.3.1"
+				},
+				"type": "folder"
+			},
+			{
+				"property": {
+					"name": "node1.3.2"
+				},
+				"type": "folder"
+			}
+		]
+	},
+	{
+		"property": {
+			"name": "node1.4"
+		},
+		"data":{
+			"data1": "rtfm",
+			"data2": "xyz"
+		},
+		"children":[
+			{
+				"property": {
+					"name": "empty",
+					"loadable": "true"
+				},
+				"type": "folder"
+			},
+			{
+				"property": {
+					"name": "node1.4.2"
+				},
+				"type": "folder"
+			}
+		]
+	},
+	{
+		"property": {
+			"name": "books"
+		},
+		"type": "folder",
+		"children":[
+			{
+				"property": {
+					"name": "node1.5.1"
+				},
+				"type": "book"
+			},
+			{
+				"property": {
+					"name": "node1.5.2"
+				},
+				"type": "book"
+			}
+		]
+	},
+	{
+		"property": {
+			"name": "node1.6"
+		},
+		"type": "bin",
+		"children":[
+			{
+				"property": {
+					"name": "node1.6.1"
+				},
+				"type": "folder"
+			},
+			{
+				"property": {
+					"name": "node1.6.2"
+				},
+				"data":{
+					"test": "acd",
+					"arrrrr": ["a","b","c"]
+				},
+				"type": "folder"
+			}
+		]
+	}
+]
