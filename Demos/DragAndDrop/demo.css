@@ -1,8 +1,14 @@
-#tree_container{
+.container{
 height:250px;
 width:200px;
 position:relative;
 border:solid 1px #cecece;
+float:left;
+margin-left:10px;
+}
+
+#informer{
+clear:both;
 }
 
 #informer p{

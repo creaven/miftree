@@ -19,7 +19,7 @@ Mif.Tree.Node = new Class({
 	},
 	
 	$calculate: function(){
-		$extend(this, this.tree.defaults);
+		$extend(this, $unlink(this.tree.defaults));
 		this.type=$splat(this.type);
 		this.type.each(function(type){
 			var props=this.tree.types[type];

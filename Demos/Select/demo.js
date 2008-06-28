@@ -14,15 +14,15 @@ window.addEvent('domready',function(){
 	.load({
 		url: '../assets/files/simpleTree.json'
 	})
-	.addEvent('onLoad', function(){
+	.addEvent('load', function(){
 		this.root.recursive(function(){
 			this.toggle(null, false);
 		});
 	})
-	.addEvent('onSelect',function(node){
+	.addEvent('select',function(node){
 		$('log').adopt(new Element('li').set('html', node.name+' selected'));
 	})
-	.addEvent('onUnSelect', function(node){
+	.addEvent('unSelect', function(node){
 		$('log').adopt(new Element('li').set('html', node.name+' unselected'));
 	});
 });

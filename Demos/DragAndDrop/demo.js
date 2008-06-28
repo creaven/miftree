@@ -78,16 +78,108 @@ window.addEvent('domready',function(){
 			url: '../assets/files/bigTree.json'
 		};
 	}
-	/*tree.addEvent('load', function(){
-		tree.root.recursive(function(){
-			console.log(this.name);
-			if(this.name=='empty') {
-				arguments.callee.stopRecursion=true;
-				return false;
+	
+	tree2 = new Mif.Tree({
+		container: $('tree_container2'),
+		initialize: function(){
+			new Mif.Tree.KeyNav(this);
+			new Mif.Tree.Drag(this, {
+				onDrag: function(){
+					$('destination').innerHTML=this.target ? this.target.name : '';
+					$('where').innerHTML=this.where;
+				},
+				onStart: function(){
+					$('source').innerHTML=this.current.name;
+				},
+				onComplete: function(){
+					$('destination').innerHTML='';
+					$('where').innerHTML='';
+					$('source').innerHTML='';
+				}
+			});
+		},
+		types: {
+			folder:{
+				openIcon: 'mif-tree-open-icon',
+				closeIcon: 'mif-tree-close-icon'
+			},
+			loader:{
+				openIcon: 'mif-tree-loader-open-icon',
+				closeIcon: 'mif-tree-loader-close-icon',
+				DDnotAllowed: ['inside','after']
+			},
+			disabled:{
+				openIcon: 'mif-tree-open-icon',
+				closeIcon: 'mif-tree-close-icon',
+				DDdisabled: true,
+				cls: 'disabled'
+			},
+			book:{
+				openIcon: 'mif-tree-book-icon',
+				closeIcon: 'mif-tree-book-icon',
+				loadable: true
+			},
+			bin:{
+				openIcon: 'mif-tree-bin-open-icon',
+				closeIcon: 'mif-tree-bin-close-icon'
 			}
-			if(arguments.callee.stopRecursion){
-				return false;
+		},
+		dfltType:'folder',
+		height: 18,
+		onCopy: function(from, to, where, copy){
+			if(from.parent==copy.parent){
+				copy.set({
+					property: {
+						name: 'copy '+from.name
+					}
+				});
 			}
-		});
-	});*/
+		}
+	});
+
+	var json=[	
+		{
+			"property": {
+				"name": "root"
+			},
+			"children": [
+				{
+					"property": {
+						"name": "node1"
+					}
+				},
+				{
+					"property": {
+						"name": "node2"
+					},
+					"children":[
+						{
+							"property": {
+								"name": "node2.1"
+							}
+						},
+						{
+							"property": {
+								"name": "node2.2"
+							}
+						}
+					]
+				},
+				{
+					"property": {
+						"name": "node4"
+					}
+				},
+				{
+					"property": {
+						"name": "node3"
+					}
+				}
+			]
+		}
+	];
+	tree2.load({
+		json: json
+	});
+	
 });

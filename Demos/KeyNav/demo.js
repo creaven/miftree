@@ -17,7 +17,7 @@ window.addEvent('domready',function(){
 	.load({
 		url: '../assets/files/simpleTree.json'
 	})
-	.addEvent('onLoad', function(){
+	.addEvent('load', function(){
 		this.root.recursive(function(){
 			this.toggle();
 		});
