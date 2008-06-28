@@ -31,12 +31,12 @@ window.addEvent('domready',function(){
 			loader:{
 				openIcon: 'mif-tree-loader-open-icon',
 				closeIcon: 'mif-tree-loader-close-icon',
-				DDnotAllowed: ['inside','after']
+				dropDenied: ['inside','after']
 			},
 			disabled:{
 				openIcon: 'mif-tree-open-icon',
 				closeIcon: 'mif-tree-close-icon',
-				DDdisabled: true,
+				dragDisabled: true,
 				cls: 'disabled'
 			},
 			book:{
@@ -106,12 +106,12 @@ window.addEvent('domready',function(){
 			loader:{
 				openIcon: 'mif-tree-loader-open-icon',
 				closeIcon: 'mif-tree-loader-close-icon',
-				DDnotAllowed: ['inside','after']
+				dropDenied: ['inside','after']
 			},
 			disabled:{
 				openIcon: 'mif-tree-open-icon',
 				closeIcon: 'mif-tree-close-icon',
-				DDdisabled: true,
+				dragDisbled: true,
 				cls: 'disabled'
 			},
 			book:{

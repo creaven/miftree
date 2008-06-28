@@ -1,9 +1,9 @@
 Class Mif.Tree.Drag {#Mif.Tree.Drag}
-=======================
+====================================
 Implements drag'n'drop functionality
 
 Mif.Tree.Drag Method: constructor {#Tree.Drag:constructor}
-------------------------------------------------------
+----------------------------------------------------------
 
 ### Syntax:
 
@@ -45,3 +45,10 @@ new Mif.Tree.Drag(tree, options)
 								//...other options
 							})
 							
+Class Mif.Tree.Node {#Mif.Tree.Node::Drag}
+==========================================
+
+### Properties
+
+* dragDisabled - (*boolean*) disable dragging
+* dropDenied  -  (*array*) deny drop before, after or inside this node.

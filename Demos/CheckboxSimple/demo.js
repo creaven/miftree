@@ -14,7 +14,7 @@ window.addEvent('domready',function(){
 			loader:{
 				openIcon: 'mif-tree-loader-open-icon',
 				closeIcon: 'mif-tree-loader-close-icon',
-				DDnotAllowed: ['inside','after']
+				dropDenied: ['inside','after']
 			},
 			disabled:{
 				openIcon: 'mif-tree-open-icon',

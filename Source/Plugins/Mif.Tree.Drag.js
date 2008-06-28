@@ -68,7 +68,7 @@ Mif.Tree.Drag = new Class({
 		if(!target) return;
 		this.current=$splat(this.options.startPlace).contains(target) ? this.tree.mouse.node : false;
 		if(!this.current) return;
-		if(this.current.DDdisabled){
+		if(this.current.dragDisabled){
 			this.current=false;
 		}
 		if(this.current){
