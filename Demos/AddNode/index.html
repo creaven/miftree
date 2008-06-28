@@ -1,0 +1,32 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link rel="stylesheet" href="demo.css" type="text/css" />
+	<script type="text/javascript" src="../mootools.js"></script>
+	<script type="text/javascript" src="demo.js"></script>
+	<title>Add node demo.</title>
+</head>
+<body>
+	<h1>Add node demo</h1>
+	<div id="tree_container"></div>
+	<fieldset>
+		<legend>Add</legend>
+		<div>
+			<label for="where">where: </label>
+			<select name="where" id="where">
+				<option selected="selected">inside</option>
+				<option>after</option>
+				<option>before</option>
+			</select>
+		</div>
+		<div class="clear">
+			<label for="node_name">name: </label>
+			<input type="text" name="node_name" id="node_name" value="new node" />
+		</div>
+		<div class="clear" id="submit_button">
+			<input type="submit" name="add_node" id="add_node" value="add node"/>
+		</div>
+	</fieldset>
+</body>
+</html>

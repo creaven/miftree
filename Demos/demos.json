@@ -43,6 +43,9 @@
 		},
 		"SortableTree":{
 			"title": "sortable tree"
+		},
+		"AddNode":{
+			"title": "Add node"
 		}
 	}
 }

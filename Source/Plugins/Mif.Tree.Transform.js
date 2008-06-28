@@ -107,11 +107,14 @@ Mif.Tree.implement({
 		return this;
 	},
 	
-	add: function(structure, options){
+	add: function(options, current, where){
 		var node=new Mif.Tree.Node({
 			parent: null,
 			tree: this
 		}, options);
+		node.inject(current, where, Mif.Tree.Draw.node(node));
+		this.fireEvent('add', [node, current, where]);
+		return this;
 	}
 	
 });

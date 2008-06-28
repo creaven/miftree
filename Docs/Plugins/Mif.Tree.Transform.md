@@ -258,6 +258,68 @@ remove this node.
 
 
 
+Mif.Tree Method: add {#Mif.Tree:add}
+--------------------------------------
+
+Add new node.
+
+### Syntax:
+
+	tree.add(options, current, where);
+	
+### Arguments:
+
+1. options - (*object*) node property.
+1. current - (*Mif.Tree.Node*) node relative which add new node.
+2. where - (*string*) the place to add this node.
+
+### Events:
+
+* add(newNode, current, where) - Function to execute when node added.
+
+### Returns:
+
+* (*Mif.Tree*) tree.
+
+### Examples:
+
+##### example tree
+	
+	root
+	 |_
+	   |-node1
+	   |-node2
+	   |  |
+	   |  |-node2.1
+	   |  |-node2.2
+	   |
+	   |-node3
+       |-node4  
+	   
+##### JavaScript
+
+	tree.add({
+		property: {
+			name: 'newNode'
+		}
+	}, node1, 'after');
+	
+##### resulting tree
+
+
+	root
+	 |_
+	   |-node1
+	   |-newNode
+	   |-node2
+	   |  |
+	   |  |-node2.1
+	   |  |-node2.2
+	   |
+	   |-node3
+       |-node4  
+	   
+
 Class Mif.Tree.Node {#Mif.Tree.Node::Transform}
 ===============================================
 
