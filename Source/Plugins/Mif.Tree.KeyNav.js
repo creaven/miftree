@@ -5,6 +5,7 @@ Mif.Tree.KeyNav=new Class({
 	
 	initialize: function(tree, options){
 		this.tree=tree;
+		tree.wrapper.setAttribute('tabIndex',1);
 		tree.wrapper.addEvent('keydown',function(event){
 			if(!['down','left','right','up'].contains(event.key)) return;
 			if(!tree.selected){
