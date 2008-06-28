@@ -80,7 +80,12 @@ Mif.Tree.Draw={
 		if(previous){
 			domNode.injectAfter(previous.getDOM('node'));
 		}else{
-			domNode.injectTop(node.parentNode.getDOM('children'));
+			if(node.tree.forest && node.parentNode.isRoot()){
+				var children=node.tree.wrapper.getElement('.mif-tree-children-root');
+			}else{
+				var children=node.parentNode.getDOM('children');
+			}
+			domNode.injectTop(children);
 		}
 	}
 	
