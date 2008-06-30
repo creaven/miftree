@@ -1,0 +1,58 @@
+{
+	"Core":{
+		"Mif.Tree":{
+			"deps": ["Mif.Tree", "Mif.Tree.Node", "Mif.Tree.Load", "Mif.Tree.Selection", "Mif.Tree.Hover", "Mif.Tree.Draw"],
+			"desc": "Mif.Tree control base file"
+		},
+		"Mif.Tree.Node":{
+			"deps": ["Mif.Tree"],
+			"desc": "Mif.Tree node class"
+		},
+		"Mif.Tree.Draw":{
+			"deps": ["Mif.Tree"],
+			"desc": "drawing Mif.Tree(create html code)"
+		},
+		"Mif.Tree.Selection":{
+			"deps": ["Mif.Tree"],
+			"desc": "implements selection"
+		},
+		"Mif.Tree.Hover":{
+			"deps": ["Mif.Tree"],
+			"desc": "implements hover effect"
+		},
+		"Mif.Tree.Load":{
+			"deps": ["Mif.Tree"],
+			"desc": "load nodes from json, load json"
+		}
+	},
+	"Plugins":{
+		"Mif.Tree.KeyNav":{
+			"deps": ["Mif.Tree"],
+			"desc": "implement Mif.Tree keyboard navigation with up, left, right, down"
+		},
+		"Mif.Tree.Sort":{
+			"deps": ["Mif.Tree"],
+			"desc": "make Mif.Tree sortable"
+		},
+		"Mif.Tree.Transform":{
+			"deps": ["Mif.Tree"],
+			"desc": "implements move, copy, romove functionality"
+		},
+		"Mif.Tree.Drag":{
+			"deps": ["Mif.Tree","Mif.Tree.Transform"],
+			"desc": "implements Drag'n'Drop"
+		},
+		"Mif.Tree.Rename":{
+			"deps": ["Mif.Tree"],
+			"desc": "implements inline rename node functionality"
+		},
+		"Mif.Tree.Row":{
+			"deps": ["Mif.Tree"],
+			"desc": "implement rows"
+		},
+		"Mif.Tree.Checkbox":{
+			"deps": ["Mif.Tree"],
+			"desc": "checkbox implementation"
+		}
+	}
+}
