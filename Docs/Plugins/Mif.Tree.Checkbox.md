@@ -20,6 +20,11 @@ Add checkbox support.
 
 1. type - (*string*: defaults to 'simple') checkbox type. Type may be 'simple' or 'deps'. Simple checkboxes have 2 states: checked and unchecked. Checkboxes with dependencies 3 states: checked, unchecked, partially (checked).
 
+### Events:
+
+* checked - fired when node checked;
+* unchecked - fired when node unchecked;
+
 ### Example: 
 
 	myTree=new Mif.Tree({
@@ -31,7 +36,7 @@ Add checkbox support.
 
 	
 Mif.Tree Method: getChecked {#Mif.Tree:getChecked}
-----------------------------------------------
+--------------------------------------------------
 
 Returns checked checkboxes. 
 
@@ -39,3 +44,17 @@ Returns checked checkboxes.
 
 	myTree.getChecked();
 	
+	
+
+Mif.Tree.Node {#Mif.Tree.Node::Checkbox}
+========================================
+
+### Properties:
+
+**property**
+
+* hasCheckbox - show node has checkbox or not.
+
+**state**
+
+* checked - node checkbox state

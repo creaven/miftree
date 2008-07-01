@@ -7,19 +7,22 @@
 	},
 	{
 		"property": {
-			"name": "drag me! sorry imposible"
+			"name": "drag me! sorry imposible",
+			"hasCheckbox": false
 		},
 		"type": "disabled",
 		"children":[
 			{
 				"property": {
-					"name": "anode1.3.1"
+					"name": "anode1.3.1",
+					"hasCheckbox": false
 				},
 				"type": "folder"
 			},
 			{
 				"property": {
-					"name": "node1.3.0"
+					"name": "node1.3.0",
+					"hasCheckbox": false
 				},
 				"type": "folder"
 			}
@@ -28,7 +31,7 @@
 	{
 		"property": {
 			"name": "node1.2",
-			"loadable":"true"
+			"loadable":true
 		},
 		"type": "folder"
 	},
@@ -107,7 +110,8 @@
 		"children":[
 			{
 				"property": {
-					"name": "node1.6.1"
+					"name": "node1.6.1",
+					"hasCheckbox": false
 				},
 				"type": "folder"
 			},

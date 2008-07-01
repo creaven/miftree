@@ -1,8 +1,30 @@
-#tree_container{
-height:500px;
-position:relative;
+h3.log{
+margin:1em 0;
 }
 
+
+#log{
+white-space:nowrap;
+width:300px;
+height:200px;
+border:solid 1px #cfcad2;
+}
+
+ol#log li{
+margin-left:30px;
+}
+
+ol#log{
+overflow:auto;
+}
+
+
+#tree_container{
+height:200px;
+width:300px;
+position:relative;
+border:solid 1px #b7b7b7;
+}
 
 
 /*...................................................................................
@@ -280,6 +302,10 @@ background-position:0px center;
 
 .mif-tree-node-unchecked{
 background-position:-18px center;
+}
+
+.mif-tree-node-nochecked{
+background-position:0 -18px;
 }
 
 .mif-tree-hover-checkbox .mif-tree-node-checked{

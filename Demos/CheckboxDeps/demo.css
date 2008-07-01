@@ -283,6 +283,10 @@ background-position:0px center;
 background-position:-18px center;
 }
 
+.mif-tree-node-nochecked{
+background-position:0 -18px;
+}
+
 .mif-tree-hover-checkbox .mif-tree-node-checked{
 background-position:-36px center;
 }

@@ -6,6 +6,7 @@ Mif.Tree.Draw={
 	getHTML: function(node,html){
 		var prefix=node.tree.DOMidPrefix;
 		if($defined(node.state.checked)){
+			if(!node.hasCheckbox) node.state.checked='nochecked';
 			var checkbox='<span class="mif-tree-checkbox mif-tree-node-'+node.state.checked+'" uid="'+node.UID+'">'+Mif.Tree.Draw.zeroSpace+'</span>';
 		}else{
 			var checkbox='';

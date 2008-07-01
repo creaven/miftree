@@ -33,23 +33,62 @@ window.addEvent('domready',function(){
 			}
 		},
 		dfltType:'folder',
-		height: 18
+		height: 18,
+		onChecked: function(node){
+			$('log').adopt(new Element('li').set('html', node.name+' checked'));
+		},
+		onUnchecked: function(node){
+			$('log').adopt(new Element('li').set('html', node.name+' unchecked'));
+		}
 	});
 
 	//tree.initSortable();
-	tree.load({
-		url: '../assets/files/forest.json'
-	});
-
-	tree.loadOptions=function(node){
-		// if node name 'empty' load from url 'empty.json'
-		if(node.name=='empty'){
-			return {
-				url: '../assets/files/empty.json'
-			}
+	var json=[	
+		{
+			"property": {
+				"name": "root"
+			},
+			"children": [
+				{
+					"property": {
+						"name": "node1"
+					}
+				},
+				{
+					"property": {
+						"name": "node2",
+						"hasCheckbox": false
+					},
+					"children":[
+						{
+							"property": {
+								"name": "node2.1"
+							}
+						},
+						{
+							"property": {
+								"name": "node2.2"
+							}
+						}
+					]
+				},
+				{
+					"property": {
+						"name": "node4"
+					}
+				},
+				{
+					"property": {
+						"name": "node3",
+						hasCheckbox: false
+					}
+				}
+			]
 		}
-		return {
-			url: '../assets/files/mediumTree.json'
-		};
-	}
+	];
+	
+	// load tree from json.
+	tree.load({
+		json: json
+	});
 });
