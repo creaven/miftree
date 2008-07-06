@@ -38,7 +38,7 @@ Mif.Tree.Node.implement({
 		if(this.state.checked==state||!this.hasCheckbox) return;
 		var type=this.tree.checkboxType;
 		var checked=(this.state.checked=='checked') ? 'unchecked' : 'checked';
-		this.tree.fireEvent(checked, this);
+		this.tree.fireEvent(checked=='checked' ? 'check' : 'unCheck', this);
 		var setState=function(node, state){
 			if(!node.hasCheckbox) return;
 			var oldState=node.state.checked;

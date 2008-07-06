@@ -34,10 +34,10 @@ window.addEvent('domready',function(){
 		},
 		dfltType:'folder',
 		height: 18,
-		onChecked: function(node){
+		onCheck: function(node){
 			$('log').adopt(new Element('li').set('html', node.name+' checked'));
 		},
-		onUnchecked: function(node){
+		onUnCheck: function(node){
 			$('log').adopt(new Element('li').set('html', node.name+' unchecked'));
 		}
 	});

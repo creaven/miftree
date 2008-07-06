@@ -22,8 +22,8 @@ Add checkbox support.
 
 ### Events:
 
-* checked - fired when node checked;
-* unchecked - fired when node unchecked;
+* check - fired when node checked;
+* unCheck - fired when node unchecked;
 
 ### Example: 
 
