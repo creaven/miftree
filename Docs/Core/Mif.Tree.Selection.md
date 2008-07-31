@@ -8,12 +8,13 @@ Sets the currently selected node.
 
 ### Syntax:
 
-	myTree.select(node);
+	myTree.select(node, preventFocus);
 	
 
 ### Arguments:
 
 1. node - (*Mif.Tree.Node*) node which will be selected.
+2. preventFocus -(*boolean* optional) prevent focus tree for gecko browsers.(focus necessary for keynav)
 
 ### Example: 
 
