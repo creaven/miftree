@@ -37,6 +37,7 @@ Mif.Tree = new Class({
 		this.dfltState={
 			open: false
 		}
+		this.updateOpenState();
 		Mif.Tree.UID++;
 		this.DOMidPrefix='mif-tree-'+Mif.Tree.UID+'-';
 		this.wrapper=new Element('div').addClass('mif-tree-wrapper').injectInside(this.container);
@@ -166,6 +167,20 @@ Mif.Tree = new Class({
 			this.scroll.set(this.wrapper.scrollLeft, top-(down ? this.wrapper.offsetHeight-this.height : 0));
 			this.scroll.fireEvent('complete');
 		}
+	},
+	
+	updateOpenState: function(){
+		this.addEvents({
+			'drawChildren': function(parent){
+				var children=parent.children;
+				for(var i=0, l=children.length; i<l; i++){
+					children[i].updateOpenState();
+				}
+			},
+			'drawRoot': function(){
+				this.root.updateOpenState();
+			}
+		});
 	}
 	
 });

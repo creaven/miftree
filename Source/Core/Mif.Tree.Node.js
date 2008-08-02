@@ -11,7 +11,7 @@ Mif.Tree.Node = new Class({
 		this.type=options.type||this.tree.dfltType;
 		this.property=options.property;
 		this.data=options.data;
-		this.state=$unlink($extend(this.tree.dfltState, options.state));
+		this.state=$extend($unlink(this.tree.dfltState), options.state);
 		this.$calculate();
 		
 		this.UID=this.tree.UID++;
@@ -208,6 +208,13 @@ Mif.Tree.Node = new Class({
 			Mif.Tree.Draw.update(this);
 		}
 		this.tree.fireEvent('set', [this, props]);
+	},
+	
+	updateOpenState: function(){
+		if(this.state.open){
+			this.state.open=false;
+			this.toggle();
+		}
 	}
 	
 });
