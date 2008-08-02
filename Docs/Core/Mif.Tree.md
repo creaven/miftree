@@ -18,7 +18,7 @@ Tree Method: constructor {#Mif.Tree:constructor}
 
 ### Options:
 
-* types         - (*object*) node types. Object with keys - type names and values - type properties. Properties will be added as default properties for all nodes of this type. Properties is the Mif.Node properties. See Mif.Node properties for more info.
+* types         - (*object*) node types. Object with keys - type names and values - type properties. Properties will be added as default properties for all nodes of this type. Properties is the Mif.Tree.Node properties. See Mif.Tree.Node properties for more info.
 * dfltType      - (*string*) default type.
 * forest        - (*boolean*: defaults to false) if true tree don't have root node.
 * animateScroll - (*boolean*: defaults to true) animate scrollTo function.
