@@ -75,7 +75,7 @@ window.addEvent('domready',function(){
 			}
 		}
 		return {
-			url: '../assets/files/bigTree.json'
+			url: '../assets/files/mediumTree.json'
 		};
 	}
 	
