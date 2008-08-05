@@ -59,6 +59,9 @@ Mif.Tree = new Class({
 			keydown: this.keyDown.bindWithEvent(this),
 			keyup: this.keyUp.bindWithEvent(this)
 		});
+		if(Browser.Engine.trident){
+			this.wrapper.addEvent('selectstart', $lambda(false));
+		}
 	},
 	
 	$getIndex: function(){//return array of visible nodes.
