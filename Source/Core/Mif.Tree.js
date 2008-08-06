@@ -36,7 +36,7 @@ Mif.Tree = new Class({
 		};
 		this.dfltState={
 			open: false
-		}
+		};
 		this.updateOpenState();
 		Mif.Tree.UID++;
 		this.DOMidPrefix='mif-tree-'+Mif.Tree.UID+'-';
@@ -87,7 +87,7 @@ Mif.Tree = new Class({
 	},
 	
 	getTarget: function(event){
-		var target=event.target;
+		var target=event.target, node;
 		while(!/mif-tree/.test(target.className)){
 			target=target.parentNode;
 		}
@@ -102,7 +102,7 @@ Mif.Tree = new Class({
 			return {
 				node: node,
 				target: 'node'
-			}
+			};
 		}
 		for(var i=5;i>0;i--){
 			if(test[i]){
@@ -113,7 +113,7 @@ Mif.Tree = new Class({
 		return {
 			node: this.$[target.getAttribute('uid')],
 			target: type
-		}
+		};
 	},
 	
 	getCoords: function(event){

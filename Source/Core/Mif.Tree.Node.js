@@ -53,7 +53,7 @@ Mif.Tree.Node = new Class({
 		if(!this.hasChildren()) return;
 		var next=this.getNextVisible();
 		this.state.open = !this.state.open;
-		var state=this.state.open;
+		state=this.state.open;
 		if(!this.$draw) Mif.Tree.Draw.children(this);
 		var children=this.getDOM('children');	
 		var gadjet=this.getDOM('gadjet');
@@ -73,7 +73,7 @@ Mif.Tree.Node = new Class({
 			this.children.each(function(node){
 				if(node.recursive(fn, args)===false){
 					return false;
-				};
+				}
 			});
 		}
 		return this;
@@ -151,7 +151,7 @@ Mif.Tree.Node = new Class({
 				do{
 					current=parent.getNext();
 					if(current) return current;
-				}while( parent=parent.parentNode )
+				}while( parent=parent.parentNode );
 				return false;
 			}
 		}

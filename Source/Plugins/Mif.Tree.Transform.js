@@ -56,11 +56,11 @@ Mif.Tree.Node.implement({
 					node: child,
 					parent: nodeCopy,
 					tree: tree
-				})
+				});
 				nodeCopy.children.push(childCopy);
 			});
 			return nodeCopy;
-		}
+		};
 		var nodeCopy=copy({
 			node: this,
 			parent: null,

@@ -250,18 +250,18 @@ Mif.Tree.Drag = new Class({
 			this.where='notAllowed';
 			this.fireEvent('drag');
 			return;
-		}
+		};
 		if(this.current.contains(target)){
 			this.where='notAllowed';
 			this.fireEvent('drag');
 			return;
-		}
-		this.index=Math.floor(this.y/this.tree.height)
+		};
+		this.index=Math.floor(this.y/this.tree.height);
 		var delta=this.y-this.index*this.tree.height;
 		var deny=this.target.dropDenied;
 		if(this.tree.sortable){
 			deny.include('before').include('after');
-		}
+		};
 		var where;
 		if(!deny.contains('inside') && delta>(this.tree.height/4) && delta<(3/4*this.tree.height)){
 			where='inside';
@@ -287,7 +287,7 @@ Mif.Tree.Drag = new Class({
 					where='after';
 				}
 			}
-		}
+		};
 		if(this.where==where && this.target==target) return;
 		this.where=where; this.target=target;
 		this.fireEvent('drag');
@@ -317,7 +317,7 @@ Mif.Tree.Drag = new Class({
 			this.tree.select(this.current);
 			this.tree.scrollTo(this.current);
 			return;
-		}
+		};
 		var action=this.tree.key[this.options.modifier] ? 'copy' : 'move';
 		if(this.where=='inside' && !target.isOpen()){
 			target.toggle();
@@ -327,11 +327,11 @@ Mif.Tree.Drag = new Class({
 					self.tree[action](current, target, where);
 					self.fireEvent('complete');
 					target.removeEvent('load',onLoad);
-				}
+				};
 				target.addEvent('load',onLoad);
 				return;
-			}
-		}
+			};
+		};
 		this.tree[action](current, target, where);
 		this.fireEvent('complete', [current, target, where]);
 	}

@@ -13,7 +13,7 @@ Mif.Tree.implement({
 			icon: false,
 			name: false,
 			node: false
-		}
+		};
 		this.hoverState=$unlink(this.defaultHoverState);
 	},
 	
@@ -57,4 +57,4 @@ Mif.Tree.Hover={
 		wrapper.removeClass((node.hoverClass||'mif-tree-hover')+'-'+target).removeClass((node.hoverClass||'mif-tree-hover')+'-selected-'+target);
 	}
 	
-}
+};

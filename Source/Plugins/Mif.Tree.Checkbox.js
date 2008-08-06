@@ -85,7 +85,7 @@ Mif.Tree.Node.implement({
 			if(parent.state.checked==state){return;};
 			setState(parent, state);
 			setParentCheckbox(parent);
-		}
+		};
 		setParentCheckbox(this);
 	}
 

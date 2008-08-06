@@ -13,7 +13,7 @@ Mif.Tree.implement({
 			}else{
 				return 0;
 			}
-		}
+		};
 		this.addEvent('loadChildren', function(parent){
 			if(parent) parent.sort();
 		});

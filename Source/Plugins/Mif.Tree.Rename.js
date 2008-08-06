@@ -103,4 +103,4 @@ Mif.Tree.Rename={
 		});
 	}
 	
-}
+};

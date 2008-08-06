@@ -90,11 +90,11 @@ Mif.Tree.Draw.rowChildren=function(node){
 		html.unshift('<div id="mif-tree-row-',child.UID,'" class="mif-tree-row"></div><div class="mif-tree-row-container"></div>');
 	}
 	container.set('html',html);
-}
+};
 
 Mif.Tree.Draw.row=function(node){
 	return new Element('div').set('html', '<div id="mif-tree-row-',node.UID,'" class="mif-tree-row"></div><div class="mif-tree-row-container"></div>');
-}
+};
 
 
 
