@@ -188,3 +188,5 @@ Mif.Tree = new Class({
 	
 });
 Mif.Tree.UID=0;
+
+Mif.Tree.version='1.1dev';
