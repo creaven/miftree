@@ -4,7 +4,6 @@ window.addEvent('domready',function(){
 			new  Mif.Tree.KeyNav(this);
 		},
 		container: $('tree_container'),
-		grid: true,
 		types: {
 			folder:{
 				openIcon: 'mif-tree-open-icon',
