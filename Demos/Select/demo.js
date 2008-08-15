@@ -16,7 +16,7 @@ window.addEvent('domready',function(){
 	})
 	.addEvent('load', function(){
 		this.root.recursive(function(){
-			this.toggle(null, false);
+			this.toggle();
 		});
 	})
 	.addEvent('select',function(node){
