@@ -12,6 +12,9 @@
 		"TreeOtherStyle":{
 			"title": "Tree other style"
 		},
+		"changeType":{
+			"title": "Add/remove node type demo"
+		},
 		"FileTree":{
 			"title": "File tree"
 		},

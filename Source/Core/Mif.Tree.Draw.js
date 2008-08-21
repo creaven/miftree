@@ -56,9 +56,10 @@ Mif.Tree.Draw={
 	
 	update: function(node){
 		if(!node) return;
-		if(node.tree.forest && node.isRoot()) return;
+		if( (node.tree.forest && node.isRoot()) || (node.getParent() && !node.getParent().$draw) ) return;
 		if(!node.hasChildren()) node.state.open=false;
 		node.getDOM('name').set('html', node.name);
+		node.getDOM('wrapper').className='mif-tree-node-wrapper '+node.cls;
 		node.getDOM('gadjet').className='mif-tree-gadjet mif-tree-gadjet-'+node.getGadjetType();
 		node.getDOM('icon').className='mif-tree-icon '+node[node.isOpen() ? 'openIcon' : 'closeIcon'];
 		node.getDOM('node')[(node.isLast() ?'add' : 'remove')+'Class']('mif-tree-node-last');
