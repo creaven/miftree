@@ -52,6 +52,9 @@
 		},
 		"AddNode":{
 			"title": "Add node"
+		},
+		"AddNode2":{
+			"title": "Another add node demo"
 		}
 	}
 }
