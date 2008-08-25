@@ -74,6 +74,7 @@ Mif.Tree.Node.implement({
 			self.state.loaded=true;
 			self.removeType('loader');
 			self.fireEvent('load');
+			self.tree.fireEvent('loadNode', self);
 			return self;
 		}
 		options=$extend($extend($extend({

@@ -23,6 +23,7 @@ Tree Method: constructor {#Mif.Tree:constructor}
 * forest        - (*boolean*: defaults to false) if true tree don't have root node.
 * animateScroll - (*boolean*: defaults to true) animate scrollTo function.
 * height        - tree node height.
+* expandTo      - (*boolean*: defaults to true) if true loaded nodes with expandTo property set to true will be shown using expandTo function.
 
 ### Events:
 
@@ -96,3 +97,22 @@ Scrolls the node into view.
 
 ### Note: 
 	This function used in Mif.Tree.Drag and Mif.Tree.Transform.
+	
+
+
+Mif.Tree Method: expandTo {#Mif.Tree:expandTo}
+----------------------------------------------
+
+Make node visible, expanding all parent nodes.
+
+### Syntax: 
+	
+	myTree.expandTo(node);
+
+### Arguments:
+
+1. node - (*Mif.Tree.Node*) node which will be visible.
+
+### Return:
+
+This tree

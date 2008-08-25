@@ -59,6 +59,7 @@ Mif.Tree {#Mif.Tree::Load}
 
 ### Events:
 * load         - Function to execute when tree loaded.
+* loadNode     - Function to execute when tree node loaded.
 * loadChildren - Function to execute when children json loaded.
 	
 Mif.Tree Method: load {#Mif.Tree:load}}

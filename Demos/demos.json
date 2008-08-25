@@ -23,6 +23,9 @@
 		},
 		"HTMLTree":{
 			"title": "HTML Tree"
+		},
+		"ExpandTo":{
+			"title": "Using expandTo property demo"
 		}
 	},
 	"Plugins":{
