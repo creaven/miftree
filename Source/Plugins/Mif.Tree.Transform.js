@@ -47,14 +47,14 @@ Mif.Tree.Node.implement({
 			});
 			options.state.open=false;
 			var nodeCopy = new Mif.Tree.Node({
-				parent: structure.parentNode,
+				parentNode: structure.parentNode,
 				children: [],
 				tree: tree
 			}, options);
 			node.children.each(function(child){
 				var childCopy=copy({
 					node: child,
-					parent: nodeCopy,
+					parentNode: nodeCopy,
 					tree: tree
 				});
 				nodeCopy.children.push(childCopy);
@@ -63,7 +63,7 @@ Mif.Tree.Node.implement({
 		};
 		var nodeCopy=copy({
 			node: this,
-			parent: null,
+			parentNode: null,
 			tree: this.tree
 		});
 		return nodeCopy.inject(node, where, Mif.Tree.Draw.node(nodeCopy));
@@ -107,11 +107,14 @@ Mif.Tree.implement({
 		return this;
 	},
 	
-	add: function(options, current, where){
-		var node=new Mif.Tree.Node({
-			parent: null,
-			tree: this
-		}, options);
+	add: function(node, current, where){
+		var type=$type(node);
+		if(type!='mif:tree:node'){
+			node=new Mif.Tree.Node({
+				parentNode: null,
+				tree: this
+			}, node);
+		};
 		node.inject(current, where, Mif.Tree.Draw.node(node));
 		this.fireEvent('add', [node, current, where]);
 		return this;

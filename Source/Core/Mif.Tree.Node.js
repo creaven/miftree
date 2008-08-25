@@ -3,6 +3,8 @@ Mif.Tree.Node
 */
 Mif.Tree.Node = new Class({
 
+	$family: {name: 'mif:tree:node'},
+
 	Implements: [new Events],
 	
 	initialize: function(structure, options) {
