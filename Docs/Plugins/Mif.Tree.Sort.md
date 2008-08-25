@@ -54,7 +54,7 @@ sort this node children.
 
 ### Returns:
 
-* (*Mif.Tree.Node*) this node.
+* (*mif:tree:node*) this node.
 
 ### Examples:
 

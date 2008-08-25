@@ -19,8 +19,8 @@ Move this node after, before or inside another.
 	
 ### Arguments:
 
-1. thisNode - (*Mif.Tree.Node*) this node.
-1. node - (*Mif.Tree.Node*) node relative which inject this node.
+1. thisNode - (*mif:tree:node*) this node.
+1. node - (*mif:tree:node*) node relative which inject this node.
 2. where - (*string*) the place to inject this node.
 
 ### Events:
@@ -120,8 +120,8 @@ copy this node after, before or inside another.
 	
 ### Arguments:
 
-1. thisNode - (*Mif.Tree.Node*) this node.
-1. node - (*Mif.Tree.Node*) node relative which inject this node.
+1. thisNode - (*mif:tree:node*) this node.
+1. node - (*mif:tree:node*) node relative which inject this node.
 2. where - (*string*) the place to inject this node.
 
 ### Events:
@@ -265,12 +265,12 @@ Add new node.
 
 ### Syntax:
 
-	tree.add(options, current, where);
+	tree.add(node, current, where);
 	
 ### Arguments:
 
-1. options - (*object*) node property.
-1. current - (*Mif.Tree.Node*) node relative which add new node.
+1. node - (*mixed*: object or mif:tree:node) node or node options.
+1. current - (*mif:tree:node*) node relative which add new node.
 2. where - (*string*) the place to add this node.
 
 ### Events:
@@ -335,7 +335,7 @@ inject this node after, before or inside another. It's **private** method. You s
 	
 ### Arguments:
 
-1. node - (*Mif.Tree.Node*) node relative which inject this node.
+1. node - (*mif:tree:node*) node relative which inject this node.
 2. where - (*string*) the place to inject this node.
 
 ### Returns:
@@ -358,7 +358,7 @@ inject copy of this node after, before or inside another. It's **private** metho
 	
 ### Arguments:
 
-1. node - (*Mif.Tree.Node*) node relative which inject copy of this node.
+1. node - (*mif:tree:node*) node relative which inject copy of this node.
 2. where - (*string*) the place to inject this node.
 
 ### Returns:
