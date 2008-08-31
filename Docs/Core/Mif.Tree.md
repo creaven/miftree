@@ -31,7 +31,6 @@ Tree Method: constructor {#Mif.Tree:constructor}
 
 ### Properties:
 
-* $   - object with keys - node uids and values - nodes. Return node by id.
 * UID - tree control unique identifier.
 
 
