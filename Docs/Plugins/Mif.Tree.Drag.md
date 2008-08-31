@@ -2,7 +2,7 @@ Class Mif.Tree.Drag {#Mif.Tree.Drag}
 ====================================
 Implements drag'n'drop functionality
 
-Mif.Tree.Drag Method: constructor {#Tree.Drag:constructor}
+Mif.Tree.Drag Method: constructor {#Mif.Tree.Drag:constructor}
 ----------------------------------------------------------
 
 ### Syntax:
@@ -12,7 +12,7 @@ new Mif.Tree.Drag(tree, options)
 ### Arguments:
 
 1. tree - (*Mif.Tree*) tree control.
-2. options - (object) Tree.Drag options.
+2. options - (*object*) Mif.Tree.Drag options.
 
 ### Options
 
@@ -23,20 +23,24 @@ new Mif.Tree.Drag(tree, options)
 * scrollSpeed    - (*number*: defaults to 0.2) .
 * modifier       - (*string*: defaults to 'control') if pressed this key modifier node will be copied.
 * startPlace     - (*array*: defaults to ['icon', 'name']) dragging begin when mouse is over startPlace
+* group          - (*mixed*: string or array, defaults to 'tree') A named drag drop group to which this object belongs. This tree will only interact with other drag drop objects in the same group.
+* droppables     - (*array*: defaults to []) The objects that the draggable can drop into.
 
 ### Events
 
-* start    - Executed when user starts to drag node.
-* drag     - Executed on every step of the drag.
-* complete - Executed when the user completes the drag.
-* cancel   - Executed when the user cancel the drag.
+* start     - Executed when user starts to drag node.
+* drag      - Executed on every step of the drag.
+* complete  - Executed when the user completes the drag.
+* cancel    - Executed when the user cancel the drag before start.
+* drop      - Executed when the user drop node. Receives the dragged node as first argument, target node as second, where drop as third.
+* emptydrop - Executed when drop not allowed.
 
 
 ### Example
 
-	var treeWithDragAndDrop = new Tree({
+	var treeWithDragAndDrop = new Mif.Tree({
 								initialize: function(){
-									new Tree.Drag(this, {
+									new Mif.Tree.Drag(this, {
 										onComplete: function(){
 											alert('Drag complete!');
 										}

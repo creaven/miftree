@@ -1,9 +1,45 @@
+.container{
+height:250px;
+width:200px;
+position:relative;
+border:solid 1px #cecece;
+float:left;
+margin-left:10px;
+}
+
+#drop_container{
+position:relative;
+width:200px;
+height:230px;
+background:#faf9c7;
+float:left;
+margin-left:20px;
+padding:10px;
+}
+
+#drop_container ul{
+margin-left:20px;
+}
+
+#informer{
+clear:both;
+}
+
+#informer p{
+font-weight:bold;
+}
+
+#informer span{
+font-weight:normal;
+}
+
+
 /*...................................................................................
 ===============GLOBAL=================
 ......................................................................................*/
 
 .mif-tree-wrapper{
-position: relative;
+position: absolute;
 width: 100%;
 height:100%;
 margin:0;
@@ -44,7 +80,7 @@ outline:0;
 .mif-tree-wrapper span{
 padding-bottom:2px;
 padding-top:2px;
-cursor:inherit;
+/*cursor:inherit;*/
 }
 
 .mif-tree-children{
@@ -54,18 +90,18 @@ width:18px;
 
 .mif-tree-node{
 width:18px;
-position:relative;
-background:url('images/line.gif') repeat-y 8px 0px;
+background:url('../../Source/assets/images/line.gif') repeat-y 8px 0px;
+cursor:inherit;
 }
 
 .mif-tree-node-last{
-background:url('images/line.gif') no-repeat 8px 0px;
+background:url('../../Source/assets/images/line.gif') no-repeat 8px 0px;
 }
 
 .mif-tree-name{
-cursor: default;
 overflow:hidden;
 margin-left:4px;
+cursor:inherit;
 }
 
 .mif-tree-name a{
@@ -77,8 +113,9 @@ color:blue;
 }
 
 
-.mit-tree-wrapper .mif-tree-node-wrapper{
-background:url('images/horizontal-line.gif') no-repeat 9px center;
+.mif-tree-wrapper .mif-tree-node-wrapper{
+background:url('../../Source/assets/images/horizontal-line.gif') no-repeat 9px center;
+cursor:inherit;
 }
 
 /*...................................................................................
@@ -86,7 +123,7 @@ background:url('images/horizontal-line.gif') no-repeat 9px center;
 ......................................................................................*/
 
 .mif-tree-gadjet{
-background-image:url('images/gadjets.gif');
+background-image:url('../../Source/assets/images/twistyGadjets.gif');
 padding-right: 16px;
 z-index:1;
 overflow:hidden;
@@ -106,28 +143,6 @@ background-position: 0px 50%;
 background-position: -18px 50%;
 }
 
-.mif-tree-gadjet-middle{
-background-position: -36px 50%;
-}
-
-.mif-tree-gadjet-hover .mif-tree-gadjet-minus{
-background-position: -54px 50%;
-}
-
-.mif-tree-gadjet-hover .mif-tree-gadjet-plus{
-background-position: -72px 50%;
-}
-
-.mif-tree-gadjet-hover .mif-tree-gadjet-middle{
-background-position: -90px 50%;
-}
-
-
-/*.mif-tree-gadjet-hover{
-background-image:url('images/gadjets-hover.gif');
-}*/
-
-
 
 
 /*...................................................................................
@@ -141,37 +156,29 @@ cursor:inherit;
 }
 
 .mif-tree-open-icon{
-background-image:url('images/openicon.gif')
+background-image:url('../../Source/assets/images/openicon.gif')
 }
 
 .mif-tree-close-icon{
-background-image:url('images/closeicon.gif')
+background-image:url('../../Source/assets/images/closeicon.gif')
 }
 
-.mif-tree-middle-icon{
-background-image:url('images/middleicon.gif');
-}
 
 .mif-tree-loader-open-icon,.mif-tree-loader-close-icon{
-background-image:url('images/mootree_loader.gif');
+background-image:url('../../Source/assets/images/mootree_loader.gif');
 }
 
 .mif-tree-book-icon{
-background-image:url('images/book_icon.gif');
+background-image:url('../../Source/assets/images/book_icon.gif');
 }
 
 .mif-tree-bin-open-icon{
-background-image:url('images/bin_open_icon.gif');
+background-image:url('../../Source/assets/images/bin_open_icon.gif');
 }
 
 .mif-tree-bin-close-icon{
-background-image:url('images/bin_close_icon.gif');
+background-image:url('../../Source/assets/images/bin_close_icon.gif');
 }
-
-.mif-tree-bin-middle-icon{
-background-image:url('images/bin_middle_icon.gif');
-}
-
 
 
 
@@ -188,15 +195,9 @@ color:#fff;
 text-transform:italic;
 }
 
-.mif-tree-highlighter{
-height:18px;
-overflow:hidden;
-width:100%;
-background:#b64553;
-position:absolute;
+.mif-tree-hover-node .mif-tree-name{
+text-decoration:underline
 }
-
-
 
 
 
@@ -210,7 +211,7 @@ position:absolute;
 height:1px;
 overflow: hidden;
 position: absolute;
-background-image:url('images/1.gif');
+background-image:url('../../Source/assets/images/1.gif');
 background-repeat:repeat-x;
 background-color:#292fef;
 }
@@ -220,7 +221,11 @@ background-color:#292fef;
 background-color:#fff;
 border:solid 2px #e8e8f7;
 padding-left:2px;
-position:absolute;
+}
+
+.mif-tree-ghost span{
+padding-top:2px;
+padding-bottom:2px;
 }
 
 .mif-tree-ghost .mif-tree-node-wrapper{
@@ -236,7 +241,7 @@ padding-bottom:1px;
 padding-left:16px;
 background-color:#fff;
 background-repeat:no-repeat;
-background-image:url('images/dropzone.gif');
+background-image:url('../../Source/assets/images/dropzone.gif');
 }
 
 .mif-tree-ghost-after{
@@ -279,19 +284,19 @@ padding-left:18px;
 }
 
 .mif-tree-node-checked, .mif-tree-node-checked .mif-tree-checkbox{
-background:url('images/checked.gif') center 2px no-repeat;
+background:url('../../Source/assets/images/checked.gif') center 2px no-repeat;
 }
 
 .mif-tree-node-unchecked, .mif-tree-node-unchecked .mif-tree-checkbox{
-background:url('images/unchecked.gif') center 2px no-repeat;
+background:url('../../Source/assets/images/unchecked.gif') center 2px no-repeat;
 }
 
 .mif-tree-node-checked-selected{
-background:url('images/checked_selected.gif') center 2px no-repeat;
+background:url('../../Source/assets/images/checked_selected.gif') center 2px no-repeat;
 }
 
 .mif-tree-node-unchecked-selected{
-background:url('images/unchecked_selected.gif') center 2px no-repeat;
+background:url('../../Source/assets/images/unchecked_selected.gif') center 2px no-repeat;
 }
 
 

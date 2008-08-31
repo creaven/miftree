@@ -16,8 +16,8 @@ Mif.Tree.Node = new Class({
 		this.state=$extend($unlink(this.tree.dfltState), options.state);
 		this.$calculate();
 		
-		this.UID=this.tree.UID++;
-		this.tree.$[this.UID]=this;
+		this.UID=Mif.Tree.Node.UID++;
+		Mif.Tree.Nodes[this.UID]=this;
 	},
 	
 	$calculate: function(){
@@ -220,3 +220,6 @@ Mif.Tree.Node = new Class({
 	}
 	
 });
+
+Mif.Tree.Node.UID=0;
+Mif.Tree.Nodes={};

@@ -44,6 +44,9 @@
 		"DragAndDrop":{
 			"title": "Tree drag'n'drop"
 		},
+		"DnD":{
+			"title": "D'n'd with drop container"
+		},
 		"Rename":{
 			"title": "Rename node"
 		},

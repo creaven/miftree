@@ -24,14 +24,19 @@ Mif.Tree.Node.implement({
 				node.state.open=true;
 				break;
 		}		
-		this.tree.fireEvent('structureChange', [this, node, where, type]);
+		var tree=node.tree.unselect();
+		if(this.tree!=node.tree){
+			var oldTree=this.tree.unselect();
+			this.tree=node.tree;
+		};
+		tree.fireEvent('structureChange', [this, node, where, type]);
 		Mif.Tree.Draw.updateDOM(this, domNode);
 		[node, this, parent, previous, this.getPrevious()].each(function(node){
 			Mif.Tree.Draw.update(node);
 		});
-		this.tree.select(this);
-		this.tree.$getIndex();
-		this.tree.scrollTo(this);
+		tree.$getIndex();
+		if(oldTree)	oldTree.$getIndex();
+		tree.select(this).scrollTo(this);
 		return this;
 	},
 	
@@ -64,7 +69,7 @@ Mif.Tree.Node.implement({
 		var nodeCopy=copy({
 			node: this,
 			parentNode: null,
-			tree: this.tree
+			tree: node.tree
 		});
 		return nodeCopy.inject(node, where, Mif.Tree.Draw.node(nodeCopy));
 	},
@@ -108,8 +113,7 @@ Mif.Tree.implement({
 	},
 	
 	add: function(node, current, where){
-		var type=$type(node);
-		if(type!='mif:tree:node'){
+		if($type(node)!='mif:tree:node'){
 			node=new Mif.Tree.Node({
 				parentNode: null,
 				tree: this

@@ -63,6 +63,8 @@ Mif.Tree.Draw={
 		node.getDOM('gadjet').className='mif-tree-gadjet mif-tree-gadjet-'+node.getGadjetType();
 		node.getDOM('icon').className='mif-tree-icon '+node[node.isOpen() ? 'openIcon' : 'closeIcon'];
 		node.getDOM('node')[(node.isLast() ?'add' : 'remove')+'Class']('mif-tree-node-last');
+		node.select(node.isSelected());
+		node.tree.updateHover();
 		if(node.$loading) return;
 		var children=node.getDOM('children');
 		children.className='mif-tree-children';

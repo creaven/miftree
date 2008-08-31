@@ -5,21 +5,15 @@ window.addEvent('domready',function(){
 		initialize: function(){
 			new Mif.Tree.KeyNav(this);
 			new Mif.Tree.Drag(this, {
-				onDrag: function(){
-					//inject book inside book not allowed;
-					if(this.target && this.target.type=='book' && this.current.type=='book' && this.where=='inside'){
-						this.where='notAllowed';
-					}
-					$('destination').innerHTML=this.target ? this.target.name : '';
-					$('where').innerHTML=this.where;
-				},
-				onStart: function(){
-					$('source').innerHTML=this.current.name;
-				},
-				onComplete: function(){
-					$('destination').innerHTML='';
-					$('where').innerHTML='';
-					$('source').innerHTML='';
+				droppables: [
+					new Mif.Tree.Drag.Element('drop_container',{
+						onDrop: function(node){
+							$('drop').adopt(new Element('li',{html: node.name}));
+						}
+					})
+				],
+				onDrop: function(current, target, where){
+					//console.log(current, target, where);
 				}
 			});
 		},
@@ -83,20 +77,7 @@ window.addEvent('domready',function(){
 		container: $('tree_container2'),
 		initialize: function(){
 			new Mif.Tree.KeyNav(this);
-			new Mif.Tree.Drag(this, {
-				onDrag: function(){
-					$('destination').innerHTML=this.target ? this.target.name : '';
-					$('where').innerHTML=this.where;
-				},
-				onStart: function(){
-					$('source').innerHTML=this.current.name;
-				},
-				onComplete: function(){
-					$('destination').innerHTML='';
-					$('where').innerHTML='';
-					$('source').innerHTML='';
-				}
-			});
+			new Mif.Tree.Drag(this);
 		},
 		types: {
 			folder:{

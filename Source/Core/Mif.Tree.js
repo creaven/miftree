@@ -25,7 +25,6 @@ Mif.Tree = new Class({
 			height: this.options.height,
 			container: $(options.container),
 			UID: 0,
-			$: {},
 			key: {},
 			expanded: []
 		});
@@ -42,7 +41,7 @@ Mif.Tree = new Class({
 		this.updateOpenState();
 		if(this.options.expandTo) this.initExpandTo();
 		Mif.Tree.UID++;
-		this.DOMidPrefix='mif-tree-'+Mif.Tree.UID+'-';
+		this.DOMidPrefix='mif-tree-';
 		this.wrapper=new Element('div').addClass('mif-tree-wrapper').injectInside(this.container);
 		this.initEvents();
 		this.initScroll();
@@ -55,7 +54,7 @@ Mif.Tree = new Class({
 			mousemove: this.mouse.bindWithEvent(this),
 			mouseover: this.mouse.bindWithEvent(this),
 			mouseout: this.mouse.bindWithEvent(this),
-			mouseleave: this.mouseLeave.bind(this),
+			mouseleave: this.mouseleave.bind(this),
 			mousedown: $lambda(false),
 			click: this.toggleClick.bindWithEvent(this),
 			dblclick: this.toggleDblclick.bindWithEvent(this),
@@ -75,7 +74,7 @@ Mif.Tree = new Class({
 		}while(node=node.getNextVisible());
 	},
 	
-	mouseLeave: function(){
+	mouseleave: function(){
 		this.mouse.coords={x:null,y:null};
 		this.mouse.target=false;
 		this.mouse.node=false;
@@ -114,7 +113,7 @@ Mif.Tree = new Class({
 			}
 		}
 		return {
-			node: this.$[target.getAttribute('uid')],
+			node: Mif.Tree.Nodes[target.getAttribute('uid')],
 			target: type
 		};
 	},
@@ -126,11 +125,8 @@ Mif.Tree = new Class({
 		var wrapper=this.wrapper;
 		if((y-wrapper.scrollTop>wrapper.clientHeight)||(x-wrapper.scrollLeft>wrapper.clientWidth)){//scroll line
 			y=-1;
-		}
-		return{
-			x: x,
-			y: y
 		};
+		return {x:x, y:y};
 	},
 	
 	keyDown: function(event){
@@ -162,15 +158,15 @@ Mif.Tree = new Class({
 		var position=node.getVisiblePosition();
 		var top=position*this.height;
 		var up=top<this.wrapper.scrollTop;
-		var down=top>(this.wrapper.scrollTop+this.wrapper.offsetHeight);
+		var down=top>(this.wrapper.scrollTop+this.wrapper.clientHeight);
 		if(position==-1 || ( !up && !down ) ) {
 			this.scroll.fireEvent('complete');
 			return false;
 		}
 		if(this.animateScroll){
-			this.scroll.start(this.wrapper.scrollLeft, top-(down ? this.wrapper.offsetHeight-this.height : 0));
+			this.scroll.start(this.wrapper.scrollLeft, top-(down ? this.wrapper.clientHeight-this.height : 0));
 		}else{
-			this.scroll.set(this.wrapper.scrollLeft, top-(down ? this.wrapper.offsetHeight-this.height : 0));
+			this.scroll.set(this.wrapper.scrollLeft, top-(down ? this.wrapper.clientHeight-this.height : 0));
 			this.scroll.fireEvent('complete');
 		}
 	},

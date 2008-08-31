@@ -20,19 +20,24 @@ Mif.Tree.implement({
 			this.wrapper.focus();
 		}
 		var current=this.selected;
-		if (current==node) return;
+		if (current==node) return this;
 		if (current) {
 			current.select(false);
+			this.fireEvent('unSelect', [current]).fireEvent('selectChange', [current, false]);
 		}
 		this.selected = node;
 		node.select(true);
+		this.fireEvent('select', [node]).fireEvent('selectChange', [node, true]);
+		return this;
 	},
 	
 	unselect: function(){
 		var current=this.selected;
-		if(!current) return;
+		if(!current) return this;
 		this.selected=false;
 		current.select(false);
+		this.fireEvent('unSelect', [current]).fireEvent('selectChange', [current, false]);
+		return this;
 	},
 	
 	getSelected: function(){
@@ -51,8 +56,6 @@ Mif.Tree.Node.implement({
 		this.state.selected = state;
 		var wrapper=this.getDOM('wrapper');
 		wrapper[(state ? 'add' : 'remove')+'Class'](this.selectClass||'mif-tree-node-selected');
-		this.tree.fireEvent(state ? 'select' : 'unSelect', [this]);
-		this.tree.fireEvent('selectChange', [this, state]);
 	},
 	
 	isSelected: function(){
