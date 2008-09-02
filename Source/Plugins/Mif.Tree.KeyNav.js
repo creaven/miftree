@@ -3,7 +3,7 @@ Mif.Tree.KeyNav
 */
 Mif.Tree.KeyNav=new Class({
 	
-	initialize: function(tree, options){
+	initialize: function(tree){
 		this.tree=tree;
 		tree.wrapper.setAttribute('tabIndex',1);
 		tree.wrapper.addEvent('keydown',function(event){
