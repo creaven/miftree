@@ -17,7 +17,6 @@ Mif.Tree.implement({
 	
 	select: function(node, preventFocus) {
 		if(!preventFocus && (Browser.Engine.gecko||Browser.Engine.webkit)) {
-		alert('kit');
 			this.wrapper.focus();
 		}
 		var current=this.selected;
