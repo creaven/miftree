@@ -1,3 +1,6 @@
+/*
+Mif.Tree.Drag.Element.js
+*/
 Mif.Tree.Drag.Element=new Class({
 
 	Implements: [Options, Events],

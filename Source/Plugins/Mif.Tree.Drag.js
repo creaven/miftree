@@ -24,7 +24,6 @@ Mif.Tree.Drag = new Class({
 		this.setOptions(options);
 		$extend(this,{
 			tree: tree,
-			dragged: false,
 			snap: this.options.snap,
 			groups: [],
 			droppables: [],
@@ -70,13 +69,13 @@ Mif.Tree.Drag = new Class({
 		this.addEvent('start', function(){
 			Mif.Tree.Drag.dropZone=this;
 			this.tree.unselect();
-			this.dragged=true;
 			document.addEvent('keydown', this.bound.keydown);
 			this.setDroppables();
 			this.droppables.each(function(item){
 				item.getElement().addEvents({mouseleave: this.bound.leave, mouseenter: this.bound.enter});
 			}, this);
 			Mif.Tree.Drag.current.getDOM('name').addClass('mif-tree-drag-current');
+			this.addGhost();
 		}, true);
 		this.addEvent('complete', function(){
 			document.removeEvent('keydown', this.bound.keydown);
@@ -239,20 +238,6 @@ Mif.Tree.Drag = new Class({
 		this.mouse={start:event.page};
 		this.document.addEvents({mousemove: this.bound.check, mouseup: this.bound.cancel});
 		this.document.addEvent(this.selection, this.bound.eventStop);
-	},
-	
-	check: function(event){
-		this.parent(event);
-		if(this.dragged) this.addGhost();
-	},
-	
-	complete: function(){
-		this.target=false;
-		this.current=false;
-		this.where=false;
-		this.dragged=false;
-		this.$completing=false;
-		Mif.Tree.Drag.ghost.dispose();
 	},
 	
 	drag: function(event){
