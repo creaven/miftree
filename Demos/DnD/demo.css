@@ -15,6 +15,7 @@ background:#faf9c7;
 float:left;
 margin-left:20px;
 padding:10px;
+overflow:auto;
 }
 
 #drop_container ul{

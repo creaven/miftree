@@ -26,7 +26,7 @@ Mif.Tree.implement({
 			}
 		}
 		return {
-			node: this.$[target.getAttribute('uid')],
+			node: Mif.Tree.Nodes[target.getAttribute('uid')],
 			target: type
 		}
 	}
