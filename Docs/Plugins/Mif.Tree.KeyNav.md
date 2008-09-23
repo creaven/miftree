@@ -1,13 +1,13 @@
-Tree.KeyNav {#Tree.KeyNav}
+Mif.Tree.KeyNav {#Mif.Tree.KeyNav}
 ==========================
 
 Implement key navigation. Walk with ['up','down','left','right'] keys.
 
 ### Example:
 
-	var treeWithKeyNav = new Tree({
+	var treeWithKeyNav = new Mif.Tree({
 							initialize: function(){
-								new Tree.KeyNav(this);
+								new Mif.Tree.KeyNav(this);
 							},
 							//...other options
 						});
