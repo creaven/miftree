@@ -29,7 +29,7 @@
 			"desc": "fix mootools bugs patch"
 		}
 	},
-	"Plugins":{
+	"More":{
 		"Mif.Tree.KeyNav":{
 			"deps": ["Mif.Tree"],
 			"desc": "implement Mif.Tree keyboard navigation with up, left, right, down"
