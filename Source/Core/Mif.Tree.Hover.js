@@ -7,6 +7,7 @@ Mif.Tree.implement({
 		this.defaults.hoverClass='';
 		this.wrapper.addEvent('mousemove', this.hover.bind(this));
 		this.wrapper.addEvent('mouseout', this.hover.bind(this));
+		this.wrapper.addEvent('mousewheel', this.hover.bind(this));
 		this.defaultHoverState={
 			gadjet: false,
 			checkbox: false,
@@ -24,13 +25,13 @@ Mif.Tree.implement({
 			if(node==cnode && (target=='node'||target==ctarget)) return;
 			if(node) {
 				Mif.Tree.Hover.out(node, target);
-				this.fireEvent('hover', [node, target, 'out']);
 				state[target]=false;
+				this.fireEvent('hover', [node, target, 'out']);
 			}
 			if(cnode && (target=='node'||target==ctarget)) {
 				Mif.Tree.Hover.over(cnode, target);
-				this.fireEvent('hover', [cnode, target, 'over']);
 				state[target]=cnode;
+				this.fireEvent('hover', [cnode, target, 'over']);
 			}else{
 				state[target]=false;
 			}
