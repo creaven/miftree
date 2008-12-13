@@ -11,7 +11,6 @@ border:solid 1px #b7b7b7;
 ......................................................................................*/
 
 .mif-tree-wrapper{
-color:#000;
 position: absolute;
 width: 100%;
 height:100%;
@@ -19,8 +18,8 @@ margin:0;
 padding:0;
 overflow:auto;
 font-family:sans-serif;
-font-size:12px;
-line-height:19px;/******Tree node height******/
+font-size:11px;
+line-height:18px;/******Tree node height******/
 white-space:nowrap;
 cursor:default;
 }
@@ -42,9 +41,9 @@ width:100%;
 height:18px;
 }
 
-/*.mif-tree-bg-selected{
+.mif-tree-bg-selected{
 background-color:#dcd7ab;
-}*/
+}
 
 .mif-tree-wrapper:focus{
 outline:0;
@@ -63,19 +62,17 @@ width:18px;
 
 .mif-tree-node{
 width:18px;
-/*background:url('../../Source/assets/../../Source/assets/images/line.gif') repeat-y 8px 0px;*/
-position: relative;
+background:url('../../Source/assets/../../Source/assets/images/line.gif') repeat-y 8px 0px;
 }
 
 .mif-tree-node-last{
-/* background:url('../../Source/assets/../../Source/assets/images/line.gif') no-repeat 8px 0px; */
+background:url('../../Source/assets/../../Source/assets/images/line.gif') no-repeat 8px 0px;
 }
 
 .mif-tree-name{
 cursor: default;
 overflow:hidden;
-padding-left:4px;
-padding-right:6px;
+margin-left:4px;
 }
 
 .mif-tree-name a{
@@ -88,7 +85,7 @@ color:blue;
 
 
 .mif-tree-node-wrapper{
-/* background:url('../../Source/assets/../../Source/assets/images/horizontal-line.gif') no-repeat 9px center; */
+background:url('../../Source/assets/../../Source/assets/images/horizontal-line.gif') no-repeat 9px center;
 }
 
 /*...................................................................................
@@ -96,7 +93,7 @@ color:blue;
 ......................................................................................*/
 
 .mif-tree-gadjet{
-background-image:url('../../Source/assets/../../Source/assets/images/arrows.gif');
+background-image:url('../../Source/assets/../../Source/assets/images/gadjets.gif');
 padding-right: 16px;
 z-index:1;
 overflow:hidden;
@@ -109,20 +106,20 @@ background:none;
 }
 
 .mif-tree-gadjet-minus{
-background-position: -16px 50%;
-}
-
-.mif-tree-gadjet-plus{
 background-position: 0px 50%;
 }
 
-
-.mif-tree-hover-gadjet .mif-tree-gadjet-minus{
-background-position: -48px 50%;
+.mif-tree-gadjet-plus{
+background-position: -18px 50%;
 }
 
-.mif-tree-hover-gadjet .mif-tree-gadjet-plus{
-background-position: -32px 50%;
+
+.mif-tree-gadjet-hover .mif-tree-gadjet-minus{
+background-position: -54px 50%;
+}
+
+.mif-tree-gadjet-hover .mif-tree-gadjet-plus{
+background-position: -72px 50%;
 }
 
 
@@ -138,19 +135,18 @@ background-image:url('../../Source/assets/../../Source/assets/images/gadjets-hov
 ================ICONS=================
 ......................................................................................*/
 .mif-tree-icon{
-margin-left:1px;
-padding-right:16px;
+padding-right:18px;
 background-position:0 50%;
 background-repeat:no-repeat;
 cursor:inherit;
 }
 
 .mif-tree-open-icon{
-background:url('../../Source/assets/../../Source/assets/images/folders.gif') right center no-repeat;
+background-image:url('../../Source/assets/../../Source/assets/images/openicon.gif')
 }
 
 .mif-tree-close-icon{
-background:url('../../Source/assets/../../Source/assets/images/folders.gif') left center no-repeat;
+background-image:url('../../Source/assets/../../Source/assets/images/closeicon.gif')
 }
 
 .mif-tree-loader-open-icon,.mif-tree-loader-close-icon{
@@ -178,15 +174,15 @@ background-image:url('../../Source/assets/../../Source/assets/images/bin_close_i
 ================SELECTION=================
 ......................................................................................*/
 
-/*.mif-tree-node-selected .mif-tree-name{
+.mif-tree-node-selected .mif-tree-name{
 background-color: #010161;
 color:#fff;
 text-transform:italic;
-}*/
+}
 
-/*.mif-tree-hover-node .mif-tree-name{
+.mif-tree-hover-node .mif-tree-name{
 text-decoration:underline
-}*/
+}
 
 
 
@@ -256,7 +252,7 @@ background-position:-32px 2px;
 }
 
 .mif-tree-drag-current{
-/*background-color:#cfcfd8;*/
+background-color:#cfcfd8;
 }
 
 .mif-tree-replace{
@@ -311,97 +307,3 @@ font-size:11px;
 padding:1px 0;
 border:solid 1px black;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-.mif-tree-node-bg{
-position: absolute;
-height:19px;
-background:url('tree-bg.gif') center -95px repeat-x;
-margin-left:-3px;
-width:0;
-}
-
-.mif-tree-node-bg-left{
-position: absolute;
-width:100%;
-height:100%;
-background-image:url('tree-bg.gif');
-background-repeat: no-repeat;
-background-position: left -57px;
-}
-
-
-.mif-tree-node-bg-right{
-position: absolute;
-width:100%;
-height:100%;
-background:url('tree-bg.gif') right -76px no-repeat;
-}
-
-
-
-
-.mif-tree-node-bg-selected{
-position: absolute;
-height:19px;
-background:url('tree-bg.gif') 50% -38px repeat-x;
-margin-left:-3px;
-overflow:hidden;
-}
-
-.mif-tree-node-bg-left-selected{
-top:0;
-left:0;
-position: absolute;
-width:100%;
-height:100%;
-background-image:url('tree-bg.gif');
-background-repeat: no-repeat;
-background-position: 0 0px;
-overflow:hidden;
-}
-
-
-.mif-tree-node-bg-right-selected{
-position: absolute;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:url('tree-bg.gif');
-background-repeat: no-repeat;
-background-position: right -19px;
-overflow:hidden;
-}
-
