@@ -90,7 +90,7 @@ Mif.Tree.Drag = new Class({
 				return;
 			}
 			if(dropZone.onstop) dropZone.onstop();
-			dropZone.drop();
+			dropZone.beforeDrop();
 		});
 	},
 	
@@ -383,6 +383,14 @@ Mif.Tree.Drag = new Class({
 		scroll.addEvent('complete', complete);
 		this.tree.select(this.current);
 		this.tree.scrollTo(this.current);
+	},
+	
+	beforeDrop: function(){
+		if(this.options.beforeDrop){
+			this.options.beforeDrop.apply(this, [this.current, this.trarget, this.where]);
+		}else{
+			this.drop();
+		}
 	},
 	
 	drop: function(){

@@ -1,17 +1,18 @@
 /*
 Mif.Tree.Rename
 */
+
 Mif.Tree.implement({
 	
 	attachRenameEvents: function(){
 		this.wrapper.addEvents({
 			click: function(event){
 				if($(event.target).get('tag')=='input') return;
-				this.renameComplete();
+				this.beforeRenameComplete();
 			}.bind(this),
 			keydown: function(event){
 				if(event.key=='enter'){
-					this.renameComplete();
+					this.beforeRenameComplete();
 				}
 				if(event.key=='esc'){
 					this.renameCancel();
@@ -55,6 +56,16 @@ Mif.Tree.implement({
 	
 	finishRename: function(){
 		this.renameName.replaces(this.getInput());
+	},
+	
+	beforeRenameComplete: function(){
+		if(this.options.beforeRename){
+			var newName=this.getInput().value;
+			var node=this.renameNode;
+			this.options.beforeRename.apply(this, [node, node.name, newName]);
+		}else{
+			this.renameComplete();
+		}
 	},
 		
 	renameComplete: function(){

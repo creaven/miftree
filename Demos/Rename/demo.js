@@ -67,4 +67,12 @@ window.addEvent('domready',function(){
 	    node.rename();
 	});
 	
+	tree.options.beforeRename=function(node, oldName, newName){
+		if(confirm('complete rename?')){
+			this.renameComplete();
+		}else{
+			this.renameCancel();
+		}
+	};
+	
 });

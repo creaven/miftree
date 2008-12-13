@@ -47,6 +47,9 @@
 		"DnD":{
 			"title": "D'n'd with drop container"
 		},
+		"DropConfirm":{
+			"title": "D'n'd with drop confirmation"
+		},
 		"Rename":{
 			"title": "Rename node"
 		},

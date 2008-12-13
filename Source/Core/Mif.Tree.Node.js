@@ -46,12 +46,15 @@ Mif.Tree.Node = new Class({
 	toggle: function(state) {
 		if(this.state.open==state || this.$loading || this.$toggling) return;
 		if(this.loadable && !this.state.loaded) {
-			this.addEvent('load',function(){
-				this.toggle();
-			}.bind(this));
-			this.load();
-			return;
-		}
+            if(!this.load_event){
+                this.load_event=true;
+                this.addEvent('load',function(){
+                    this.toggle();
+                }.bind(this));
+            }
+            this.load();
+            return;
+        }
 		if(!this.hasChildren()) return;
 		var next=this.getNextVisible();
 		this.state.open = !this.state.open;

@@ -55,7 +55,7 @@ Mif.Tree = new Class({
 			mouseover: this.mouse.bindWithEvent(this),
 			mouseout: this.mouse.bindWithEvent(this),
 			mouseleave: this.mouseleave.bind(this),
-			mousedown: $lambda(false),
+			mousedown: function(){this.fireEvent('mousedown'); return false;}.bind(this),
 			click: this.toggleClick.bindWithEvent(this),
 			dblclick: this.toggleDblclick.bindWithEvent(this),
 			keydown: this.keyDown.bindWithEvent(this),
