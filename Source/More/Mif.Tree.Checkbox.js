@@ -8,6 +8,13 @@ Mif.Tree.implement({
 		this.dfltState.checked='unchecked';
 		this.defaults.hasCheckbox=true;
 		this.wrapper.addEvent('click',this.checkboxClick.bind(this));
+		if(this.checkboxType=='simple') return;
+		this.addEvent('loadChildren', function(node){
+			if(!node || node.state.checked=='unchecked') return;
+			node.recursive(function(){
+				this.state.checked='checked';
+			});
+		});
 	},
 	
 	checkboxClick: function(event){
