@@ -50,4 +50,13 @@ window.addEvent('domready',function(){
 			url: '../assets/files/mediumTree.json'
 		};
 	}
+	
+	$('getChecked').addEvent('click', function(){
+		var checked='';
+		tree.getChecked().each(function(node){
+			checked+='<p>'+node.name+'</p>';
+		});
+		$('checked').innerHTML=checked;
+	});
+	
 });

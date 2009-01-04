@@ -22,10 +22,11 @@ Mif.Tree.implement({
 		this.mouse.node['switch']();
 	},
 	
-	getChecked: function(){
+	getChecked: function(includePartially){
 		var checked=[];
 		this.root.recursive(function(){
-			if(this.hasCheckbox && this.state.checked) checked.push(checked);
+			var condition = includePartially ? this.state.checked!=='unchecked' : this.state.checked=='checked';
+			if(this.hasCheckbox && condition) checked.push(this);
 		});
 		return checked;
 	}

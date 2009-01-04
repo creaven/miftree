@@ -1,8 +1,19 @@
 
 #tree_container{
-height:500px;
-width:500px;
+height:400px;
+width:250px;
 position:relative;
+float:left;
+border:solid 1px gray;
+}
+
+#info{
+float:left;
+width:250px;
+border:solid 1px gray;
+height:400px;
+overflow:auto;
+margin-left:5px;
 }
 
 
