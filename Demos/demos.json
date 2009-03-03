@@ -63,7 +63,7 @@
 			"title": "Another add node demo"
 		},
 		"reloadChildren":{
-			"title": "reload demo"
+			"title": ""reload children and update clicked node name"
 		}
 	}
 }
