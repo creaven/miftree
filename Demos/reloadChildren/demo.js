@@ -8,7 +8,7 @@ window.addEvent('domready',function(){
 			this.children=[];
 			this.$draw=false;
 			this.tree.$getIndex();
-			this.wrapper.getLast().dispose();
+			this.getDOM('children').innerHTML='';
 			Mif.Tree.Draw.update(this);
 			return this;
 		}       
