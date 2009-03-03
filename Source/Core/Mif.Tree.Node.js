@@ -11,7 +11,7 @@ Mif.Tree.Node = new Class({
 		$extend(this, structure);
 		this.children=[];
 		this.type=options.type||this.tree.dfltType;
-		this.property=options.property;
+		this.property=options.property||{};
 		this.data=options.data;
 		this.state=$extend($unlink(this.tree.dfltState), options.state);
 		this.$calculate();
@@ -207,7 +207,8 @@ Mif.Tree.Node = new Class({
 	
 	set: function(props){
 		this.tree.fireEvent('beforeSet', [this]);
-		$extend(this, props);
+		$extend(this.property, props.property);
+		$extend(this.state, props.state);
 		if(props.property||props.type||props.state){
 			this.$calculate();
 			Mif.Tree.Draw.update(this);

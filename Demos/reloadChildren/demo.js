@@ -1,18 +1,25 @@
 window.addEvent('domready',function(){
+
+	Mif.Tree.Node.implement({
+		reloadChildren: function() {
+			this.state.loaded=false;
+			this.state.open=false;
+			this.state.loadable=true;
+			this.children=[];
+			this.$draw=false;
+			this.tree.$getIndex();
+			this.getDOM('children').innerHTML='';
+			Mif.Tree.Draw.update(this);
+			return this;
+		}       
+
+	});
+
 	tree = new Mif.Tree({
 		container: $('tree_container'),
 		forest: true,
 		initialize: function(){
 			new Mif.Tree.KeyNav(this);
-			new Mif.Tree.Drag(this, {
-				beforeDrop: function(current, target, where){
-					if(confirm('drop node?')){
-						this.drop();
-					}else{
-						this.emptydrop();
-					}
-				}
-			});
 		},
 		types: {
 			folder:{
@@ -41,27 +48,37 @@ window.addEvent('domready',function(){
 			}
 		},
 		dfltType:'folder',
-		height: 18,
-		onCopy: function(from, to, where, copy){
-			if(from.getParent()==copy.getParent()){
-				copy.set({
-					property: {
-						name: 'copy '+from.name
-					}
-				});
-			}
-		}
-	});
-
-	//tree.initSortable();
-	tree.load({
-		url: '../assets/files/forest.json'
+		height: 18
 	});
 	
+	tree.addEvent('loadChildren', function(parent){
+		if(!parent) return;
+		if(!parent.$name){
+			parent.$name=parent.name;
+		}
+		parent.set({
+			property:{
+				name: parent.$name+' ('+parent.children.length+')'
+			}
+		});
+	});
+
+	tree.load({
+		json:[{
+			property: {name: 'reload me', loadable: true}
+		}]
+	});
+
 	tree.loadOptions=function(node){
 		return {
-			url: '../assets/files/mediumTree.json'
+			url: 'reloadChildren/get_json.php?'+$time()
 		};
 	}
+	
+	$('reload').addEvent('click', function(){
+		var selected=tree.getSelected();
+		if(!selected) return;
+		selected.reloadChildren().toggle(true);
+	});
 	
 });

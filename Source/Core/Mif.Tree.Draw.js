@@ -42,6 +42,7 @@ Mif.Tree.Draw={
 	root: function(tree){
 		var domRoot=this.node(tree.root);
 		domRoot.injectInside(tree.wrapper);
+		tree.$draw=true;
 		tree.fireEvent('drawRoot');
 	},
 	
@@ -56,7 +57,11 @@ Mif.Tree.Draw={
 	
 	update: function(node){
 		if(!node) return;
-		if( (node.tree.forest && node.isRoot()) || (node.getParent() && !node.getParent().$draw) ) return;
+		if( 
+			(node.tree.forest && node.isRoot()) || 
+			( node.getParent() && node.getParent() && !node.getParent().$draw) || 
+			(node.isRoot() && !node.tree.$draw ) 
+		) return;
 		if(!node.hasChildren()) node.state.open=false;
 		node.getDOM('name').set('html', node.name);
 		node.getDOM('wrapper').className='mif-tree-node-wrapper '+node.cls;

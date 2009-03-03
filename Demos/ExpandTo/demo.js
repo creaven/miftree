@@ -1,5 +1,8 @@
 window.addEvent('domready',function(){
 	tree = new Mif.Tree({
+		initialize: function(){
+			new Mif.Tree.KeyNav(this);
+		},
 		container: $('tree_container'),// tree container
 		forest: true,
 		types: {// node types
