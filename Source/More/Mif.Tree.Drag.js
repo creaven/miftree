@@ -387,7 +387,7 @@ Mif.Tree.Drag = new Class({
 	
 	beforeDrop: function(){
 		if(this.options.beforeDrop){
-			this.options.beforeDrop.apply(this, [this.current, this.trarget, this.where]);
+			this.options.beforeDrop.apply(this, [this.current, this.target, this.where]);
 		}else{
 			this.drop();
 		}
