@@ -308,7 +308,6 @@ Mif.Tree.Drag = new Class({
 	checkTarget: function(){
 		this.y=this.tree.mouse.coords.y;
 		var target=this.tree.mouse.node;
-		this.target=target;
 		if(!target){
 			this.target=false;
 			this.where='notAllowed';
@@ -316,13 +315,14 @@ Mif.Tree.Drag = new Class({
 			return true;
 		};
 		if(this.current.contains(target)){
+			this.target=target;
 			this.where='notAllowed';
 			this.fireEvent('drag');
 			return true;
 		};
 		this.index=Math.floor(this.y/this.tree.height);
 		var delta=this.y-this.index*this.tree.height;
-		var deny=this.target.dropDenied;
+		var deny=target.dropDenied;
 		if(this.tree.sortable){
 			deny.include('before').include('after');
 		};
@@ -353,7 +353,8 @@ Mif.Tree.Drag = new Class({
 			}
 		};
 		if(this.where==where && this.target==target) return false;
-		this.where=where; this.target=target;
+		this.where=where; 
+		this.target=target;
 		this.fireEvent('drag');
 		return true;
 	},
