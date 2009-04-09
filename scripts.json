@@ -61,6 +61,10 @@
 		"Mif.Tree.Checkbox":{
 			"deps": ["Mif.Tree"],
 			"desc": "checkbox implementation"
+		},
+		"Mif.Tree.CookieStorage":{
+			"deps": ["Mif.Tree"],
+			"desc": "save toggle states using cookie"
 		}
 	}
 }
