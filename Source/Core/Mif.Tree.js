@@ -2,6 +2,10 @@
 Mif.Tree
 */
 if(!Mif) var Mif={};
+if(!Mif.ids) Mif.ids={};
+if(!Mif.id) Mif.id=function(id){
+	return Mif.ids[id];
+}
 
 Mif.Tree = new Class({
 
@@ -47,6 +51,15 @@ Mif.Tree = new Class({
 		this.initScroll();
 		this.initSelection();
 		this.initHover();
+		this.addEvent('drawChildren', function(parent){
+			var children=parent.children;
+			for(var i=0, l=children.length; i<l; i++){
+				var child=children[i];
+				if(child.state.open){
+					child.drawToggle();
+				}
+			}
+		});
 	},
 	
 	initEvents: function(){
@@ -69,9 +82,10 @@ Mif.Tree = new Class({
 	$getIndex: function(){//return array of visible nodes.
 		this.$index=[];
 		var node=this.forest ? this.root.getFirst() : this.root;
-		do{
+		while(node){
 			this.$index.push(node);
-		}while(node=node.getNextVisible());
+			node=node.getNextVisible();
+		}
 	},
 	
 	mouseleave: function(){

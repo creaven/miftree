@@ -64,6 +64,9 @@
 		},
 		"reloadChildren":{
 			"title": "reload children and update clicked node name"
+		},
+		"CookieStorage":{
+			"title": "cookie storage"
 		}
 	}
 }

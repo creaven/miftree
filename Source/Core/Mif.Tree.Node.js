@@ -15,9 +15,11 @@ Mif.Tree.Node = new Class({
 		this.data=options.data;
 		this.state=$extend($unlink(this.tree.dfltState), options.state);
 		this.$calculate();
-		
 		this.UID=Mif.Tree.Node.UID++;
 		Mif.Tree.Nodes[this.UID]=this;
+		var id=this.property.id;
+		if(id!=null) Mif.ids[id]=this;
+		this.tree.fireEvent('nodeCreate', [this]);
 	},
 	
 	$calculate: function(){
@@ -45,6 +47,13 @@ Mif.Tree.Node = new Class({
 	
 	toggle: function(state) {
 		if(this.state.open==state || this.$loading || this.$toggling) return;
+		var parent=this.getParent();
+		if(parent && !parent.$draw){
+			this.state.open = !this.state.open;
+			this.fireEvent('toggle', [this.state.open]);
+			this.tree.fireEvent('toggle', [this, this.state.open]);
+			return;
+		}
 		if(this.loadable && !this.state.loaded) {
             if(!this.load_event){
                 this.load_event=true;
@@ -59,6 +68,12 @@ Mif.Tree.Node = new Class({
 		var next=this.getNextVisible();
 		this.state.open = !this.state.open;
 		state=this.state.open;
+		this.drawToggle();
+		this.fireEvent('toggle', [this.state.open]);
+		this.tree.fireEvent('toggle', [this, this.state.open]);
+	},
+	
+	drawToggle: function(){
 		if(!this.$draw) Mif.Tree.Draw.children(this);
 		var children=this.getDOM('children');	
 		var gadjet=this.getDOM('gadjet');
@@ -69,7 +84,6 @@ Mif.Tree.Node = new Class({
 		this.tree.hoverState.gadjet=false;
 		this.tree.hover();
 		this.tree.$getIndex();
-		this.tree.fireEvent('toggle', [this, this.state.open]);
 	},
 	
 	recursive: function(fn, args){
