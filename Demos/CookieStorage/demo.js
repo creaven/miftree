@@ -5,6 +5,8 @@ window.addEvent('domready',function(){
 			var storage=new Mif.Tree.CookieStorage(this);
 			this.addEvent('load', function(){
 				storage.restore();
+			}).addEvent('loadChildren', function(){
+				storage.restore();
 			});
 		},
 		types: {// node types
@@ -16,6 +18,55 @@ window.addEvent('domready',function(){
 		dfltType:'folder',//default node type
 		height: 18//node height
 	});
+	
+	var children=[
+		{
+			"property": {
+				"name": "cnode1",
+				"id": "cnode1"
+			}
+		},
+		{
+			"property": {
+				"name": "cnode2",
+				"id": "cnode2"
+			},
+			"children":	[
+				{
+					"property":{
+						"name": "cnodeX",
+						"id": "cnodeXXXX"
+					}
+				},
+				{
+					"property":{
+						"name": "cnodeY",
+						"id": "cnodeY"
+					},
+					"children":[
+						{
+							"property":{
+								"name": "cnodeZ",
+								"id": "cnodeZ"
+							}
+						},
+						{
+							"property":{
+								"name": "cnodeL",
+								"id": "cnodeL"
+							}
+						}
+					]
+				}
+			]
+		},
+		{
+			"property":{
+				"name": "cnode3",
+				"id": "cnode3"
+			}
+		}
+	];
 
 	var json=[
 		{
@@ -86,8 +137,10 @@ window.addEvent('domready',function(){
 				},
 				{
 					"property": {
-						"name": "node3",
-						"id": "node3"
+						"name": "node3 loadable",
+						"id": "node3",
+						"loadable": true,
+						"loadOptions": {json: children}
 					}
 				}
 			]
