@@ -30,11 +30,18 @@ Mif.Tree.CookieStorage = new Class({
 	},
 	
 	restore: function(){
-		var nodes=this.read().map(this.options.retrieve).each(function(node){
+		this.restored=this.restored||this.read();
+		var restored=[];
+		this.restored.each(function(stored){
+			var node=this.options.retrieve(stored);
 			if(node){
 				node.toggle(true);
+				restored.push(stored);
 			}
-		});
+		}, this);
+		restored.each(function(stored){
+			this.restored.erase(stored);
+		}, this);
 	},
 	
 	initSave: function(){
