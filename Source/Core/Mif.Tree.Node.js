@@ -46,14 +46,21 @@ Mif.Tree.Node = new Class({
 	},
 	
 	toggle: function(state) {
-		if(this.state.open==state || this.$loading || this.$toggling) return;
+		if(this.state.open==state || this.$loading || this.$toggling) return this;
 		var parent=this.getParent();
-		if(parent && !parent.$draw){
+		function toggle(type){
 			this.state.open = !this.state.open;
-			parent._toggle=(parent._toggle||[])[this.state.open ? 'include' : 'erase'](this)
+			if(type=='drawed'){
+				this.drawToggle();
+			}else{
+				parent._toggle=(parent._toggle||[])[this.state.open ? 'include' : 'erase'](this)
+			}
 			this.fireEvent('toggle', [this.state.open]);
 			this.tree.fireEvent('toggle', [this, this.state.open]);
-			return;
+			return this;
+		}
+		if(parent && !parent.$draw){
+			return toggle.apply(this, []);
 		}
 		if(this.loadable && !this.state.loaded) {
             if(!this.load_event){
@@ -62,26 +69,14 @@ Mif.Tree.Node = new Class({
                     this.toggle();
                 }.bind(this));
             }
-            this.load();
-            return;
+            return this.load();
         }
-		if(!this.hasChildren()) return;
-		var next=this.getNextVisible();
-		this.state.open = !this.state.open;
-		state=this.state.open;
-		this.drawToggle();
-		this.fireEvent('toggle', [this.state.open]);
-		this.tree.fireEvent('toggle', [this, this.state.open]);
+		if(!this.hasChildren()) return this;
+		return toggle.apply(this, ['drawed']);
 	},
 	
 	drawToggle: function(){
-		if(!this.$draw) Mif.Tree.Draw.children(this);
-		var children=this.getDOM('children');	
-		var gadjet=this.getDOM('gadjet');
-		var icon=this.getDOM('icon');
-		children.style.display=this.isOpen() ? 'block' : 'none';
-		gadjet.className='mif-tree-gadjet mif-tree-gadjet-'+this.getGadjetType();
-		icon.className='mif-tree-icon '+this[this.isOpen() ? 'openIcon' : 'closeIcon'];
+		Mif.Tree.Draw.update(this);
 		this.tree.hoverState.gadjet=false;
 		this.tree.hover();
 		this.tree.$getIndex();
