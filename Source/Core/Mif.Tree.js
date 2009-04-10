@@ -52,13 +52,11 @@ Mif.Tree = new Class({
 		this.initSelection();
 		this.initHover();
 		this.addEvent('drawChildren', function(parent){
-			var children=parent.children;
-			for(var i=0, l=children.length; i<l; i++){
-				var child=children[i];
-				if(child.state.open){
-					child.drawToggle();
-				}
+			var nodes=parent._toggle||[];
+			for(var i=0, l=nodes.length; i<l; i++){
+				nodes[i].drawToggle();
 			}
+			parent._toggle=[];
 		});
 	},
 	

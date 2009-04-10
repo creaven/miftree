@@ -50,6 +50,7 @@ Mif.Tree.Node = new Class({
 		var parent=this.getParent();
 		if(parent && !parent.$draw){
 			this.state.open = !this.state.open;
+			parent._toggle=(parent._toggle||[])[this.state.open ? 'include' : 'erase'](this)
 			this.fireEvent('toggle', [this.state.open]);
 			this.tree.fireEvent('toggle', [this, this.state.open]);
 			return;
