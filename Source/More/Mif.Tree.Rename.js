@@ -93,6 +93,7 @@ Mif.Tree.implement({
 Mif.Tree.Node.implement({
 	
 	rename: function(){
+		if (this.property.renameDenied) return;
 		this.tree.startRename(this);
 	}
 	

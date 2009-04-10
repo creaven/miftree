@@ -41,6 +41,8 @@ Mif.Tree.Node.implement({
 	},
 	
 	copy: function(node, where){
+		if (this.property.copyDenied) return;
+		
 		function copy(structure){
 			var node=structure.node;
 			var tree=structure.tree;
@@ -66,6 +68,7 @@ Mif.Tree.Node.implement({
 			});
 			return nodeCopy;
 		};
+		
 		var nodeCopy=copy({
 			node: this,
 			parentNode: null,
@@ -75,6 +78,7 @@ Mif.Tree.Node.implement({
 	},
 	
 	remove: function(){
+		if (this.property.removeDenied) return;
 		this.tree.fireEvent('remove', [this]);
 		var parent=this.parentNode, previous=this.getPrevious();
 		if(parent) parent.children.erase(this);

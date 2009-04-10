@@ -67,6 +67,9 @@
 		},
 		"CookieStorage":{
 			"title": "cookie storage"
-		}
+		},
+		"StaticNode":{
+			"title": "static node"
+		}		
 	}
 }
