@@ -42,7 +42,6 @@ Mif.Tree.Node.implement({
 	
 	copy: function(node, where){
 		if (this.property.copyDenied) return;
-		
 		function copy(structure){
 			var node=structure.node;
 			var tree=structure.tree;

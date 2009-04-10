@@ -68,8 +68,8 @@
 		"CookieStorage":{
 			"title": "cookie storage"
 		},
-		"StaticNode":{
-			"title": "static node"
+		"ProtectedNode":{
+			"title": "protected from change node"
 		}		
 	}
 }
