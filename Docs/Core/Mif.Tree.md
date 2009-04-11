@@ -5,7 +5,7 @@ Create javascript Tree control.
 ### Implements:
 	Events, Options
 
-Tree Method: constructor {#Mif.Tree:constructor}
+Mif.Tree Method: constructor {#Mif.Tree:constructor}
 ------------------------------------------------
 	
 ### Syntax:
@@ -28,6 +28,7 @@ Tree Method: constructor {#Mif.Tree:constructor}
 ### Events:
 
 * toggle(node, state) - Function to execute when expand or collapse node. On expand state=true, on collapse state=false
+* nodeCreate(node)    - Function to execute after new node initialize.
 
 ### Properties:
 

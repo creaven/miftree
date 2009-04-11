@@ -31,7 +31,7 @@ var Builder = {
 
 		docs: {
 			'Core'      : ['Mif.Tree', 'Mif.Tree.Node', 'Mif.Tree.Hover', 'Mif.Tree.Selection', 'Mif.Tree.Load', 'Mif.Tree.Draw'],
-			'More'   : ['Mif.Tree.KeyNav', 'Mif.Tree.Sort', 'Mif.Tree.Transform', 'Mif.Tree.Drag', 'Mif.Tree.Checkbox', 'Mif.Tree.Rename', 'Mif.Tree.Row']
+			'More'   : ['Mif.Tree.KeyNav', 'Mif.Tree.Sort', 'Mif.Tree.Transform', 'Mif.Tree.Drag', 'Mif.Tree.Checkbox', 'Mif.Tree.Rename', 'Mif.Tree.Row', 'Mif.Tree.CookieStorage']
 		}
 	},
 

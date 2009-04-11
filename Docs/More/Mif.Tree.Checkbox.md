@@ -24,6 +24,7 @@ Add checkbox support.
 
 * check - fired when node checked;
 * unCheck - fired when node unchecked;
+* switch(node, state) - fired when checkbox state changed
 
 ### Example: 
 
@@ -58,3 +59,24 @@ Mif.Tree.Node {#Mif.Tree.Node::Checkbox}
 **state**
 
 * checked - node checkbox state
+
+Mif.Tree.Node Method: switch {#Mif.Tree.Node:switch}
+----------------------------------------------------
+
+switch checkbox state.
+
+### Syntax:
+
+	someNode.switch(state);
+	
+### Arguments:
+
+1. state - (*string*) If state=true check node, if false - uncheck.
+
+### Returns:
+
+* (*mixed*) 
+
+### Example:
+	
+	someNode.switch();
