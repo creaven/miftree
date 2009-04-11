@@ -222,6 +222,8 @@ Mif.Tree.Node = new Class({
 		if(props.property||props.type||props.state){
 			this.$calculate();
 			Mif.Tree.Draw.update(this);
+			var id=this.property.id;
+			if(id!=null) Mif.ids[id]=this;
 		}
 		this.tree.fireEvent('set', [this, props]);
 	},

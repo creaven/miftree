@@ -1,8 +1,35 @@
+Mif.Tree.Node.implement({
+		
+	getPath: function(){
+		var path=[];
+		var node=this;
+		while(node){
+			path.push(node.name);
+			node=node.getParent();
+		}
+		return path.reverse().join('/');
+	}
+
+});
+
 var tree = new Mif.Tree({
 	container: $('tree_container'),
 	initialize: function(){
 		this.initSortable();
 		new Mif.Tree.KeyNav(this);
+		this.addEvent('nodeCreate', function(node){
+			node.set({
+				property:{
+					id:	node.getPath()
+				}
+			});
+		});
+		var storage=new Mif.Tree.CookieStorage(this);
+		this.addEvent('load', function(){
+			storage.restore();
+		}).addEvent('loadChildren', function(parent){
+			storage.restore();
+		});
 	},
 	types: {
 		folder:{
