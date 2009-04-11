@@ -2,11 +2,15 @@ window.addEvent('domready',function(){
 	tree = new Mif.Tree({
 		container: $('tree_container'),// tree container
 		initialize: function(){
+			this.initCheckbox('simple');
 			var storage=new Mif.Tree.CookieStorage(this);
+			var checkboxStorage=new Mif.Tree.CookieStorage(this, {event: 'checkChange', action: 'switch'});
 			this.addEvent('load', function(){
 				storage.restore();
+				checkboxStorage.restore();
 			}).addEvent('loadChildren', function(){
 				storage.restore();
+				checkboxStorage.restore();
 			});
 		},
 		types: {// node types

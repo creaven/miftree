@@ -40,11 +40,12 @@ Mif.Tree.Node.implement({
 		var type=this.tree.checkboxType;
 		var checked=(this.state.checked=='checked') ? 'unchecked' : 'checked';
 		this.tree.fireEvent(checked=='checked' ? 'check' : 'unCheck', this);
+		this.tree.fireEvent('checkChange', [this, (checked=='checked' ? true : false)]);
 		var setState=function(node, state){
 			if(!node.hasCheckbox) return;
 			var oldState=node.state.checked;
 			node.state.checked=state;
-			if(!node.parentNode || (node.parentNode && node.parentNode.$draw)){
+			if((!node.parentNode&&node.tree.$draw) || (node.parentNode && node.parentNode.$draw)){
 				node.getDOM('checkbox').removeClass('mif-tree-node-'+oldState).addClass('mif-tree-node-'+state);
 			}
 		};

@@ -1,4 +1,6 @@
-
+/*
+Mif.Tree.CookieStorage
+*/
 
 Mif.Tree.CookieStorage = new Class({
 
@@ -10,13 +12,15 @@ Mif.Tree.CookieStorage = new Class({
 		},
 		retrieve: function(value){
 			return Mif.id(value);
-		}
+		},
+		event: 'toggle',
+		action: 'toggle'
 	},
 
 	initialize: function(tree, options){
 		this.setOptions(options);
 		this.tree=tree;
-		this.cookie=new Cookie('mif.tree'+tree.UID);
+		this.cookie=new Cookie('mif.tree:'+this.options.event+tree.UID);
 		this.nodes=[];
 		this.initSave();
 	},
@@ -32,23 +36,21 @@ Mif.Tree.CookieStorage = new Class({
 	restore: function(){
 		this.restored=this.restored||this.read();
 		var restored=[];
-		this.restored.each(function(stored){
+		for(var i=0, l=this.restored.length; i<l; i++){
+			var stored=this.restored[i];
 			var node=this.options.retrieve(stored);
 			if(node){
-				node.toggle(true);
-				restored.push(stored);
+				node[this.options.action](true);
+				this.restored.erase(stored);
+				l--;
 			}
-		}, this);
-		restored.each(function(stored){
-			this.restored.erase(stored);
-		}, this);
+		}
 	},
 	
 	initSave: function(){
-		this.tree.addEvent('toggle', function(node, isOpen){
-			
+		this.tree.addEvent(this.options.event, function(node, state){
 			var value=this.options.store(node);
-			if(isOpen){
+			if(state){
 				this.nodes.include(value);
 			}else{
 				this.nodes.erase(value);
@@ -56,6 +58,5 @@ Mif.Tree.CookieStorage = new Class({
 			this.write();
 		}.bind(this));
 	}
-
 
 });

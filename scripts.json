@@ -64,7 +64,7 @@
 		},
 		"Mif.Tree.CookieStorage":{
 			"deps": ["Mif.Tree"],
-			"desc": "save toggle states using cookie"
+			"desc": "save toggle/checkbox states using cookie"
 		}
 	}
 }
