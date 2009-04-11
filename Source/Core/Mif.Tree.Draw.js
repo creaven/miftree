@@ -17,7 +17,8 @@ Mif.Tree.Draw={
 			'<span class="mif-tree-node-wrapper ',node.cls,'" uid="',node.UID,'">',
 				'<span class="mif-tree-gadjet mif-tree-gadjet-',node.getGadjetType(),'" uid="',node.UID,'">',Mif.Tree.Draw.zeroSpace,'</span>',
 				checkbox,
-				'<span class="mif-tree-icon ',node.closeIcon,'" uid="',node.UID,'">',Mif.Tree.Draw.zeroSpace,'</span>',
+				
+				'<span class="mif-tree-icon ',(node.property.closeIconUrl?'" style="background-image: url('+node.property.closeIconUrl+')" ': node.closeIcon+'"'),' uid="',node.UID,'">',Mif.Tree.Draw.zeroSpace,'</span>',
 				'<span class="mif-tree-name" uid="',node.UID,'">',node.name,'</span>',
 			'</span>',
 			'<div class="mif-tree-children" style="display:none"></div>',
@@ -66,7 +67,13 @@ Mif.Tree.Draw={
 		node.getDOM('name').set('html', node.name);
 		node.getDOM('wrapper').className='mif-tree-node-wrapper '+node.cls;
 		node.getDOM('gadjet').className='mif-tree-gadjet mif-tree-gadjet-'+node.getGadjetType();
-		node.getDOM('icon').className='mif-tree-icon '+node[node.isOpen() ? 'openIcon' : 'closeIcon'];
+		
+		if (node.property.closeIconUrl) {
+			node.getDOM('icon').setProperty('style','background-image: url('+(node.isOpen()?node.property.openIconUrl:node.property.closeIconUrl)+')');
+		} else {
+			node.getDOM('icon').className='mif-tree-icon '+node[node.isOpen() ? 'openIcon' : 'closeIcon'];
+		}
+		
 		node.getDOM('node')[(node.isLast() ?'add' : 'remove')+'Class']('mif-tree-node-last');
 		node.select(node.isSelected());
 		node.tree.updateHover();
