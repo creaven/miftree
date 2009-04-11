@@ -15,6 +15,9 @@
 		"changeType":{
 			"title": "Add/remove node type demo"
 		},
+		"IconUrl":{
+			"title": "set icon using url instead class"
+		},
 		"FileTree":{
 			"title": "File tree"
 		},
