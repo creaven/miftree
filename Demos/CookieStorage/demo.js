@@ -4,7 +4,7 @@ window.addEvent('domready',function(){
 		initialize: function(){
 			this.initCheckbox('simple');
 			var storage=new Mif.Tree.CookieStorage(this);
-			var checkboxStorage=new Mif.Tree.CookieStorage(this, {event: 'checkChange', action: 'switch'});
+			var checkboxStorage=new Mif.Tree.CookieStorage(this, {event: 'switch', action: 'switch'});
 			this.addEvent('load', function(){
 				storage.restore();
 				checkboxStorage.restore();
