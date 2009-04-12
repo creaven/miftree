@@ -32,7 +32,11 @@ restore nodes states.
 
 ### Syntax:
 
-	storage.restore();
+	storage.restore(data);
+	
+### Arguments:
+
+1. data - (*array*) array of stored node ids(or something else if you use not default retrieve/store functions) which should be restored. If data not set, restore function use array of nodes saved in cookie and which not yet restored.
 	
 
 ### Example:
