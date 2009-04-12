@@ -33,8 +33,8 @@ Mif.Tree.CookieStorage = new Class({
 		return JSON.decode(this.cookie.read())||[];
 	},
 	
-	restore: function(){
-		this.restored=this.restored||this.read();
+	restore: function(data){
+		this.restored=data||this.restored||this.read();
 		var restored=[];
 		for(var i=0, l=this.restored.length; i<l; i++){
 			var stored=this.restored[i];
