@@ -33,16 +33,20 @@ Mif.Tree.CookieStorage = new Class({
 		return JSON.decode(this.cookie.read())||[];
 	},
 	
-	restore: function(){
-		this.restored=this.restored||this.read();
-		var restored=[];
-		for(var i=0, l=this.restored.length; i<l; i++){
-			var stored=this.restored[i];
+	restore: function(data){
+		if(!data){
+			this.restored=this.restored||this.read();
+		}
+		var restored=data||this.restored;
+		for(var i=0, l=restored.length; i<l; i++){
+			var stored=restored[i];
 			var node=this.options.retrieve(stored);
 			if(node){
 				node[this.options.action](true);
-				this.restored.erase(stored);
-				l--;
+				if(!data) {
+					this.restored.erase(stored);
+					l--;
+				}
 			}
 		}
 	},
