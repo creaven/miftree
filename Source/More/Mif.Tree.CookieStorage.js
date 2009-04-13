@@ -43,10 +43,8 @@ Mif.Tree.CookieStorage = new Class({
 			var node=this.options.retrieve(stored);
 			if(node){
 				node[this.options.action](true);
-				if(!data) {
-					this.restored.erase(stored);
-					l--;
-				}
+				restored.erase(stored);
+				l--;
 			}
 		}
 	},
