@@ -47,6 +47,7 @@ Mif.Tree.CookieStorage = new Class({
 				l--;
 			}
 		}
+		return restored;
 	},
 	
 	initSave: function(){
