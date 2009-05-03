@@ -54,10 +54,6 @@
 			"deps": ["Mif.Tree"],
 			"desc": "implements inline rename node functionality"
 		},
-		"Mif.Tree.Row":{
-			"deps": ["Mif.Tree"],
-			"desc": "implement rows"
-		},
 		"Mif.Tree.Checkbox":{
 			"deps": ["Mif.Tree"],
 			"desc": "checkbox implementation"

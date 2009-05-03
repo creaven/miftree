@@ -16,7 +16,8 @@ Mif.Tree = new Class({
 		forest: false,
 		animateScroll: true,
 		height: 18,
-		expandTo: true
+		expandTo: true,
+		selectable: ['input']
 	},
 	
 	initialize: function(options) {
@@ -68,15 +69,52 @@ Mif.Tree = new Class({
 			mouseover: this.mouse.bindWithEvent(this),
 			mouseout: this.mouse.bindWithEvent(this),
 			mouseleave: this.mouseleave.bind(this),
-			mousedown: function(){this.fireEvent('mousedown'); return false;}.bind(this),
+			mousedown: function(event){
+				this.fireEvent('mousedown');
+				return this.stopSelection(event);
+			}.bind(this),
 			click: this.toggleClick.bindWithEvent(this),
 			dblclick: this.toggleDblclick.bindWithEvent(this),
 			keydown: this.keyDown.bindWithEvent(this),
 			keyup: this.keyUp.bindWithEvent(this)
 		});
 		if(Browser.Engine.trident){
-			this.wrapper.addEvent('selectstart', $lambda(false));
+			this.wrapper.addEvent('selectstart', this.stopSelection.bind(this));
+		}        
+		this.container.addEvent('click', this.focus.bind(this));
+		document.addEvent('click', this.blurOnClick.bind(this));
+    },
+	
+	stopSelection: function(event){
+		var target=$(event.target);
+		var selectable=this.options.selectable;
+		for(var i=0, l=selectable.length;i<l;i++){
+			if(target.match(selectable[i])) return true;
 		}
+		return false;
+	},
+    
+	blurOnClick: function(event){
+		var target=event.target;
+		while(target){
+			if(target==this.container) return;
+			target=target.parentNode;
+		}
+		this.blur();
+	},
+    
+	focus: function(){
+		if(this.focused) return this;
+		this.focused=true;
+		this.container.addClass('mif-tree-focused');
+		return this.fireEvent('focus');
+	},
+    
+	blur: function(){
+		if(!this.focused) return this;
+		this.focused=false;
+		this.container.removeClass('mif-tree-focused');
+		return this.fireEvent('blur');
 	},
 	
 	$getIndex: function(){//return array of visible nodes.
@@ -165,22 +203,22 @@ Mif.Tree = new Class({
 	},
 	
 	initScroll: function(){
-		this.scroll=new Fx.Scroll(this.wrapper);
+		this.scroll=new Fx.Scroll(this.wrapper, {link: 'cancel'});
 	},
 	
 	scrollTo: function(node){
 		var position=node.getVisiblePosition();
 		var top=position*this.height;
 		var up=top<this.wrapper.scrollTop;
-		var down=top>(this.wrapper.scrollTop+this.wrapper.clientHeight);
+		var down=top>(this.wrapper.scrollTop+this.wrapper.clientHeight-this.height);
 		if(position==-1 || ( !up && !down ) ) {
 			this.scroll.fireEvent('complete');
 			return false;
 		}
 		if(this.animateScroll){
-			this.scroll.start(this.wrapper.scrollLeft, top-(down ? this.wrapper.clientHeight-this.height : 0));
+			this.scroll.start(this.wrapper.scrollLeft, top-(down ? this.wrapper.clientHeight-this.height : this.height));
 		}else{
-			this.scroll.set(this.wrapper.scrollLeft, top-(down ? this.wrapper.clientHeight-this.height : 0));
+			this.scroll.set(this.wrapper.scrollLeft, top-(down ? this.wrapper.clientHeight-this.height : this.height));
 			this.scroll.fireEvent('complete');
 		}
 	},

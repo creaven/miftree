@@ -15,10 +15,7 @@ Mif.Tree.implement({
 		this.select(node);
 	},
 	
-	select: function(node, preventFocus) {
-		if(!preventFocus && (Browser.Engine.gecko||Browser.Engine.webkit)) {
-			this.wrapper.focus();
-		}
+	select: function(node) {
 		var current=this.selected;
 		if (current==node) return this;
 		if (current) {

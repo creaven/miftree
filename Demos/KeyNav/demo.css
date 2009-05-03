@@ -1,6 +1,8 @@
 #tree_container{
-height:500px;
+height:300px;
+width:200px;
 position:relative;
+border:solid 1px #737977;
 }
 
 
@@ -11,6 +13,10 @@ white-space:nowrap;
 
 ol{
 margin-left:20px;
+}
+
+#tree_container.mif-tree-focused{
+border:solid 1px #347496;
 }
 
 
