@@ -11,14 +11,24 @@ Mif.Tree.Node.implement({
 			case 'after':
 			case 'before':
 				if( node['get'+(where=='after' ? 'Next' : 'Previous')]()==this ) return false;
-				if(this.parentNode) this.parentNode.children.erase(this);
+				if(this.parentNode) {
+					this.parentNode.children.erase(this);
+					this.parentNode.visibleChildren.erase(this);
+				}
 				this.parentNode=node.parentNode;
 				this.parentNode.children.inject(this, node, where);
+				if(!this.hidden){
+					this.parentNode.visibleChildren.inject(this, node, where);//TODO don't work if node hidden
+				}
 				break;
 			case 'inside':
 				if( node.getLast()==this ) return false;
-				if(this.parentNode) this.parentNode.children.erase(this);
+				if(this.parentNode) {
+					this.parentNode.children.erase(this);
+					this.parentNode.visibleChildren.erase(this);
+				}
 				node.children.push(this);
+				if(!node.hidden) node.visibleChildren.push(this);
 				this.parentNode=node;
 				node.$draw=true;
 				node.state.open=true;
@@ -80,7 +90,10 @@ Mif.Tree.Node.implement({
 		if (this.property.removeDenied) return;
 		this.tree.fireEvent('remove', [this]);
 		var parent=this.parentNode, previous=this.getPrevious();
-		if(parent) parent.children.erase(this);
+		if(parent) {	
+			parent.children.erase(this);
+			parent.visibleChildren.erase(this);
+		}
 		this.tree.selected=false;
 		this.getDOM('node').destroy();
 		Mif.Tree.Draw.update(parent);
@@ -116,7 +129,7 @@ Mif.Tree.implement({
 	},
 	
 	add: function(node, current, where){
-		if($type(node)!='mif:tree:node'){
+		if(node.constructor.constructor!=Class){
 			node=new Mif.Tree.Node({
 				parentNode: null,
 				tree: this
@@ -124,19 +137,6 @@ Mif.Tree.implement({
 		};
 		node.inject(current, where, Mif.Tree.Draw.node(node));
 		this.fireEvent('add', [node, current, where]);
-		return this;
-	}
-	
-});
-
-Array.implement({
-	
-	inject: function(added, current, where){//inject added after or before current;
-		var pos=this.indexOf(current)+(where=='before' ? 0 : 1);
-		for(var i=this.length-1;i>=pos;i--){
-			this[i+1]=this[i];
-		}
-		this[pos]=added;
 		return this;
 	}
 	

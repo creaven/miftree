@@ -29,6 +29,9 @@
 		},
 		"ExpandTo":{
 			"title": "Using expandTo property demo"
+		},
+		"Hide":{
+			"title": "Hidden property"
 		}
 	},
 	"More":{

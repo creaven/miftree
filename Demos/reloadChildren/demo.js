@@ -20,6 +20,7 @@ window.addEvent('domready',function(){
 		forest: true,
 		initialize: function(){
 			new Mif.Tree.KeyNav(this);
+			new Mif.Tree.Drag(this);
 		},
 		types: {
 			folder:{

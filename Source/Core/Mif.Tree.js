@@ -37,7 +37,8 @@ Mif.Tree = new Class({
 			cls: '',
 			openIcon: 'mif-tree-empty-icon',
 			closeIcon: 'mif-tree-empty-icon',
-			loadable: false
+			loadable: false,
+			hidden: false
 		};
 		this.dfltState={
 			open: false
@@ -58,6 +59,7 @@ Mif.Tree = new Class({
 			}
 			parent._toggle=[];
 		});
+		if (MooTools.version=='1.2.2' && this.options.initialize) this.options.initialize.call(this);
 	},
 	
 	initEvents: function(){
@@ -235,4 +237,17 @@ Mif.Tree = new Class({
 });
 Mif.Tree.UID=0;
 
-Mif.Tree.version='1.1';
+Mif.Tree.version='1.2dev';
+
+Array.implement({
+	
+	inject: function(added, current, where){//inject added after or before current;
+		var pos=this.indexOf(current)+(where=='before' ? 0 : 1);
+		for(var i=this.length-1;i>=pos;i--){
+			this[i+1]=this[i];
+		}
+		this[pos]=added;
+		return this;
+	}
+	
+});

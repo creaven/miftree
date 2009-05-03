@@ -7,13 +7,13 @@ Mif.Tree.Load={
 		for( var i=children.length; i--; ){
 			var child=children[i];
 			var subChildren=child.children;
-			delete child.children;
 			var node=new Mif.Tree.Node({
 				tree: tree,
 				parentNode: parent||undefined
 			}, child);
 			if( tree.forest || parent != undefined){
 				parent.children.unshift(node);
+				if(!node.hidden) parent.visibleChildren.unshift(node);
 			}else{
 				tree.root=node;
 			}
@@ -73,6 +73,7 @@ Mif.Tree.Node.implement({
 			delete self.$loading;
 			self.state.loaded=true;
 			self.removeType('loader');
+			Mif.Tree.Draw.update(self);
 			self.fireEvent('load');
 			self.tree.fireEvent('loadNode', self);
 			return self;

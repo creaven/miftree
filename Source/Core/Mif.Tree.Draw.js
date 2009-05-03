@@ -13,7 +13,7 @@ Mif.Tree.Draw={
 		}
 		html=html||[];
 		html.push(
-		'<div class="mif-tree-node ',(node.isLast() ? 'mif-tree-node-last' : ''),'" id="',prefix,node.UID,'">',
+		'<div class="mif-tree-node ',(node.isLast() ? 'mif-tree-node-last' : ''),'"'+(node.hidden ? ' style="display:none"' : '')+' id="',prefix,node.UID,'">',
 			'<span class="mif-tree-node-wrapper ',node.cls,'" uid="',node.UID,'">',
 				'<span class="mif-tree-gadjet mif-tree-gadjet-',node.getGadjetType(),'" uid="',node.UID,'">',Mif.Tree.Draw.zeroSpace,'</span>',
 				checkbox,
@@ -56,29 +56,27 @@ Mif.Tree.Draw={
 		return new Element('div').set('html', this.getHTML(node).join('')).getFirst();
 	},
 	
+	isUpdatable: function(node){
+		if(
+			(!node) ||
+			(node.getParent() && !node.getParent().$draw) || 
+			(node.isRoot() && (!node.tree.$draw||node.tree.forest)) 
+		) return false;
+		return true;
+	},
+	
 	update: function(node){
-		if(!node) return;
-		if( 
-			(node.tree.forest && node.isRoot()) || 
-			( node.getParent() && node.getParent() && !node.getParent().$draw) || 
-			(node.isRoot() && !node.tree.$draw ) 
-		) return;
+		if(!this.isUpdatable(node)) return;
 		if(!node.hasChildren()) node.state.open=false;
-		node.getDOM('name').set('html', node.name);
-		node.getDOM('wrapper').className='mif-tree-node-wrapper '+node.cls;
 		node.getDOM('gadjet').className='mif-tree-gadjet mif-tree-gadjet-'+node.getGadjetType();
 		if (node.closeIconUrl) {
 			node.getDOM('icon').setStyle('background-image', 'url('+(node.isOpen() ? node.openIconUrl : node.closeIconUrl)+')');
 		} else {
 			node.getDOM('icon').className='mif-tree-icon '+node[node.isOpen() ? 'openIcon' : 'closeIcon'];
 		}
-		
-		node.getDOM('node')[(node.isLast() ?'add' : 'remove')+'Class']('mif-tree-node-last');
-		node.select(node.isSelected());
-		node.tree.updateHover();
+		node.getDOM('node')[(node.isLast(true) ?'add' : 'remove')+'Class']('mif-tree-node-last');
 		if(node.$loading) return;
 		var children=node.getDOM('children');
-		children.className='mif-tree-children';
 		if(node.isOpen()){
 			if(!node.$draw) Mif.Tree.Draw.children(node);
 			children.style.display='block';
@@ -105,4 +103,6 @@ Mif.Tree.Draw={
 	}
 	
 };
+
 Mif.Tree.Draw.zeroSpace=Browser.Engine.trident ? '&shy;' : (Browser.Engine.webkit ? '&#8203' : '');
+
