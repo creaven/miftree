@@ -401,10 +401,10 @@ Mif.Tree.Drag = new Class({
 		if(this.where=='inside' && !target.isOpen()){
 			target.toggle();
 			if(target.$loading){
-				var self=this;
 				var onLoad=function(){
-					self.tree[action](current, target, where);
-					self.fireEvent('drop', [current, target, where]);
+					this.tree[action](current, target, where);
+					this.tree.select(current).scrollTo(current);
+					this.fireEvent('drop', [current, target, where]);
 					target.removeEvent('load',onLoad);
 				};
 				target.addEvent('load',onLoad);
@@ -412,6 +412,7 @@ Mif.Tree.Drag = new Class({
 			};
 		};
 		this.tree[action](current, target, where);
+		this.tree.select(current).scrollTo(current);
 		this.fireEvent('drop', [current, target, where]);
 	},
 	

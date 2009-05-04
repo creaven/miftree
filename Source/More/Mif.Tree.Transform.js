@@ -40,7 +40,6 @@ Mif.Tree.Node.implement({
 		[node, this, parent, previous, this.getPrevious()].each(function(node){
 			Mif.Tree.Draw.update(node);
 		});
-		tree.select(this).scrollTo(this);
 		return this;
 	},
 	
