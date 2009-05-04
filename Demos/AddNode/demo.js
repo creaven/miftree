@@ -22,7 +22,8 @@ window.addEvent('domready',function(){
 	
 	
 	$('add_node').addEvent('click', function(){
-		var current=SimpleTree.selected;
+		var current=SimpleTree.getSelected();
+		if(!current) return;
 		SimpleTree.add({
 			property: {
 				name: $('node_name').value

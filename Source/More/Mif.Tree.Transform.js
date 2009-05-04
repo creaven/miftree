@@ -28,9 +28,9 @@ Mif.Tree.Node.implement({
 				node.state.open=true;
 				break;
 		}		
-		var tree=node.tree.unselect();
+		var tree=node.tree;
 		if(this.tree!=node.tree){
-			var oldTree=this.tree.unselect();
+			var oldTree=this.tree;
 			this.tree=node.tree;
 		};
 		tree.fireEvent('structureChange', [this, node, where, type]);
