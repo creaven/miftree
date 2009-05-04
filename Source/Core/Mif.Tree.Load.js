@@ -13,7 +13,6 @@ Mif.Tree.Load={
 			}, child);
 			if( tree.forest || parent != undefined){
 				parent.children.unshift(node);
-				if(!node.hidden) parent.visibleChildren.unshift(node);
 			}else{
 				tree.root=node;
 			}

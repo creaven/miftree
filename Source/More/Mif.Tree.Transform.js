@@ -13,22 +13,16 @@ Mif.Tree.Node.implement({
 				if( node['get'+(where=='after' ? 'Next' : 'Previous')]()==this ) return false;
 				if(this.parentNode) {
 					this.parentNode.children.erase(this);
-					this.parentNode.visibleChildren.erase(this);
 				}
 				this.parentNode=node.parentNode;
 				this.parentNode.children.inject(this, node, where);
-				if(!this.hidden){
-					this.parentNode.visibleChildren.inject(this, node, where);//TODO don't work if node hidden
-				}
 				break;
 			case 'inside':
 				if( node.getLast()==this ) return false;
 				if(this.parentNode) {
 					this.parentNode.children.erase(this);
-					this.parentNode.visibleChildren.erase(this);
 				}
 				node.children.push(this);
-				if(!node.hidden) node.visibleChildren.push(this);
 				this.parentNode=node;
 				node.$draw=true;
 				node.state.open=true;
@@ -40,12 +34,12 @@ Mif.Tree.Node.implement({
 			this.tree=node.tree;
 		};
 		tree.fireEvent('structureChange', [this, node, where, type]);
+		tree.$getIndex();
+		if(oldTree)	oldTree.$getIndex();
 		Mif.Tree.Draw.updateDOM(this, domNode);
 		[node, this, parent, previous, this.getPrevious()].each(function(node){
 			Mif.Tree.Draw.update(node);
 		});
-		tree.$getIndex();
-		if(oldTree)	oldTree.$getIndex();
 		tree.select(this).scrollTo(this);
 		return this;
 	},
@@ -92,15 +86,14 @@ Mif.Tree.Node.implement({
 		var parent=this.parentNode, previous=this.getPrevious();
 		if(parent) {	
 			parent.children.erase(this);
-			parent.visibleChildren.erase(this);
 		}
 		this.tree.selected=false;
 		this.getDOM('node').destroy();
+		this.tree.$getIndex();
 		Mif.Tree.Draw.update(parent);
 		Mif.Tree.Draw.update(previous);
 		this.tree.mouse.node=false;
 		this.tree.updateHover();
-		this.tree.$getIndex();
 	}
 	
 });

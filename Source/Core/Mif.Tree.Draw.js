@@ -74,7 +74,7 @@ Mif.Tree.Draw={
 		} else {
 			node.getDOM('icon').className='mif-tree-icon '+node[node.isOpen() ? 'openIcon' : 'closeIcon'];
 		}
-		node.getDOM('node')[(node.isLast(true) ?'add' : 'remove')+'Class']('mif-tree-node-last');
+		node.getDOM('node')[(node.isLastVisible() ?'add' : 'remove')+'Class']('mif-tree-node-last');
 		if(node.$loading) return;
 		var children=node.getDOM('children');
 		if(node.isOpen()){

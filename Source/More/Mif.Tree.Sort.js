@@ -30,7 +30,6 @@ Mif.Tree.Node.implement({
 
 	sort: function(sortFunction){
 		this.children.sort(sortFunction||this.tree.sortFunction);
-		this.visibleChildren.sort(sortFunction||this.tree.sortFunction);
 		return this;
 	}
 	

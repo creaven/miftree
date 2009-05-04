@@ -8,7 +8,6 @@ Mif.Tree.Node = new Class({
 	initialize: function(structure, options) {
 		$extend(this, structure);
 		this.children=[];
-		this.visibleChildren=[];
 		this.type=options.type||this.tree.dfltType;
 		this.property=options.property||{};
 		this.data=options.data;
@@ -43,7 +42,7 @@ Mif.Tree.Node = new Class({
 	},
 	
 	getGadjetType: function(){
-		return (this.loadable && !this.isLoaded()) ? 'plus' : (this.hasChildren(true) ? (this.isOpen() ? 'minus' : 'plus') : 'none');
+		return (this.loadable && !this.isLoaded()) ? 'plus' : (this.hasVisibleChildren() ? (this.isOpen() ? 'minus' : 'plus') : 'none');
 	},
 	
 	toggle: function(state) {
@@ -77,10 +76,8 @@ Mif.Tree.Node = new Class({
 	},
 	
 	drawToggle: function(){
-		Mif.Tree.Draw.update(this);
-		this.tree.hoverState.gadjet=false;
-		this.tree.hover();
 		this.tree.$getIndex();
+		Mif.Tree.Draw.update(this);
 	},
 	
 	recursive: function(fn, args){
@@ -103,13 +100,13 @@ Mif.Tree.Node = new Class({
 		return this.state.loaded;
 	},
 	
-	isLast: function(visible){
-		if(this.parentNode==null || this.parentNode[visible ? 'visibleChildren' : 'children'].getLast()==this) return true;
+	isLast: function(){
+		if(this.parentNode==null || this.parentNode.children.getLast()==this) return true;
 		return false;
 	},
 	
-	isFirst: function(visible){
-		if(this.parentNode==null || this.parentNode[visible ? 'visibleChildren' : 'children'][0]==this) return true;
+	isFirst: function(){
+		if(this.parentNode==null || this.parentNode.children[0]==this) return true;
 		return false;
 	},
 	
@@ -117,44 +114,44 @@ Mif.Tree.Node = new Class({
 		return this.parentNode==null ? true : false;
 	},
 	
-	getChildren: function(visible){
-		return this[visible ? 'visibleChildren' : 'children'];
+	getChildren: function(){
+		return this.children;
 	},
 	
-	hasChildren: function(visible){
-		return this[visible ? 'visibleChildren' : 'children'].length ? true : false;
+	hasChildren: function(){
+		return this.children.length ? true : false;
 	},
 	
-	index: function(visible){
+	index: function(){
 		if( this.isRoot() ) return 0;
-		return this.parentNode[visible ? 'visibleChildren' : 'children'].indexOf(this);
+		return this.parentNode.children.indexOf(this);
 	},
 	
-	getNext: function(visible){
-		if(this.isLast(visible)) return null;
-		return this.parentNode[visible ? 'visibleChildren' : 'children'][this.index(visible)+1];
+	getNext: function(){
+		if(this.isLast()) return null;
+		return this.parentNode.children[this.index()+1];
 	},
 	
-	getPrevious: function(visible){
-		if( this.isFirst(visible) ) return null;
-		return this.parentNode[visible ? 'visibleChildren' : 'children'][this.index(visible)-1];
+	getPrevious: function(){
+		if( this.isFirst() ) return null;
+		return this.parentNode.children[this.index()-1];
 	},
 	
-	getFirst: function(visible){
-		if(!this.hasChildren(visible)) return null;
-		return this[visible ? 'visibleChildren' : 'children'][0];
+	getFirst: function(){
+		if(!this.hasChildren()) return null;
+		return this.children[0];
 	},
 	
-	getLast: function(visible){
-		if(!this.hasChildren(visible)) return null;
-		return this[visible ? 'visibleChildren' : 'children'].getLast(visible);		
+	getLast: function(){
+		if(!this.hasChildren()) return null;
+		return this.children.getLast();		
 	},
 	
 	getParent: function(){
 		return this.parentNode;
 	},
 	
-	getNextVisible: function(){
+	_getNextVisible: function(){
 		var current=this;
 		if(current.isRoot()){
 			if(!current.isOpen() || !current.hasChildren(true)) return false;
@@ -174,31 +171,50 @@ Mif.Tree.Node = new Class({
 	},
 	
 	getPreviousVisible: function(){
-		var current=this;
-		if( current.isFirst(true) && ( !current.parentNode || (current.tree.forest && current.parentNode.isRoot()) ) ){
-			return false;
-		}else{
-			if( current.getPrevious(true) ){
-				current=current.getPrevious(true);
-				while( current.isOpen() && current.getLast(true) ){
-					current=current.getLast(true);
-				}
-				return current;
-			}else{
-				return current.parentNode;
-			}
-		}
+		var index=this.tree.$index.indexOf(this);
+		return index==0 ? null : this.tree.$index[index-1];
+	},
+	
+	getNextVisible: function(){
+		var index=this.tree.$index.indexOf(this);
+		return index<this.tree.$index.length-1 ? this.tree.$index[index+1] : null;
 	},
 	
 	getVisiblePosition: function(){
 		return this.tree.$index.indexOf(this);
 	},
+	
+	hasVisibleChildren: function(){
+		if(!this.hasChildren) return false;
+		if(this.isOpen()){
+			var next=this.getNextVisible();
+			if(!next) return false;
+			if(next.parentNode!=this) return false;
+			return true;
+		}else{
+			var child=this.getFirst();
+			while(child){
+				if(!child.hidden) return true;
+				child=child.getNext();
+			}
+			return false;
+		}
+	},
+	
+	isLastVisible: function(){
+		var next=this.getNext();
+		while(next){
+			if(!next.hidden) return false;
+			next=next.getNext();
+		};
+		return true;
+	},
 		
 	contains: function(node){
-		do{
+		while(node){
 			if(node==this) return true;
 			node=node.parentNode;
-		}while(node);
+		};
 		return false;
 	},
 
@@ -271,40 +287,16 @@ Mif.Tree.Node = new Class({
 				return this;
 			case 'hidden':
 				this.getDOM('node').setStyle('display', nv ? 'none' : 'block');
-				var previous=this.getPreviousVisible();
-				var next=this.getNextVisible();
+				var _previous=this.getPreviousVisible();
+				var _next=this.getNextVisible();
 				var parent=this.getParent();
 				this[p]=this.property[p]=nv;
-				if(this.parentNode){
-					if(nv){
-						this.parentNode.visibleChildren.erase(this);
-					}else{
-						var previous=this;
-						var children=this.parentNode.children;
-						var visibleChildren=this.parentNode.visibleChildren;
-						while(1){
-							var index=children.indexOf(previous);
-							if(index==0){
-								if(previous==this){
-									visibleChildren.unshift(this);
-								}else{
-									visibleChildren.inject(this, previous, 'after');
-								}
-								break;
-							}else{
-								previous=children[index-1];
-								if(!previous.hidden){
-									visibleChildren.inject(this, previous, 'after');
-									break;
-								}
-							}
-						}
-					}
-				}
-				[previous, next, parent].each(function(node){
+				this.tree.$getIndex();
+				var previous=this.getPreviousVisible();
+				var next=this.getNextVisible();
+				[_previous, _next, previous, next, parent].each(function(node){
 					Mif.Tree.Draw.update(node);
 				});
-				this.tree.$getIndex();
 				return this;
 		}
 	},

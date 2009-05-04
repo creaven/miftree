@@ -44,6 +44,7 @@ Mif.Tree = new Class({
 		this.dfltState={
 			open: false
 		};
+		this.$index=[];
 		this.updateOpenState();
 		if(this.options.expandTo) this.initExpandTo();
 		Mif.Tree.UID++;
@@ -120,9 +121,13 @@ Mif.Tree = new Class({
 	$getIndex: function(){//return array of visible nodes.
 		this.$index=[];
 		var node=this.forest ? this.root.getFirst() : this.root;
+		var previous=node;
 		while(node){
-			this.$index.push(node);
-			node=node.getNextVisible();
+			if(!(previous.hidden && previous.contains(node))){
+				if(!node.hidden) this.$index.push(node);
+				previous=node;
+			}
+			node=node._getNextVisible();
 		}
 	},
 	
