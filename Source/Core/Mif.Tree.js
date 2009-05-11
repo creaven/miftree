@@ -75,15 +75,17 @@ Mif.Tree = new Class({
 				return this.stopSelection(event);
 			}.bind(this),
 			click: this.toggleClick.bindWithEvent(this),
-			dblclick: this.toggleDblclick.bindWithEvent(this),
-			keydown: this.keyDown.bindWithEvent(this),
-			keyup: this.keyUp.bindWithEvent(this)
+			dblclick: this.toggleDblclick.bindWithEvent(this)
 		});
 		if(Browser.Engine.trident){
 			this.wrapper.addEvent('selectstart', this.stopSelection.bind(this));
 		}        
 		this.container.addEvent('click', this.focus.bind(this));
 		document.addEvent('click', this.blurOnClick.bind(this));
+		document.addEvents({
+			keydown: this.keyDown.bindWithEvent(this),
+			keyup: this.keyUp.bindWithEvent(this)
+		});
     },
 	
 	stopSelection: function(event){
@@ -189,11 +191,13 @@ Mif.Tree = new Class({
 	keyDown: function(event){
 		this.key=event;
 		this.key.state='down';
+		if(this.focused) this.fireEvent('keydown', [event]);
 	},
 	
 	keyUp: function(event){
 		this.key={};
 		this.key.state='up';
+		if(this.focused) this.fireEvent('keyup', [event]);
 	},
 	
 	toggleDblclick: function(event){

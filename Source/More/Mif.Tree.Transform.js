@@ -91,6 +91,9 @@ Mif.Tree.Node.implement({
 		this.tree.$getIndex();
 		Mif.Tree.Draw.update(parent);
 		Mif.Tree.Draw.update(previous);
+		if(this.id){
+			delete Mif.ids[this.id];
+		}
 		this.tree.mouse.node=false;
 		this.tree.updateHover();
 	}
