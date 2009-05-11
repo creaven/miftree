@@ -85,15 +85,17 @@ Mif.Tree.Node.implement({
 		var parent=this.parentNode, previous=this.getPrevious();
 		if(parent) {	
 			parent.children.erase(this);
+		}else if(!this.tree.forest){
+			this.tree.root=null;
 		}
 		this.tree.selected=false;
 		this.getDOM('node').destroy();
 		this.tree.$getIndex();
 		Mif.Tree.Draw.update(parent);
 		Mif.Tree.Draw.update(previous);
-		if(this.id){
-			delete Mif.ids[this.id];
-		}
+		this.recursive(function(){
+			if(this.id) delete Mif.ids[this.id];
+		});
 		this.tree.mouse.node=false;
 		this.tree.updateHover();
 	}
