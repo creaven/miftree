@@ -179,8 +179,8 @@ Mif.Tree = new Class({
 	
 	getCoords: function(event){
 		var position=this.wrapper.getPosition();
-		var x=event.page.x-position.x;
-		var y=event.page.y-position.y;
+		var x=event.client.x-position.x;
+		var y=event.client.y-position.y;
 		var wrapper=this.wrapper;
 		if((y-wrapper.scrollTop>wrapper.clientHeight)||(x-wrapper.scrollLeft>wrapper.clientWidth)){//scroll line
 			y=-1;
