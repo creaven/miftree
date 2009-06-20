@@ -265,9 +265,9 @@ Mif.Tree.Drag = new Class({
 			this.tree.unselect();
 			return;
 		}
-		this.tree.select(target);
+		if(target && target.tree) this.tree.select(target);
 		if(where == 'inside'){
-			if(!target.isOpen() && !this.openTimer && (target.loadable||target.hasChildren()) ){
+			if(target.tree && !target.isOpen() && !this.openTimer && (target.loadable||target.hasChildren()) ){
 				this.wrapper=target.getDOM('wrapper').setStyle('cursor', 'progress');
 				this.openTimer=function(){
 					target.toggle();
@@ -310,12 +310,12 @@ Mif.Tree.Drag = new Class({
 		this.y=this.tree.mouse.coords.y;
 		var target=this.tree.mouse.node;
 		if(!target){
-			if(this.tree.forest && this.options.allowContainerDrop){
+			if(this.options.allowContainerDrop && (this.tree.forest||!this.tree.root)){
 				this.target=this.tree.$index.getLast();
 				this.index=this.tree.$index.length-1;
 				if(this.index==-1){
 					this.where='inside';
-					this.target=this.tree.root;
+					this.target=this.tree.root||this.tree;
 				}else{
 					this.where='after';
 				}
@@ -410,8 +410,8 @@ Mif.Tree.Drag = new Class({
 		var current=this.current, target=this.target, where=this.where;
 		Mif.Tree.Drag.ghost.dispose();
 		var action=this.action || (this.tree.key[this.options.modifier] ? 'copy' : 'move');
-		if(this.where=='inside' && !target.isOpen()){
-			target.toggle();
+		if(this.where=='inside' && target.tree && !target.isOpen()){
+			if(target.tree) target.toggle();
 			if(target.$loading){
 				var onLoad=function(){
 					this.tree[action](current, target, where);

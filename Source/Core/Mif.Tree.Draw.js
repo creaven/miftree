@@ -58,7 +58,7 @@ Mif.Tree.Draw={
 	
 	isUpdatable: function(node){
 		if(
-			(!node) ||
+			(!node||!node.tree) ||
 			(node.getParent() && !node.getParent().$draw) || 
 			(node.isRoot() && (!node.tree.$draw||node.tree.forest)) 
 		) return false;
@@ -95,6 +95,8 @@ Mif.Tree.Draw={
 		}else{
 			if(node.tree.forest && node.parentNode.isRoot()){
 				var children=node.tree.wrapper.getElement('.mif-tree-children-root');
+			}else if(node.tree.root==node){
+				var children=node.tree.wrapper;
 			}else{
 				var children=node.parentNode.getDOM('children');
 			}

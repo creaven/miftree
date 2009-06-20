@@ -18,20 +18,28 @@ Mif.Tree.Node.implement({
 				this.parentNode.children.inject(this, node, where);
 				break;
 			case 'inside':
-				if( node.getLast()==this ) return false;
+				if( node.tree && node.getLast()==this ) return false;
 				if(this.parentNode) {
 					this.parentNode.children.erase(this);
 				}
-				node.children.push(this);
-				this.parentNode=node;
-				node.$draw=true;
-				node.state.open=true;
+				if(node.tree){
+					node.children.push(this);
+					this.parentNode=node;
+					node.$draw=true;
+					node.state.open=true;
+				}else{
+					node.root=this;
+					this.parentNode=null;
+					node.fireEvent('drawRoot');
+				}
 				break;
 		}		
-		var tree=node.tree;
-		if(this.tree!=node.tree){
+		var tree=node.tree||node;
+		if(this==this.tree.root){
+			this.tree.root=false;
+		}
+		if(this.tree!=tree){
 			var oldTree=this.tree;
-			var tree=node.tree;
 			this.recursive(function(){
 				this.tree=tree;
 			});
@@ -109,15 +117,15 @@ Mif.Tree.Node.implement({
 Mif.Tree.implement({
 
 	move: function(from, to, where){
-		if ( from.inject(to, where) ){
+		if(from.inject(to, where)){
 			this.fireEvent('move', [from, to, where]);
 		}
 		return this;
 	},
 	
 	copy: function(from, to, where){
-		var copy = from.copy(to, where);
-		if ( copy ){
+		var copy=from.copy(to, where);
+		if(copy){
 			this.fireEvent('copy', [from, to, where, copy]);
 		}
 		return this;
