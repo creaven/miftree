@@ -16,7 +16,8 @@ Mif.Tree.Drag = new Class({
 		scrollDelay: 100,
 		scrollSpeed: 100,
 		modifier: 'control',//copy
-		startPlace: ['icon', 'name']
+		startPlace: ['icon', 'name'],
+		allowContainerDrop: true
 	},
 
 	initialize: function(tree, options){
@@ -256,7 +257,7 @@ Mif.Tree.Drag = new Class({
 		var where=this.where;
 		var target=this.target;
 		var ghostType=where;
-		if(where=='after'&&(target.getNext())||where=='before'&&(target.getPrevious())){
+		if(where=='after'&&target&&(target.getNext())||where=='before'&&(target.getPrevious())){
 			ghostType='between';
 		}
 		Mif.Tree.Drag.ghost.firstChild.className='mif-tree-ghost-icon mif-tree-ghost-'+ghostType;
@@ -309,8 +310,19 @@ Mif.Tree.Drag = new Class({
 		this.y=this.tree.mouse.coords.y;
 		var target=this.tree.mouse.node;
 		if(!target){
-			this.target=false;
-			this.where='notAllowed';
+			if(this.tree.forest && this.options.allowContainerDrop){
+				this.target=this.tree.$index.getLast();
+				this.index=this.tree.$index.length-1;
+				if(this.index==-1){
+					this.where='inside';
+					this.target=this.tree.root;
+				}else{
+					this.where='after';
+				}
+			}else{
+				this.target=false;
+				this.where='notAllowed';
+			}
 			this.fireEvent('drag');
 			return true;
 		};

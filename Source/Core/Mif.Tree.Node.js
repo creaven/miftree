@@ -185,7 +185,7 @@ Mif.Tree.Node = new Class({
 	},
 	
 	hasVisibleChildren: function(){
-		if(!this.hasChildren) return false;
+		if(!this.hasChildren()) return false;
 		if(this.isOpen()){
 			var next=this.getNextVisible();
 			if(!next) return false;

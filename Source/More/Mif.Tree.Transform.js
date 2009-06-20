@@ -5,7 +5,7 @@ Mif.Tree.Node.implement({
 	
 	inject: function(node, where, domNode){//domNode - internal property
 		var parent=this.parentNode;
-		var previous=this.getPrevious();
+		var previousVisible=this.getPreviousVisible();
 		var type=domNode ? 'copy' : 'move';
 		switch(where){
 			case 'after':
@@ -31,13 +31,16 @@ Mif.Tree.Node.implement({
 		var tree=node.tree;
 		if(this.tree!=node.tree){
 			var oldTree=this.tree;
-			this.tree=node.tree;
+			var tree=node.tree;
+			this.recursive(function(){
+				this.tree=tree;
+			});
 		};
 		tree.fireEvent('structureChange', [this, node, where, type]);
 		tree.$getIndex();
 		if(oldTree)	oldTree.$getIndex();
 		Mif.Tree.Draw.updateDOM(this, domNode);
-		[node, this, parent, previous, this.getPrevious()].each(function(node){
+		[node, this, parent, previousVisible, this.getPreviousVisible()].each(function(node){
 			Mif.Tree.Draw.update(node);
 		});
 		return this;
@@ -82,7 +85,7 @@ Mif.Tree.Node.implement({
 	remove: function(){
 		if (this.property.removeDenied) return;
 		this.tree.fireEvent('remove', [this]);
-		var parent=this.parentNode, previous=this.getPrevious();
+		var parent=this.parentNode, previousVisible=this.getPreviousVisible();
 		if(parent) {	
 			parent.children.erase(this);
 		}else if(!this.tree.forest){
@@ -92,7 +95,7 @@ Mif.Tree.Node.implement({
 		this.getDOM('node').destroy();
 		this.tree.$getIndex();
 		Mif.Tree.Draw.update(parent);
-		Mif.Tree.Draw.update(previous);
+		Mif.Tree.Draw.update(previousVisible);
 		this.recursive(function(){
 			if(this.id) delete Mif.ids[this.id];
 		});

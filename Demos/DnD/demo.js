@@ -74,6 +74,7 @@ window.addEvent('domready',function(){
 	}
 	
 	tree2 = new Mif.Tree({
+		forest: true,
 		container: $('tree_container2'),
 		initialize: function(){
 			new Mif.Tree.KeyNav(this);
