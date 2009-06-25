@@ -137,7 +137,7 @@ Mif.Tree.implement({
 	},
 	
 	add: function(node, current, where){
-		if(node.constructor.constructor!=Class){
+		if(!(node instanceof Mif.Tree.Node)){
 			node=new Mif.Tree.Node({
 				parentNode: null,
 				tree: this
