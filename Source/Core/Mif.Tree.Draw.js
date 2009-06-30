@@ -14,7 +14,7 @@ Mif.Tree.Draw={
 		html=html||[];
 		html.push(
 		'<div class="mif-tree-node ',(node.isLast() ? 'mif-tree-node-last' : ''),'"'+(node.hidden ? ' style="display:none"' : '')+' id="',prefix,node.UID,'">',
-			'<span class="mif-tree-node-wrapper ',node.cls,'" uid="',node.UID,'">',
+			'<span class="mif-tree-node-wrapper ',node.cls,(node.state.selected ? ' mif-tree-node-selected' : ''),'" uid="',node.UID,'">',
 				'<span class="mif-tree-gadjet mif-tree-gadjet-',node.getGadjetType(),'" uid="',node.UID,'">',Mif.Tree.Draw.zeroSpace,'</span>',
 				checkbox,
 				

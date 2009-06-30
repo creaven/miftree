@@ -1,16 +1,28 @@
 window.addEvent('domready',function(){
+
+	Mif.Tree.Node.implement({
+	
+		switchSelect: function(state){
+			this.tree[state ? 'select' : 'unselect'](this);
+		}
+		
+	});
+
 	tree = new Mif.Tree({
 		container: $('tree_container'),// tree container
 		initialize: function(){
 			this.initCheckbox('simple');
 			var storage=new Mif.Tree.CookieStorage(this);
-			var checkboxStorage=new Mif.Tree.CookieStorage(this, {event: 'switch', action: 'switch'});
+			var switchStorage=new Mif.Tree.CookieStorage(this, {event: 'switch', action: 'switch'});
+			var selectStorage=new Mif.Tree.CookieStorage(this, {event: 'selectChange', action: 'switchSelect'});
 			this.addEvent('load', function(){
 				storage.restore();
-				checkboxStorage.restore();
+				switchStorage.restore();
+				selectStorage.restore();
 			}).addEvent('loadChildren', function(){
 				storage.restore();
-				checkboxStorage.restore();
+				switchStorage.restore();
+				selectStorage.restore();
 			});
 		},
 		types: {// node types
