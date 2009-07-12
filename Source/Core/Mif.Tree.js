@@ -61,7 +61,7 @@ Mif.Tree = new Class({
 			}
 			parent._toggle=[];
 		});
-		if (MooTools.version=='1.2.2' && this.options.initialize) this.options.initialize.call(this);
+		if (MooTools.version>='1.2.2' && this.options.initialize) this.options.initialize.call(this);
 	},
 	
 	initEvents: function(){
