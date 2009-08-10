@@ -17,7 +17,6 @@ Mif.Tree.Draw={
 			'<span class="mif-tree-node-wrapper ',node.cls,(node.state.selected ? ' mif-tree-node-selected' : ''),'" uid="',node.UID,'">',
 				'<span class="mif-tree-gadjet mif-tree-gadjet-',node.getGadjetType(),'" uid="',node.UID,'">',Mif.Tree.Draw.zeroSpace,'</span>',
 				checkbox,
-				
 				'<span class="mif-tree-icon ',(node.closeIconUrl?'" style="background-image: url('+node.closeIconUrl+')" ': node.closeIcon+'"'),' uid="',node.UID,'">',Mif.Tree.Draw.zeroSpace,'</span>',
 				'<span class="mif-tree-name" uid="',node.UID,'">',node.name,'</span>',
 			'</span>',
@@ -87,21 +86,23 @@ Mif.Tree.Draw={
 		return node;
 	},
 	
-	updateDOM: function(node, domNode){
-		domNode= domNode||node.getDOM('node');
+	inject: function(node, element){
+		if(!this.isUpdatable(node)) return;
+		element=element||node.getDOM('node')||this.node(node);
 		var previous=node.getPrevious();
 		if(previous){
-			domNode.injectAfter(previous.getDOM('node'));
-		}else{
-			if(node.tree.forest && node.parentNode.isRoot()){
-				var children=node.tree.wrapper.getElement('.mif-tree-children-root');
-			}else if(node.tree.root==node){
-				var children=node.tree.wrapper;
-			}else{
-				var children=node.parentNode.getDOM('children');
-			}
-			domNode.injectTop(children);
+			element.injectAfter(previous.getDOM('node'));
+			return;
 		}
+		var container;
+		if(node.tree.forest && node.parentNode.isRoot()){
+			container=node.tree.wrapper.getElement('.mif-tree-children-root');
+		}else if(node.tree.root==node){
+			container=node.tree.wrapper;
+		}else{
+			container=node.parentNode.getDOM('children');
+		}
+		element.injectTop(container);
 	}
 	
 };

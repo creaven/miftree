@@ -3,10 +3,19 @@ Mif.Tree.Transform
 */
 Mif.Tree.Node.implement({
 	
-	inject: function(node, where, domNode){//domNode - internal property
+	inject: function(node, where, element){//element - internal property
+		where=where||'inside';
 		var parent=this.parentNode;
-		var previousVisible=this.getPreviousVisible();
-		var type=domNode ? 'copy' : 'move';
+		function getPreviousVisible(node){
+			var previous=node;
+			while(previous){
+				previous=previous.getPrevious();
+				if(!previous) return null;
+				if(!previous.hidden) return previous;
+			}
+		}
+		var previousVisible=getPreviousVisible(this);
+		var type=element ? 'copy' : 'move';
 		switch(where){
 			case 'after':
 			case 'before':
@@ -23,10 +32,12 @@ Mif.Tree.Node.implement({
 					this.parentNode.children.erase(this);
 				}
 				if(node.tree){
+					if(!node.hasChildren()){
+						node.$draw=true;
+						node.state.open=true;
+					}
 					node.children.push(this);
 					this.parentNode=node;
-					node.$draw=true;
-					node.state.open=true;
 				}else{
 					node.root=this;
 					this.parentNode=null;
@@ -47,8 +58,8 @@ Mif.Tree.Node.implement({
 		tree.fireEvent('structureChange', [this, node, where, type]);
 		tree.$getIndex();
 		if(oldTree)	oldTree.$getIndex();
-		Mif.Tree.Draw.updateDOM(this, domNode);
-		[node, this, parent, previousVisible, this.getPreviousVisible()].each(function(node){
+		Mif.Tree.Draw.inject(this, element);
+		[node, this, parent, previousVisible, getPreviousVisible(this)].each(function(node){
 			Mif.Tree.Draw.update(node);
 		});
 		return this;

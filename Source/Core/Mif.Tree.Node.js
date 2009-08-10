@@ -15,7 +15,7 @@ Mif.Tree.Node = new Class({
 		this.$calculate();
 		this.UID=Mif.Tree.Node.UID++;
 		Mif.Tree.Nodes[this.UID]=this;
-		var id=this.property.id;
+		var id=this.id;
 		if(id!=null) Mif.ids[id]=this;
 		this.tree.fireEvent('nodeCreate', [this]);
 		this._property=['id', 'name', 'cls', 'openIcon', 'closeIcon', 'openIconUrl', 'closeIconUrl', 'hidden'];
