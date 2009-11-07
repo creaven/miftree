@@ -1,4 +1,4 @@
-/*window.addEvent('domready',function(){
+window.addEvent('domready',function(){
 	SimpleTree = new Mif.Tree({
 		container: $('tree_container'),
 		onNodeCreate: function(node){
@@ -34,31 +34,4 @@
 		return false;
 	});
 	
-});*/
-
-window.addEvent('domready', function () {
-    tree = new Mif.Tree({
-        container   : $('tree_container'),
-        types       : {
-            folder  : {
-                openIcon    : 'mif-tree-open-icon',
-                closeIcon   : 'mif-tree-close-icon'
-            }
-        },
-        dfltType    :   'folder',
-        height      :   20
-    })
-    .load({
-        url: '../assets/files/simpleTree.json'
-    });
-
-    $('add_node').addEvent('click', function () {
-        var node = tree.getSelected();
-        var newNode = new Mif.Tree.Node({
-            parentNode: node,
-            tree: tree
-        }, {property:{name: 'node1'}});
-
-        tree.add(newNode, node, 'inside');
-    });
 });
