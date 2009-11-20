@@ -53,7 +53,7 @@ Mif.Tree.Node.implement({
 			}
 		};
 		if(type=='simple'){
-			this.setState(checked);
+			this.setCheckboxState(checked);
 			this.tree.fireEvent(checked=='checked' ? 'check' : 'unCheck', this);
 			this.tree.fireEvent('switch', [this, (checked=='checked' ? true : false)]);
 			return this;
