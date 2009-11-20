@@ -12,6 +12,25 @@ Mif.Tree.Node.implement({
 
 });
 
+Mif.Tree.Node.implement({
+    refreshChildren: function() {
+		if(this.contains(this.tree.selected)){
+			this.tree.unselect();
+		}
+		this.tree.mouse.node=null;
+		this.tree.updateHover();
+        this.state.loaded=false;
+        this.state.open=false;
+        this.state.loadable=true;
+        this.children=[];
+        this.$draw=false;
+        this.tree.$getIndex();
+        this.getDOM('children').innerHTML='';
+        Mif.Tree.Draw.update(this);
+        return this;
+    }       
+});
+
 var tree = new Mif.Tree({
 	container: $('tree_container'),
 	initialize: function(){
@@ -24,12 +43,12 @@ var tree = new Mif.Tree({
 				}
 			});
 		});
-		var storage=new Mif.Tree.CookieStorage(this);
+		/*var storage=new Mif.Tree.CookieStorage(this);
 		this.addEvent('load', function(){
 			storage.restore();
 		}).addEvent('loadChildren', function(parent){
 			storage.restore();
-		});
+		});*/
 	},
 	types: {
 		folder:{
@@ -47,7 +66,12 @@ var tree = new Mif.Tree({
 			DDnotAllowed: ['inside','after']
 		}
 	},
-	dfltType:'folder'
+	dfltType:'folder',
+	onRename: function(node, newName, oldName){
+        node.data.abs_path = node.data.abs_path.replace(oldName,newName);
+        var parent = node.getParent();
+    	parent.refreshChildren().toggle(true);
+	}
 });
 
 tree.load({
@@ -60,3 +84,10 @@ tree.loadOptions=function(node){
 		data: {'abs_path': node.data.abs_path}
 	};
 };
+
+document.addEvent('keydown', function(event){
+	if(event.key!='r') return;
+	var node=tree.selected;
+    if(!node) return;
+    node.rename();
+});
