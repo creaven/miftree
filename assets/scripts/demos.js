@@ -12,6 +12,12 @@ var Demos = {
 	start: function() {
 		if (location.protocol == 'file:') Demos.local();
 		Demos.getList();
+		var hash=document.location.hash;
+		if(hash){
+			var demo=hash.replace('#','');
+			this.demo=demo;
+			Demos.load(demo)
+		}
 	},
 	
 	categories: function(json) {
@@ -24,11 +30,12 @@ var Demos = {
 			
 			demos.each(function(value, key) {
 				new Element('li').adopt(new Element('h3').adopt(new Element('a', {
-					'href': '#', 
+					'href': '#',
 					'text': value.title,
 					'events': {
 						'click': function(e) { 
-							e.stop();
+							e.preventDefault();
+							document.location.hash=key;
 							Demos.load(key);
 						}
 					}
@@ -121,7 +128,8 @@ var Demos = {
 			}
 		}).get();
 		['html', 'js', 'css'].each( function(type){
-			new Element('a', {href: '#'+type, text: type}).addEvent('click', function(){
+			new Element('a', {href: '#'+type, text: type}).addEvent('click', function(event){
+				event.preventDefault();
 				for(var item in informer){
 					if(item!=type){
 						informer[item].style.display='none';

@@ -63,6 +63,9 @@ window.addEvent('domready',function(){
 						{
 							"property": {
 								"name": "node2.1"
+							},
+							"state": {
+								"checked": "checked"
 							}
 						},
 						{

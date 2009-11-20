@@ -12,11 +12,17 @@
 			{
 				"property": {
 					"name": "node2.1"
+				},
+				"state": {
+					"checked": "checked"
 				}
 			},
 			{
 				"property": {
 					"name": "node2.2"
+				},
+				"state": {
+					"checked": "checked"
 				}
 			}
 		]
