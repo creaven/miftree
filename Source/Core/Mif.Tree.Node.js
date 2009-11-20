@@ -33,7 +33,6 @@ Mif.Tree.Node = new Class({
 	},
 	
 	getDOM: function(what){
-		console.log(this.name, what, this)
 		var node=$(this.tree.DOMidPrefix+this.UID);
 		if(what=='node') return node;
 		var wrapper=node.getFirst();

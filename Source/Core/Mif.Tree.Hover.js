@@ -20,7 +20,6 @@ Mif.Tree.implement({
 	hover: function(){
 		var cnode=this.mouse.node;
 		var ctarget=this.mouse.target;
-		console.log(this.hoverState, 'hs')
 		$each(this.hoverState, function(node, target, state){
 			if(node==cnode && (target=='node'||target==ctarget)) return;
 			if(node) {
@@ -48,14 +47,12 @@ Mif.Tree.implement({
 Mif.Tree.Hover={
 	
 	over: function(node, target){
-		console.log(node, target)
 		var wrapper=node.getDOM('wrapper');
 		wrapper.addClass((node.hoverClass||'mif-tree-hover')+'-'+target);
 		if(node.state.selected) wrapper.addClass((node.hoverClass||'mif-tree-hover')+'-selected-'+target);
 	},
 	
 	out: function(node, target){
-		console.log(node, target)
 		var wrapper=node.getDOM('wrapper');
 		wrapper.removeClass((node.hoverClass||'mif-tree-hover')+'-'+target).removeClass((node.hoverClass||'mif-tree-hover')+'-selected-'+target);
 	}
