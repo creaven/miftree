@@ -16,9 +16,10 @@ Mif.Tree.implement({
 					this.state.checked='checked';
 				});
 			}else{
-				node.getFirst().setParentCheckbox()
+				node.getFirst().setParentCheckbox(1)
 			}
 		});
+
 	},
 	
 	checkboxClick: function(event){
@@ -75,7 +76,7 @@ Mif.Tree.Node.implement({
 		}
 	},
 	
-	setParentCheckbox: function(){
+	setParentCheckbox: function(s){
 		if(!this.hasCheckbox || !this.parentNode || (this.tree.forest && !this.parentNode.parentNode)) return;
 		var parent=this.parentNode;
 		var state='';
@@ -102,9 +103,9 @@ Mif.Tree.Node.implement({
 				}
 			}
 		}
-		if(parent.state.checked==state){return;};
+		if(parent.state.checked==state ||(s && state=='partially' && parent.state.checked=='checked')){return;};
 		parent.setCheckboxState(state);
-		parent.setParentCheckbox();
+		parent.setParentCheckbox(s);
 	}
 
 });
