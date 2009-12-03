@@ -48,10 +48,7 @@
 				"property": {
 					"name": "node1.3.1"
 				},
-				"type": "folder",
-				"state": {
-					"checked": "checked"
-				}
+				"type": "folder"
 			},
 			{
 				"property": {
