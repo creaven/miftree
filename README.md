@@ -10,6 +10,7 @@ How to use
 [demo](http://mifjs.net/tree/Demos/index.html)
 [docs](http://mifjs.net/tree/Docs/index.html)
 
+	#js
 	tree = new Mif.Tree({
 		container: $('tree_container'),// tree container
 		types: {// node types
