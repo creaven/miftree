@@ -1,6 +1,17 @@
 /*
-Mif.Tree.Selection
+---
+ 
+name: Mif.Tree.Selection
+description: tree nodes selection
+license: MIT-Style License (http://mifjs.net/license.txt)
+copyright: Anton Samoylov (http://mifjs.net)
+authors: Anton Samoylov (http://mifjs.net)
+requires: Mif.Tree
+provides: Mif.Tree.Selection
+ 
+...
 */
+
 Mif.Tree.implement({
 	
 	initSelection: function(){

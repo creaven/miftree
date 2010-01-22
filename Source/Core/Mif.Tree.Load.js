@@ -1,6 +1,17 @@
 /*
-Mif.Tree.Load
+---
+ 
+name: Mif.Tree.Load
+description: load tree from json
+license: MIT-Style License (http://mifjs.net/license.txt)
+copyright: Anton Samoylov (http://mifjs.net)
+authors: Anton Samoylov (http://mifjs.net)
+requires: Mif.Tree
+provides: Mif.Tree.Load
+ 
+...
 */
+
 Mif.Tree.Load={
 		
 	children: function(children, parent, tree){

@@ -1,6 +1,17 @@
 /*
-Mif.Tree.Drag
+---
+ 
+name: Mif.Tree.Drag
+description: implements drag and drop
+license: MIT-Style License (http://mifjs.net/license.txt)
+copyright: Anton Samoylov (http://mifjs.net)
+authors: Anton Samoylov (http://mifjs.net)
+requires: Mif.Tree, Mif.Tree.Transform
+provides: Mif.Tree.Drag
+ 
+...
 */
+
 Mif.Tree.Drag = new Class({
 	
 	Implements: [new Events, new Options],

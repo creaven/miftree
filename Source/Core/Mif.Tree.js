@@ -1,6 +1,17 @@
 /*
-Mif.Tree
+---
+ 
+name: Mif.Tree
+description: Mif.Tree base Class
+license: MIT-Style License (http://mifjs.net/license.txt)
+copyright: Anton Samoylov (http://mifjs.net)
+authors: Anton Samoylov (http://mifjs.net)
+requires: core:1.2.4:*
+provides: Mif.Tree
+ 
+...
 */
+
 if(!Mif) var Mif={};
 if(!Mif.ids) Mif.ids={};
 if(!Mif.id) Mif.id=function(id){

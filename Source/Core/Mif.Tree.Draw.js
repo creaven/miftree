@@ -1,6 +1,17 @@
 /*
-Mif.Tree.Draw
+---
+ 
+name: Mif.Tree.Draw
+description: convert javascript tree object to html
+license: MIT-Style License (http://mifjs.net/license.txt)
+copyright: Anton Samoylov (http://mifjs.net)
+authors: Anton Samoylov (http://mifjs.net)
+requires: Mif.Tree
+provides: Mif.Tree.Draw
+ 
+...
 */
+
 Mif.Tree.Draw={
 
 	getHTML: function(node,html){

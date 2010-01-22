@@ -1,5 +1,15 @@
 /*
-Mif.Tree.Rename
+---
+ 
+name: Mif.Tree.Rename
+description: Mif.Tree.Rename
+license: MIT-Style License (http://mifjs.net/license.txt)
+copyright: Anton Samoylov (http://mifjs.net)
+authors: Anton Samoylov (http://mifjs.net)
+requires: Mif.Tree
+provides: Mif.Tree.Rename
+ 
+...
 */
 
 Mif.Tree.implement({

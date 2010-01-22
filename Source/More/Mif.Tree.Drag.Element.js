@@ -1,6 +1,17 @@
 /*
-Mif.Tree.Drag.Element.js
+---
+ 
+name: Mif.Tree.Drag.Element
+description: dom element droppable
+license: MIT-Style License (http://mifjs.net/license.txt)
+copyright: Anton Samoylov (http://mifjs.net)
+authors: Anton Samoylov (http://mifjs.net)
+requires: Mif.Tree.Drag
+provides: Mif.Tree.Drag.Element
+ 
+...
 */
+
 Mif.Tree.Drag.Element=new Class({
 
 	Implements: [Options, Events],

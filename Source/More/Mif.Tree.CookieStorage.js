@@ -1,5 +1,15 @@
 /*
-Mif.Tree.CookieStorage
+---
+ 
+name: Mif.Tree.CookieStorage
+description: Mif.Tree.Node
+license: MIT-Style License (http://mifjs.net/license.txt)
+copyright: Anton Samoylov (http://mifjs.net)
+authors: Anton Samoylov (http://mifjs.net)
+requires: Mif.Tree
+provides: Mif.Tree.CookieStorage
+ 
+...
 */
 
 Mif.Tree.CookieStorage = new Class({

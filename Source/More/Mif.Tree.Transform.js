@@ -1,6 +1,17 @@
 /*
-Mif.Tree.Transform
+---
+ 
+name: Mif.Tree.Transform
+description: implement move/copy/del/add actions
+license: MIT-Style License (http://mifjs.net/license.txt)
+copyright: Anton Samoylov (http://mifjs.net)
+authors: Anton Samoylov (http://mifjs.net)
+requires: Mif.Tree
+provides: Mif.Tree.Transform
+ 
+...
 */
+
 Mif.Tree.Node.implement({
 	
 	inject: function(node, where, element){//element - internal property

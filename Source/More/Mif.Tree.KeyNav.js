@@ -1,6 +1,17 @@
 /*
-Mif.Tree.KeyNav
+---
+ 
+name: Mif.Tree.KeyNav
+description: Mif.Tree.KeyNav
+license: MIT-Style License (http://mifjs.net/license.txt)
+copyright: Anton Samoylov (http://mifjs.net)
+authors: Anton Samoylov (http://mifjs.net)
+requires: Mif.Tree
+provides: Mif.Tree.KeyNav
+ 
+...
 */
+
 Mif.Tree.KeyNav=new Class({
 	
 	initialize: function(tree){

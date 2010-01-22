@@ -1,6 +1,17 @@
 /*
-Mif.Tree.Sort
+---
+
+name: Mif.Tree.Sort
+description: Mif.Tree.Sort
+license: MIT-Style License (http://mifjs.net/license.txt)
+copyright: Anton Samoylov (http://mifjs.net)
+authors: Anton Samoylov (http://mifjs.net)
+requires: Mif.Tree
+provides: Mif.Tree.Sort
+
+...
 */
+
 Mif.Tree.implement({
 	
 	initSortable: function(sortFunction){

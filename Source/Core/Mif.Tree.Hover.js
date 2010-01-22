@@ -1,6 +1,17 @@
 /*
-Mif.Tree.Hover
+---
+ 
+name: Mif.Tree.Hover
+description: hover(mouseover/mouseout) events/effects
+license: MIT-Style License (http://mifjs.net/license.txt)
+copyright: Anton Samoylov (http://mifjs.net)
+authors: Anton Samoylov (http://mifjs.net)
+requires: Mif.Tree
+provides: Mif.Tree.Hover
+ 
+...
 */
+
 Mif.Tree.implement({
 	
 	initHover: function(){

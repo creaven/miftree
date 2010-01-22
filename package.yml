@@ -1,0 +1,42 @@
+name: Mif.Tree
+ 
+web: [http://mifjs.net/tree/](http://mifjs.net/tree/)
+ 
+description: javascript tree for web applications
+ 
+authors: [Anton Samoylov](http://mifjs.net)
+ 
+license: MIT License
+ 
+copyright: &copy; [Anton Samoylov](http://mifjs.net)
+ 
+author: magmoro
+ 
+category: Interface
+ 
+tags: [tree, application]
+ 
+sources:
+  - "Source/Core/Mif.Tree.js"
+  - "Source/Core/Mif.Tree.Node.js"
+  - "Source/Core/Mif.Tree.Load.js"
+  - "Source/Core/Mif.Tree.Draw.js"
+  - "Source/Core/Mif.Tree.Hover.js"
+  - "Source/Core/Mif.Tree.Selection.js"
+  - "Source/Core/Mif.Tree.mootools-patch.js"
+  - "Source/More/Mif.Tree.KeyNav.js"
+  - "Source/More/Mif.Tree.Sort.js"
+  - "Source/More/Mif.Tree.Drag.js"
+  - "Source/More/Mif.Tree.Drag.Element.js"
+  - "Source/More/Mif.Tree.Transform.js"
+  - "Source/More/Mif.Tree.Rename.js"
+  - "Source/More/Mif.Tree.Checkbox.js"
+  - "Source/More/Mif.Tree.CookieStorage.js"
+  
+
+demo: http://mifjs.net/tree/Demos/index.html
+docs: http://mifjs.net/tree/Docs/index.html
+
+current: 1.2
+
+
