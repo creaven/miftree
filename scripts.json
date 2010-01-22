@@ -23,10 +23,6 @@
 		"Mif.Tree.Load":{
 			"deps": ["Mif.Tree"],
 			"desc": "load nodes from json, load json"
-		},
-		"Mif.Tree.mootools-patch":{
-			"deps": [],
-			"desc": "fix mootools bugs patch"
 		}
 	},
 	"More":{

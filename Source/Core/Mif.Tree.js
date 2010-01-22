@@ -6,8 +6,10 @@ description: Mif.Tree base Class
 license: MIT-Style License (http://mifjs.net/license.txt)
 copyright: Anton Samoylov (http://mifjs.net)
 authors: Anton Samoylov (http://mifjs.net)
-requires: core:1.2.4:*
-provides: [Mif.Tree.Node, Mif.Tree.Load, Mif.Tree.Draw, Mif.Tree.Hover, Mif.Tree.Selection, Mif.Tree.Checkbox, Mif.Tree.CookieStorage, Mif.Tree.Drag, Mif.Tree.Drag.Element, Mif.Tree.KeyNav, Mif.Tree.Rename, Mif.Tree.Sort, Mif.Tree.Transform]
+requires: 
+  - core:1.2.4:*
+  - more:/Fx.Scroll
+provides: Mif.Tree
  
 ...
 */
