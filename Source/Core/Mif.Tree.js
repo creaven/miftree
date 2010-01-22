@@ -19,6 +19,8 @@ if(!Mif.id) Mif.id=function(id){
 }
 
 Mif.Tree = new Class({
+	
+	version: 1.2,
 
 	Implements: [new Events, new Options],
 		
@@ -294,8 +296,6 @@ Mif.Tree = new Class({
 	
 });
 Mif.Tree.UID=0;
-
-Mif.Tree.version='1.2dev';
 
 Array.implement({
 	
