@@ -53,9 +53,6 @@
 		"DropConfirm":{
 			"title": "D'n'd with drop confirmation"
 		},
-		"DragElementToTree":{
-			"title": "Element to Tree Drag And Drop demo"
-		},
 		"Rename":{
 			"title": "Rename node"
 		},
