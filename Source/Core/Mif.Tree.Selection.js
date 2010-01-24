@@ -15,21 +15,21 @@ provides: Mif.Tree.Selection
 Mif.Tree.implement({
 	
 	initSelection: function(){
-		this.defaults.selectClass='';
+		this.defaults.selectClass = '';
 		this.wrapper.addEvent('mousedown', this.attachSelect.bindWithEvent(this));
 	},
 	
 	attachSelect: function(event){
 		if(!['icon', 'name', 'node'].contains(this.mouse.target)) return;
-		var node=this.mouse.node;
+		var node = this.mouse.node;
 		if(!node) return;
 		this.select(node);
 	},
 	
 	select: function(node) {
 		if(!node) return this;
-		var current=this.selected;
-		if (current==node) return this;
+		var current = this.selected;
+		if (current == node) return this;
 		if (current) {
 			current.select(false);
 			this.fireEvent('unSelect', [current]).fireEvent('selectChange', [current, false]);
@@ -41,9 +41,9 @@ Mif.Tree.implement({
 	},
 	
 	unselect: function(){
-		var current=this.selected;
+		var current = this.selected;
 		if(!current) return this;
-		this.selected=false;
+		this.selected = false;
 		current.select(false);
 		this.fireEvent('unSelect', [current]).fireEvent('selectChange', [current, false]);
 		return this;

@@ -63,11 +63,11 @@ width:18px;
 
 .mif-tree-node{
 width:18px;
-background:url('../../Source/assets/../../Source/assets/images/line.gif') repeat-y 8px 0px;
+background:url('../../Source/assets/images/line.gif') repeat-y 8px 0px;
 }
 
 .mif-tree-node-last{
-background:url('../../Source/assets/../../Source/assets/images/line.gif') no-repeat 8px 0px;
+background:url('../../Source/assets/images/line.gif') no-repeat 8px 0px;
 }
 
 .mif-tree-name{
@@ -86,13 +86,13 @@ color:blue;
 
 
 .mif-tree-node-wrapper{
-background:url('../../Source/assets/../../Source/assets/images/horizontal-line.gif') no-repeat 9px center;
+background:url('../../Source/assets/images/horizontal-line.gif') no-repeat 9px center;
 }
 
 /*@gadjets*/
 
 .mif-tree-gadjet{
-background-image:url('../../Source/assets/../../Source/assets/images/gadjets.gif');
+background-image:url('../../Source/assets/images/gadjets.gif');
 padding-right: 16px;
 z-index:1;
 overflow:hidden;
@@ -124,7 +124,7 @@ background-position: -72px 50%;
 
 
 /*.mif-tree-gadjet-hover{
-background-image:url('../../Source/assets/../../Source/assets/images/gadjets-hover.gif');
+background-image:url('../../Source/assets/images/gadjets-hover.gif');
 }*/
 
 
@@ -139,27 +139,27 @@ cursor:inherit;
 }
 
 .mif-tree-open-icon{
-background-image:url('../../Source/assets/../../Source/assets/images/openicon.gif')
+background-image:url('../../Source/assets/images/openicon.gif')
 }
 
 .mif-tree-close-icon{
-background-image:url('../../Source/assets/../../Source/assets/images/closeicon.gif')
+background-image:url('../../Source/assets/images/closeicon.gif')
 }
 
 .mif-tree-loader-open-icon,.mif-tree-loader-close-icon{
-background-image:url('../../Source/assets/../../Source/assets/images/mootree_loader.gif');
+background-image:url('../../Source/assets/images/mootree_loader.gif');
 }
 
 .mif-tree-book-icon{
-background-image:url('../../Source/assets/../../Source/assets/images/book_icon.gif');
+background-image:url('../../Source/assets/images/book_icon.gif');
 }
 
 .mif-tree-bin-open-icon{
-background-image:url('../../Source/assets/../../Source/assets/images/bin_open_icon.gif');
+background-image:url('../../Source/assets/images/bin_open_icon.gif');
 }
 
 .mif-tree-bin-close-icon{
-background-image:url('../../Source/assets/../../Source/assets/images/bin_close_icon.gif');
+background-image:url('../../Source/assets/images/bin_close_icon.gif');
 }
 
 
@@ -183,7 +183,7 @@ text-decoration:underline
 height:1px;
 overflow: hidden;
 position: absolute;
-background-image:url('../../Source/assets/../../Source/assets/images/1.gif');
+background-image:url('../../Source/assets/images/1.gif');
 background-repeat:repeat-x;
 background-color:#292fef;
 }
@@ -213,7 +213,7 @@ padding-bottom:1px;
 padding-left:16px;
 background-color:#fff;
 background-repeat:no-repeat;
-background-image:url('../../Source/assets/../../Source/assets/images/dropzone.gif');
+background-image:url('../../Source/assets/images/dropzone.gif');
 }
 
 .mif-tree-ghost-after{
@@ -251,19 +251,19 @@ padding-left:18px;
 }
 
 .mif-tree-node-checked, .mif-tree-node-checked .mif-tree-checkbox{
-background:url('../../Source/assets/../../Source/assets/images/checked.gif') center 2px no-repeat;
+background:url('../../Source/assets/images/checked.gif') center 2px no-repeat;
 }
 
 .mif-tree-node-unchecked, .mif-tree-node-unchecked .mif-tree-checkbox{
-background:url('../../Source/assets/../../Source/assets/images/unchecked.gif') center 2px no-repeat;
+background:url('../../Source/assets/images/unchecked.gif') center 2px no-repeat;
 }
 
 .mif-tree-node-checked-selected{
-background:url('../../Source/assets/../../Source/assets/images/checked_selected.gif') center 2px no-repeat;
+background:url('../../Source/assets/images/checked_selected.gif') center 2px no-repeat;
 }
 
 .mif-tree-node-unchecked-selected{
-background:url('../../Source/assets/../../Source/assets/images/unchecked_selected.gif') center 2px no-repeat;
+background:url('../../Source/assets/images/unchecked_selected.gif') center 2px no-repeat;
 }
 
 
