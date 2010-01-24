@@ -44,7 +44,7 @@ Mif.Tree = new Class({
 			dfltType: this.options.dfltType,
 			height: this.options.height,
 			container: $(options.container),
-			UID: 0,
+			UID: ++Mif.Tree.UID,
 			key: {},
 			expanded: []
 		});
@@ -62,7 +62,6 @@ Mif.Tree = new Class({
 		this.$index = [];
 		this.updateOpenState();
 		if(this.options.expandTo) this.initExpandTo();
-		Mif.Tree.UID++;
 		this.DOMidPrefix='mif-tree-';
 		this.wrapper = new Element('div').addClass('mif-tree-wrapper').injectInside(this.container);
 		this.initEvents();
@@ -76,6 +75,9 @@ Mif.Tree = new Class({
 			}
 			parent._toggle = [];
 		});
+		var id = this.options.id;
+		this.id = id;
+		if(id != null) Mif.ids[id] = this;
 		if (MooTools.version >= '1.2.2' && this.options.initialize) this.options.initialize.call(this);
 	},
 	

@@ -9,7 +9,36 @@ window.addEvent('domready',function(){
 	});
 
 	tree = new Mif.Tree({
+		id: 'tree1',
 		container: $('tree_container'),// tree container
+		initialize: function(){
+			this.initCheckbox('simple');
+			var storage=new Mif.Tree.CookieStorage(this);
+			var switchStorage=new Mif.Tree.CookieStorage(this, {event: 'switch', action: 'switch'});
+			var selectStorage=new Mif.Tree.CookieStorage(this, {event: 'selectChange', action: 'switchSelect'});
+			this.addEvent('load', function(){
+				storage.restore();
+				switchStorage.restore();
+				selectStorage.restore();
+			}).addEvent('loadChildren', function(){
+				storage.restore();
+				switchStorage.restore();
+				selectStorage.restore();
+			});
+		},
+		types: {// node types
+			folder:{
+				openIcon: 'mif-tree-open-icon',//css class open icon
+				closeIcon: 'mif-tree-close-icon'// css class close icon
+			}
+		},
+		dfltType:'folder',//default node type
+		height: 18//node height
+	});
+	
+	tree2 = new Mif.Tree({
+		id: 'tree2',
+		container: $('tree_container2'),// tree container
 		initialize: function(){
 			this.initCheckbox('simple');
 			var storage=new Mif.Tree.CookieStorage(this);
@@ -84,7 +113,7 @@ window.addEvent('domready',function(){
 		}
 	];
 
-	var json=[
+	var json = [
 		{
 			"property": {
 				"name": "root",
@@ -163,9 +192,90 @@ window.addEvent('domready',function(){
 		}
 	];
 	
+	var json2 = [
+		{
+			"property": {
+				"name": "root",
+				"id": "root_2"
+			},
+			"children": [
+				{
+					"property": {
+						"name": "node1",
+						"id": "node1_2"
+					}
+				},
+				{
+					"property": {
+						"name": "node2",
+						"id": "node2_2"
+					},
+					"children":[
+						{
+							"property": {
+								"name": "node2.1",
+								"id": "node2.1_2"
+							}
+						},
+						{
+							"property": {
+								"name": "node2.2",
+								"id": "node2.2_2"
+							},
+							"children":[
+								{
+									"property": {
+										"name": "node2.2.1",
+										"id": "node2.2.1_2"
+									}
+								},
+								{
+									"property": {
+										"name": "node2.2.2",
+										"id": "node2.2.2_2"
+									}
+								}
+							]
+						}
+					]
+				},
+				{
+					"property": {
+						"name": "node4",
+						"id": "node4_2"
+					},
+					"children":	[
+						{
+							"property":{
+								"name": "nodeX",
+								"id": "nodeXXXX_2"
+							}
+						},
+						{
+							"property":{
+								"name": "nodeY",
+								"id": "nodeY_2"
+							}
+						}
+					]
+				},
+				{
+					"property": {
+						"name": "node3 loadable",
+						"id": "node3_2"
+					}
+				}
+			]
+		}
+	];
+	
 	// load tree from json.
 	tree.load({
 		json: json
 	});
+	
+	tree2.load({
+		json: json2
+	})
 	
 });

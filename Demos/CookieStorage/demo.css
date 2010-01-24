@@ -5,6 +5,13 @@ position:relative;
 border:solid 1px #b7b7b7;
 }
 
+#tree_container2{
+height:200px;
+width:200px;
+position:relative;
+border:solid 1px #b7b7b7;
+margin-top:10px;
+}
 
 /*@global*/
 
