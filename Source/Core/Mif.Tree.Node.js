@@ -305,7 +305,7 @@ Mif.Tree.Node = new Class({
 				this.tree.$getIndex();
 				var previous = this.getPreviousVisible();
 				var next = this.getNextVisible();
-				[_previous, _next, previous, next, parent].each(function(node){
+				[_previous, _next, previous, next, parent, this].each(function(node){
 					Mif.Tree.Draw.update(node);
 				});
 				return this;
