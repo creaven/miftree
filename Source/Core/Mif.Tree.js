@@ -62,7 +62,6 @@ Mif.Tree = new Class({
 		this.$index = [];
 		this.updateOpenState();
 		if(this.options.expandTo) this.initExpandTo();
-		this.DOMidPrefix='mif-tree-';
 		this.wrapper = new Element('div').addClass('mif-tree-wrapper').injectInside(this.container);
 		this.initEvents();
 		this.initScroll();
@@ -219,7 +218,7 @@ Mif.Tree = new Class({
 	
 	toggleDblclick: function(event){
 		var target = this.mouse.target;
-		if(!(target == 'name'||target == 'icon')) return;
+		if(!(target == 'name'||target == 'icon'||target == 'node') || !this.mouse.node) return;
 		this.mouse.node.toggle();
 	},
 	

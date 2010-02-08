@@ -44,11 +44,12 @@ Mif.Tree.Node = new Class({
 	},
 	
 	getDOM: function(what){
-		var node = $(this.tree.DOMidPrefix+this.UID);
+		var node = $('mif-tree-' + this.UID);
+		if(!node) return;
 		if(what == 'node') return node;
 		var wrapper = node.getFirst();
 		if(what == 'wrapper') return wrapper;
-		if(what == 'children') return wrapper.getNext();
+		if(what == 'children') return node.getNext();
 		return wrapper.getElement('.mif-tree-'+what);
 	},
 	
@@ -298,6 +299,7 @@ Mif.Tree.Node = new Class({
 				return this;
 			case 'hidden':
 				this.getDOM('node').setStyle('display', nv ? 'none' : 'block');
+				this.getDOM('children').setStyle('display', nv ? 'none' : 'block');
 				var _previous = this.getPreviousVisible();
 				var _next = this.getNextVisible();
 				var parent = this.getParent();
@@ -305,7 +307,7 @@ Mif.Tree.Node = new Class({
 				this.tree.$getIndex();
 				var previous = this.getPreviousVisible();
 				var next = this.getNextVisible();
-				[_previous, _next, previous, next, parent].each(function(node){
+				[_previous, _next, previous, next, parent, this].each(function(node){
 					Mif.Tree.Draw.update(node);
 				});
 				return this;

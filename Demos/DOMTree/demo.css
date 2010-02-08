@@ -61,7 +61,7 @@ padding:0;
 overflow:auto;
 font-family:sans-serif;
 font-size:11px;
-line-height:18px;/******Tree node height******/
+line-height:18px;/*node height*/
 white-space:nowrap;
 cursor:default;
 }
@@ -100,6 +100,11 @@ cursor:inherit;
 .mif-tree-children{
 padding-left: 18px;
 width:auto;
+background:url('../../Source/assets/images/line.gif') repeat-y 8px 0px;
+}
+
+.mif-tree-children-last{
+background:none;
 }
 
 .mif-tree-node{

@@ -14,7 +14,7 @@ provides: Mif.Tree.Transform
 
 Mif.Tree.Node.implement({
 	
-	inject: function(node, where, element){//element - internal property
+	inject: function(node, where, elements){//element - internal property
 		where=where||'inside';
 		var parent=this.parentNode;
 		function getPreviousVisible(node){
@@ -26,7 +26,7 @@ Mif.Tree.Node.implement({
 			}
 		}
 		var previousVisible=getPreviousVisible(this);
-		var type=element ? 'copy' : 'move';
+		var type=elements ? 'copy' : 'move';
 		switch(where){
 			case 'after':
 			case 'before':
@@ -69,7 +69,7 @@ Mif.Tree.Node.implement({
 		tree.fireEvent('structureChange', [this, node, where, type]);
 		tree.$getIndex();
 		if(oldTree)	oldTree.$getIndex();
-		Mif.Tree.Draw.inject(this, element);
+		Mif.Tree.Draw.inject(this, elements);
 		[node, this, parent, previousVisible, getPreviousVisible(this)].each(function(node){
 			Mif.Tree.Draw.update(node);
 		});

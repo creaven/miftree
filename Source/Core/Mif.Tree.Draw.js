@@ -15,7 +15,7 @@ provides: Mif.Tree.Draw
 Mif.Tree.Draw = {
 
 	getHTML: function(node,html){
-		var prefix = node.tree.DOMidPrefix;
+		var prefix = 'mif-tree-';
 		if($defined(node.state.checked)){
 			if(!node.hasCheckbox) node.state.checked='nochecked';
 			var checkbox = '<span class="mif-tree-checkbox mif-tree-node-'+node.state.checked+'" uid="'+node.UID+'">'+Mif.Tree.Draw.zeroSpace+'</span>';
@@ -31,8 +31,8 @@ Mif.Tree.Draw = {
 				'<span class="mif-tree-icon ',(node.closeIconUrl?'" style="background-image: url('+node.closeIconUrl+')" ': node.closeIcon+'"'),' uid="',node.UID,'">',Mif.Tree.Draw.zeroSpace,'</span>',
 				'<span class="mif-tree-name" uid="',node.UID,'">',node.name,'</span>',
 			'</span>',
-			'<div class="mif-tree-children" style="display:none"></div>',
-		'</div>'
+		'</div>',
+		'<div class="mif-tree-children ',(node.isLast() ? 'mif-tree-children-last' : ''),'" style="display:none"></div>'
 		);
 		return html;
 	},
@@ -58,12 +58,12 @@ Mif.Tree.Draw = {
 	},
 	
 	forestRoot: function(tree){
-		var container = new Element('div').addClass('mif-tree-children-root').injectInside(tree.wrapper);
+		var container = new Element('div').addClass('mif-tree-children-root').inject(tree.wrapper);
 		Mif.Tree.Draw.children(tree.root, container);
 	},
 	
 	node: function(node){
-		return new Element('div').set('html', this.getHTML(node).join('')).getFirst();
+		return new Element('div').set('html', this.getHTML(node).join('')).getChildren();
 	},
 	
 	isUpdatable: function(node){
@@ -87,7 +87,7 @@ Mif.Tree.Draw = {
 		node.getDOM('node')[(node.isLastVisible() ?'add' : 'remove')+'Class']('mif-tree-node-last');
 		if(node.$loading) return;
 		var children = node.getDOM('children');
-		if(node.isOpen()){
+		if(node.isOpen() && !node.hidden){
 			if(!node.$draw) Mif.Tree.Draw.children(node);
 			children.style.display = 'block';
 		}else{
@@ -97,12 +97,13 @@ Mif.Tree.Draw = {
 		return node;
 	},
 	
-	inject: function(node, element){
+	inject: function(node, elements){
 		if(!this.isUpdatable(node)) return;
-		element = element || node.getDOM('node') || this.node(node);
+		elements = elements || [node.getDOM('node'), node.getDOM('children')];
+		if(!elements[0]) elements = this.node(node);
 		var previous = node.getPrevious();
 		if(previous){
-			element.injectAfter(previous.getDOM('node'));
+			new Elements([elements[1], elements[0]]).inject(previous.getDOM('children'), 'after');
 			return;
 		}
 		var container;
@@ -113,7 +114,7 @@ Mif.Tree.Draw = {
 		}else{
 			container = node.parentNode.getDOM('children');
 		}
-		element.inject(container, 'top');
+		new Elements([elements[1], elements[0]]).inject(container, 'top');
 	}
 	
 };
