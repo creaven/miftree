@@ -22,7 +22,7 @@ if(!Mif.id) Mif.id = function(id){
 
 Mif.Tree = new Class({
 	
-	version: '1.2.4',
+	version: '1.2.5',
 
 	Implements: [new Events, new Options],
 		
@@ -88,6 +88,7 @@ Mif.Tree = new Class({
 			mouseout: this.mouse.bindWithEvent(this),
 			mouseleave: this.mouseleave.bind(this),
 			mousedown: function(event){
+				if(event.which != 1) return;
 				this.fireEvent('mousedown');
 				return this.stopSelection(event);
 			}.bind(this),
