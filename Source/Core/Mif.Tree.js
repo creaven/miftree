@@ -22,7 +22,7 @@ if(!Mif.id) Mif.id = function(id){
 
 Mif.Tree = new Class({
 	
-	version: '1.2.5',
+	version: '1.2.6dev',
 
 	Implements: [new Events, new Options],
 		
@@ -125,13 +125,16 @@ Mif.Tree = new Class({
 	},
     
 	focus: function(){
-		if(this.focused) return this;
+		if(Mif.Focus && Mif.Focus == this) return this;
+		if(Mif.Focus) Mif.Focus.blur();
+		Mif.Focus = this;
 		this.focused = true;
 		this.container.addClass('mif-tree-focused');
 		return this.fireEvent('focus');
 	},
     
 	blur: function(){
+		Mif.Focus = null;
 		if(!this.focused) return this;
 		this.focused = false;
 		this.container.removeClass('mif-tree-focused');
@@ -197,8 +200,8 @@ Mif.Tree = new Class({
 	
 	getCoords: function(event){
 		var position = this.wrapper.getPosition();
-		var x = event.client.x-position.x;
-		var y = event.client.y-position.y;
+		var x = event.page.x-position.x;
+		var y = event.page.y-position.y;
 		var wrapper = this.wrapper;
 		if((y-wrapper.scrollTop > wrapper.clientHeight)||(x - wrapper.scrollLeft > wrapper.clientWidth)){//scroll line
 			y = -1;
