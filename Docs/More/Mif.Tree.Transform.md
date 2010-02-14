@@ -20,8 +20,8 @@ Move this node after, before or inside another.
 ### Arguments:
 
 1. thisNode - (*mif:tree:node*) this node.
-1. node - (*mif:tree:node*) node relative which inject this node.
-2. where - (*string*) the place to inject this node.
+2. node - (*mif:tree:node*) node relative which inject this node.
+3. where - (*string*) the place to inject this node.
 
 ### Events:
 
@@ -121,8 +121,8 @@ copy this node after, before or inside another.
 ### Arguments:
 
 1. thisNode - (*mif:tree:node*) this node.
-1. node - (*mif:tree:node*) node relative which inject this node.
-2. where - (*string*) the place to inject this node.
+2. node - (*mif:tree:node*) node relative which inject this node.
+3. where - (*string*) the place to inject this node.
 
 ### Events:
 
@@ -270,8 +270,8 @@ Add new node.
 ### Arguments:
 
 1. node - (*mixed*: object or mif:tree:node) node or node options.
-1. current - (*mif:tree:node*) node relative which add new node.
-2. where - (*string*) the place to add this node.
+2. current - (*mif:tree:node*) node relative which add new node.
+3. where - (*string*) the place to add this node.
 
 ### Events:
 
