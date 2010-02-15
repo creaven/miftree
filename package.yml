@@ -23,7 +23,6 @@ sources:
   - "Source/Core/Mif.Tree.Draw.js"
   - "Source/Core/Mif.Tree.Hover.js"
   - "Source/Core/Mif.Tree.Selection.js"
-  - "Source/Core/Mif.Tree.mootools-patch.js"
   - "Source/More/Mif.Tree.KeyNav.js"
   - "Source/More/Mif.Tree.Sort.js"
   - "Source/More/Mif.Tree.Drag.js"

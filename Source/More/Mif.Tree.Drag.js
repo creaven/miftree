@@ -27,7 +27,7 @@ Mif.Tree.Drag = new Class({
 		scrollDelay: 100,
 		scrollSpeed: 100,
 		modifier: 'control',//copy
-		startPlace: ['icon', 'name'],
+		startPlace: ['icon', 'name', 'node'],
 		allowContainerDrop: true
 	},
 
@@ -54,7 +54,7 @@ Mif.Tree.Drag = new Class({
 			tree.root.dropDenied.combine(['before', 'after']);
 		});
 		
-		this.pointer = new Element('div').addClass('mif-tree-pointer').injectInside(tree.wrapper);
+		this.pointer = new Element('div').addClass('mif-tree-pointer').inject(tree.wrapper).set('html', '<div class="left"></div><div class="right"></div>');
 		
 		this.current = Mif.Tree.Drag.current;
 		this.target = Mif.Tree.Drag.target;
@@ -80,7 +80,6 @@ Mif.Tree.Drag = new Class({
 		
 		this.addEvent('start', function(){
 			Mif.Tree.Drag.dropZone=this;
-			this.tree.unselect();
 			document.addEvent('keydown', this.bound.keydown);
 			this.setDroppables();
 			this.droppables.each(function(item){
@@ -160,7 +159,6 @@ Mif.Tree.Drag = new Class({
 	},
 	
 	onleave: function(){
-		this.tree.unselect();
 		this.clean();
 		$clear(this.scrolling);
 		this.scrolling = null;
@@ -270,10 +268,8 @@ Mif.Tree.Drag = new Class({
 		}
 		Mif.Tree.Drag.ghost.firstChild.className = 'mif-tree-ghost-icon mif-tree-ghost-' + ghostType;
 		if(where == 'notAllowed'){
-			this.tree.unselect();
 			return;
 		}
-		if(target && target.tree) this.tree.select(target);
 		if(where == 'inside'){
 			if(target.tree && !target.isOpen() && !this.openTimer && (target.loadable || target.hasChildren()) ){
 				this.wrapper = target.getDOM('wrapper').setStyle('cursor', 'progress');
@@ -287,6 +283,7 @@ Mif.Tree.Drag = new Class({
 			var top = this.index*this.tree.height;
 			if(where == 'after') top += this.tree.height;
 			this.pointer.setStyles({
+				display: 'block',
 				left: wrapper.scrollLeft,
 				top: top,
 				width: wrapper.clientWidth
@@ -295,7 +292,7 @@ Mif.Tree.Drag = new Class({
 	},
 
 	clean: function(){
-		this.pointer.style.width = 0;
+		this.pointer.style.display = 'none';
 		if(this.openTimer){
 			$clear(this.openTimer);
 			this.openTimer = false;
@@ -305,11 +302,11 @@ Mif.Tree.Drag = new Class({
 	},
 	
 	addGhost: function(){
-		var wrapper = this.current.getDOM('wrapper');
 		var ghost = new Element('span').addClass('mif-tree-ghost');
-		ghost.adopt(Mif.Tree.Draw.node(this.current).getFirst())
-		.injectInside(document.body).addClass('mif-tree-ghost-notAllowed').setStyle('position', 'absolute');
-		new Element('span').set('html',Mif.Tree.Draw.zeroSpace).injectTop(ghost);
+		var el = Mif.Tree.Draw.node(this.current).getFirst()[0].removeClass('mif-tree-node-selected');
+		ghost.adopt(el)
+		.inject(document.body).addClass('mif-tree-ghost-notAllowed').setStyle('position', 'absolute');
+		new Element('span').set('html',Mif.Tree.Draw.zeroSpace).inject(ghost, 'top');
 		ghost.getLast().getFirst().className = '';
 		Mif.Tree.Drag.ghost = ghost;
 	},

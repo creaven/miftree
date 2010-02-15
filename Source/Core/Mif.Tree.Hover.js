@@ -58,14 +58,15 @@ Mif.Tree.implement({
 Mif.Tree.Hover = {
 	
 	over: function(node, target){
-		var wrapper = node.getDOM('wrapper');
-		wrapper.addClass((node.hoverClass||'mif-tree-hover')+'-'+target);
-		if(node.state.selected) wrapper.addClass((node.hoverClass||'mif-tree-hover')+'-selected-'+target);
+		var nodeEl = node.getDOM('node');
+		nodeEl.addClass((node.hoverClass || 'mif-tree-hover') + '-' + target);
+		if(node.state.selected) nodeEl.addClass((node.hoverClass || 'mif-tree-hover') + '-selected-' + target);
 	},
 	
 	out: function(node, target){
-		var wrapper = node.getDOM('wrapper');
-		wrapper.removeClass((node.hoverClass||'mif-tree-hover')+'-'+target).removeClass((node.hoverClass||'mif-tree-hover')+'-selected-'+target);
+		node.getDOM('node')
+		.removeClass((node.hoverClass || 'mif-tree-hover') + '-' + target)
+		.removeClass((node.hoverClass || 'mif-tree-hover') + '-selected-' + target);
 	}
 	
 };

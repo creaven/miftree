@@ -6,7 +6,7 @@ height:100%;
 margin:0;
 padding:0;
 overflow:auto;
-font-family:sans-serif;
+font-family:Lucida Grande, Helvetica, Arial, sans-serif;
 font-size:12px;
 line-height:18px;/*node height*/
 white-space:nowrap;
@@ -60,6 +60,10 @@ color:red;
 
 .mif-tree-name a:hover{
 color:blue;
+}
+
+.mif-tree-hover-node{
+background:#DBE8FC;
 }
 
 
@@ -127,7 +131,7 @@ background-image:url('../images/bin_middle_icon.gif');
 /*@selection*/
 
 .mif-tree-node-selected{
-background-color: #578CDF;
+background-color: #4094F8;
 color:#fff;
 text-transform:italic;
 }
@@ -135,23 +139,54 @@ text-transform:italic;
 /*@d'n'd*/
 .mif-tree-pointer{
 height:1px;
-overflow: hidden;
+overflow: visible;
+font-size:1px;
 position: absolute;
-background-image:url('../images/1.gif');
+background-image:none;/*url('../images/1.gif');*/
 background-repeat:repeat-x;
-background-color:#292fef;
+background-color:#528fbd;
+display:none;
+z-index:1;
 }
 
+.mif-tree-pointer .left, .mif-tree-pointer .right{
+position:absolute;
+left:0;
+top:-6px;
+height:13px;
+width:9px;
+background:url('../images/pointer-left.png') no-repeat center center;
+}
+
+.mif-tree-pointer .right{
+left:auto;
+right:0;
+background-image:url('../images/pointer-right.png');
+}
 
 .mif-tree-ghost{
 background-color:#fff;
-border:solid 2px #e8e8f7;
+border:solid 1px #C6C8CD;
 padding-left:2px;
 position:absolute;
+font-family:Lucida Grande, Helvetica, Arial, sans-serif;
+font-size:12px;
+color:#000;
+border-radius:4px;
+-moz-border-radius:4px;
+-webkit-border-radius:4px;
+-moz-box-shadow:0px 0px 20px #D4D4D4;
+-webkit-box-shadow:0px 0px 20px #D4D4D4;
+box-shadow:0px 0px 20px #D4D4D4;
+height:20px;
 }
 
-.mif-tree-ghost .mif-tree-node-wrapper{
-background:none;
+
+.mif-tree-ghost .mif-tree-node-wrapper, .mif-tree-ghost .mif-tree-ghost-icon{
+display:inline-block;
+height:20px;
+line-height:20px;
+overflow:hidden;
 }
 
 .mif-tree-ghost span.mif-tree-text{
@@ -187,7 +222,7 @@ background-position:-32px 2px;
 }
 
 .mif-tree-drag-current{
-background-color:#cfcfd8;
+
 }
 
 .mif-tree-replace{

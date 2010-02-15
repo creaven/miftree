@@ -50,7 +50,7 @@ Mif.Tree.Node = new Class({
 		var wrapper = node.getFirst();
 		if(what == 'wrapper') return wrapper;
 		if(what == 'children') return node.getNext();
-		return wrapper.getElement('.mif-tree-'+what);
+		return wrapper.getElement('.mif-tree-' + what);
 	},
 	
 	getGadjetType: function(){
@@ -303,7 +303,7 @@ Mif.Tree.Node = new Class({
 				var _previous = this.getPreviousVisible();
 				var _next = this.getNextVisible();
 				var parent = this.getParent();
-				this[p] = this.property[p]=nv;
+				this[p] = this.property[p] = nv;
 				this.tree.$getIndex();
 				var previous = this.getPreviousVisible();
 				var next = this.getNextVisible();

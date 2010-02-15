@@ -168,14 +168,15 @@ Mif.Tree = new Class({
 	},
 	
 	getTarget: function(event){
-		var target = event.target, node;
+		var target = event.target;
+		var node;
 		while(!/mif-tree/.test(target.className)){
 			target = target.parentNode;
-		}
+		};
 		var test = target.className.match(/mif-tree-(gadjet)-[^n]|mif-tree-(icon)|mif-tree-(name)|mif-tree-(checkbox)/);
 		if(!test){
 			var y = this.mouse.coords.y;
-			if(y == -1||!this.$index) {
+			if(y == -1 || !this.$index){
 				node = false;
 			}else{
 				node = this.$index[((y)/this.height).toInt()];
@@ -184,7 +185,7 @@ Mif.Tree = new Class({
 				node: node,
 				target: 'node'
 			};
-		}
+		};
 		for(var i = 5; i > 0; i--){
 			if(test[i]){
 				var type = test[i];
