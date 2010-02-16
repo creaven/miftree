@@ -183,6 +183,7 @@ Mif.Tree.Drag = new Class({
 		var dropZone = Mif.Tree.Drag.dropZone;
 		if(!dropZone||!dropZone.ondrag) return;
 		Mif.Tree.Drag.dropZone.ondrag(event);
+		this.fireEvent('drag');
 	},
 	
 	addGhost: function(){

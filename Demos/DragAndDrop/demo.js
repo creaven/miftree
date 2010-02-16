@@ -44,12 +44,6 @@ window.addEvent('domready',function(){
 		onStart: function(){
 			$('source').innerHTML = Mif.Tree.Drag.current.name;
 		},
-		onComplete: function(){
-			$('destination').innerHTML = '';
-			$('where').innerHTML = '';
-			$('source').innerHTML = '';
-		}
-	}).makeDroppable({
 		onDrag: function(){
 			//inject book inside book not allowed;
 			if(Mif.Tree.Drag.target && Mif.Tree.Drag.target.type == 'book' && Mif.Tree.Drag.current.type == 'book' && Mif.Tree.Drag.where == 'inside'){
@@ -57,8 +51,13 @@ window.addEvent('domready',function(){
 			};
 			$('destination').innerHTML = Mif.Tree.Drag.target ? Mif.Tree.Drag.target.name : '';
 			$('where').innerHTML = Mif.Tree.Drag.where;
+		},
+		onComplete: function(){
+			$('destination').innerHTML = '';
+			$('where').innerHTML = '';
+			$('source').innerHTML = '';
 		}
-	});
+	}).makeDroppable();
 
 	//tree.initSortable();
 	tree.load({
@@ -133,7 +132,7 @@ window.addEvent('domready',function(){
 				});
 			}
 		}
-	});
+	}).makeDroppable();
 
 	var json=[	
 		{

@@ -163,13 +163,11 @@ Mif.Tree.Drop = new Class({
 				Mif.Tree.Drag.target = false;
 				Mif.Tree.Drag.where = 'notAllowed';
 			}
-			this.fireEvent('drag');
 			return true;
 		};
 		if((Mif.Tree.Drag.current instanceof Mif.Tree.Node) && Mif.Tree.Drag.current.contains(target)){
 			Mif.Tree.Drag.target = target;
 			Mif.Tree.Drag.where = 'notAllowed';
-			this.fireEvent('drag');
 			return true;
 		};
 		this.index = Math.floor(this.y/this.tree.height);
@@ -207,7 +205,6 @@ Mif.Tree.Drop = new Class({
 		if(Mif.Tree.Drag.where == where && Mif.Tree.Drag.target == target) return false;
 		Mif.Tree.Drag.where = where; 
 		Mif.Tree.Drag.target = target;
-		this.fireEvent('drag');
 		return true;
 	},
 	
