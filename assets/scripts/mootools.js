@@ -4353,8 +4353,8 @@ provides: [MooTools.More]
 */
 
 MooTools.More = {
-	'version': '1.2.4.2',
-	'build': 'bd5a93c0913cce25917c48cbdacde568e15e02ef'
+	'version': '1.2.4.4',
+	'build': '6f6057dc645fdb7547689183b2311063bd653ddf'
 };
 
 /*
@@ -4680,240 +4680,105 @@ Element.implement({
 });
 
 
+//stylesheet
 /*
 ---
-
-script: Drag.Move.js
-
-description: A Drag extension that provides support for the constraining of draggables to containers and droppables.
-
-license: MIT-style license
-
-authors:
-- Valerio Proietti
-- Tom Occhinno
-- Jan Kassens
-- Aaron Newton
-- Scott Kyle
-
-requires:
-- core:1.2.4/Element.Dimensions
-- /Drag
-
-provides: [Drag.Move]
-
+ 
+name: Stylesheet
+description: js stylesheet
+license: MIT-Style License (http://mifjs.net/license.txt)
+copyright: Anton Samoylov (http://mifjs.net)
+authors: Anton Samoylov (http://mifjs.net)
+requires: core:1.2.4:*
+provides: Stylesheet
+ 
 ...
 */
 
-Drag.Move = new Class({
 
-	Extends: Drag,
-
-	options: {/*
-		onEnter: $empty(thisElement, overed),
-		onLeave: $empty(thisElement, overed),
-		onDrop: $empty(thisElement, overed, event),*/
-		droppables: [],
-		container: false,
-		precalculate: false,
-		includeMargins: true,
-		checkDroppables: true
-	},
-
-	initialize: function(element, options){
-		this.parent(element, options);
-		element = this.element;
-		
-		this.droppables = $$(this.options.droppables);
-		this.container = document.id(this.options.container);
-		
-		if (this.container && $type(this.container) != 'element')
-			this.container = document.id(this.container.getDocument().body);
-		
-		var styles = element.getStyles('left', 'right', 'position');
-		if (styles.left == 'auto' || styles.top == 'auto')
-			element.setPosition(element.getPosition(element.getOffsetParent()));
-		
-		if (styles.position == 'static')
-			element.setStyle('position', 'absolute');
-
-		this.addEvent('start', this.checkDroppables, true);
-
-		this.overed = null;
-	},
-
-	start: function(event){
-		if (this.container) this.options.limit = this.calculateLimit();
-		
-		if (this.options.precalculate){
-			this.positions = this.droppables.map(function(el){
-				return el.getCoordinates();
-			});
-		}
-		
-		this.parent(event);
-	},
+var Stylesheet = new Class({
 	
-	calculateLimit: function(){
-		var offsetParent = this.element.getOffsetParent(),
-			containerCoordinates = this.container.getCoordinates(offsetParent),
-			containerBorder = {},
-			elementMargin = {},
-			elementBorder = {},
-			containerMargin = {},
-			offsetParentPadding = {};
-
-		['top', 'right', 'bottom', 'left'].each(function(pad){
-			containerBorder[pad] = this.container.getStyle('border-' + pad).toInt();
-			elementBorder[pad] = this.element.getStyle('border-' + pad).toInt();
-			elementMargin[pad] = this.element.getStyle('margin-' + pad).toInt();
-			containerMargin[pad] = this.container.getStyle('margin-' + pad).toInt();
-			offsetParentPadding[pad] = offsetParent.getStyle('padding-' + pad).toInt();
-		}, this);
-
-		var width = this.element.offsetWidth + elementMargin.left + elementMargin.right,
-			height = this.element.offsetHeight + elementMargin.top + elementMargin.bottom,
-			left = 0,
-			top = 0,
-			right = containerCoordinates.right - containerBorder.right - width,
-			bottom = containerCoordinates.bottom - containerBorder.bottom - height;
-
-		if (this.options.includeMargins){
-			left += elementMargin.left;
-			top += elementMargin.top;
-		} else {
-			right += elementMargin.right;
-			bottom += elementMargin.bottom;
+	version: '0.9',
+ 
+	initialize: function(){
+		this.createSheet();
+		this.rules = {};
+		this.styles = {};
+		this.index = [];
+		this.temp = new Element('div');
+	},
+ 
+	createSheet: function(){
+		var style = new Element('style').inject(document.head);
+		this.sheet = style.styleSheet || style.sheet;
+	},
+ 
+	addRule: function(selector, styles){
+		selector = selector.trim();
+		if(selector.contains(',')){
+			var selectors = selector.split(',');
+			selectors.each(function(selector){
+				this.addRule(selector, styles);
+			}, this);
+			return this;
 		}
-		
-		if (this.element.getStyle('position') == 'relative'){
-			var coords = this.element.getCoordinates(offsetParent);
-			coords.left -= this.element.getStyle('left').toInt();
-			coords.top -= this.element.getStyle('top').toInt();
-			
-			left += containerBorder.left - coords.left;
-			top += containerBorder.top - coords.top;
-			right += elementMargin.left - coords.left;
-			bottom += elementMargin.top - coords.top;
-			
-			if (this.container != offsetParent){
-				left += containerMargin.left + offsetParentPadding.left;
-				top += (Browser.Engine.trident4 ? 0 : containerMargin.top) + offsetParentPadding.top;
-			}
-		} else {
-			left -= elementMargin.left;
-			top -= elementMargin.top;
-			
-			if (this.container == offsetParent){
-				right -= containerBorder.left;
-				bottom -= containerBorder.top;
-			} else {
-				left += containerCoordinates.left + containerBorder.left;
-				top += containerCoordinates.top + containerBorder.top;
-			}
+		var styles = ($type(styles) == 'string') ? styles : this.stylesToString(styles);
+		if(!styles) return;
+		var sheet = this.sheet;
+		if(sheet.addRule){
+			sheet.addRule(selector, styles);   
+		}else{
+			sheet.insertRule(selector+'{'+styles+'}', sheet.cssRules.length);
 		}
-		
-		return {
-			x: [left, right],
-			y: [top, bottom]
-		};
-	},
-
-	checkAgainst: function(el, i){
-		el = (this.positions) ? this.positions[i] : el.getCoordinates();
-		var now = this.mouse.now;
-		return (now.x > el.left && now.x < el.right && now.y < el.bottom && now.y > el.top);
-	},
-
-	checkDroppables: function(){
-		var overed = this.droppables.filter(this.checkAgainst, this).getLast();
-		if (this.overed != overed){
-			if (this.overed) this.fireEvent('leave', [this.element, this.overed]);
-			if (overed) this.fireEvent('enter', [this.element, overed]);
-			this.overed = overed;
-		}
-	},
-
-	drag: function(event){
-		this.parent(event);
-		if (this.options.checkDroppables && this.droppables.length) this.checkDroppables();
-	},
-
-	stop: function(event){
-		this.checkDroppables();
-		this.fireEvent('drop', [this.element, this.overed, event]);
-		this.overed = null;
-		return this.parent(event);
-	}
-
-});
-
-Element.implement({
-
-	makeDraggable: function(options){
-		var drag = new Drag.Move(this, options);
-		this.store('dragger', drag);
-		return drag;
-	}
-
-});
-
-
-/*
----
-
-script: Hash.Cookie.js
-
-description: Class for creating, reading, and deleting Cookies in JSON format.
-
-license: MIT-style license
-
-authors:
-- Valerio Proietti
-- Aaron Newton
-
-requires:
-- core:1.2.4/Cookie
-- core:1.2.4/JSON
-- /MooTools.More
-
-provides: [Hash.Cookie]
-
-...
-*/
-
-Hash.Cookie = new Class({
-
-	Extends: Cookie,
-
-	options: {
-		autoSave: true
-	},
-
-	initialize: function(name, options){
-		this.parent(name, options);
-		this.load();
-	},
-
-	save: function(){
-		var value = JSON.encode(this.hash);
-		if (!value || value.length > 4096) return false; //cookie would be truncated!
-		if (value == '{}') this.dispose();
-		else this.write(value);
-		return true;
-	},
-
-	load: function(){
-		this.hash = new Hash(JSON.decode(this.read(), true));
+		var rules = this.getRules();
+		this.rules[selector] = rules.getLast();
+		this.styles[selector] = styles;
+		this.index.push(selector);
 		return this;
+	},
+ 
+	addRules: function(rules){
+		for(selector in rules){
+			this.addRule(selector, rules[selector]);
+		}
+		return this;
+	},
+ 
+	stylesToString: function(styles){
+		this.temp.setStyles(styles);
+		var string = this.temp.style.cssText;
+		this.temp.style.cssText = '';
+		return string;
+	},
+ 
+	removeRule: function(index){
+		var sheet = this.sheet;
+		if($type(index) == 'string'){
+			var selector = index.trim();
+			if(selector.contains(',')){
+				var selectors = selector.split(',');
+				selectors.each(function(selector){
+					this.removeRule(selector);
+				}, this);
+				return this;
+			}
+			var index = this.getRules().indexOf(this.getRule(selector));
+			if(index < 0) return this;
+		}
+		sheet.removeRule ? sheet.removeRule(index) : sheet.deleteRule(index);
+		var selector = this.index[index];
+		this.index.erase(selector);
+		delete this.rules[selector];
+		delete this.styles[selector];
+		return this;
+	},
+ 
+	getRule: function(selector){
+		return $type(selector) == 'string' ? this.rules[selector] : this.getRules()[selector];
+	},
+ 
+	getRules: function(){
+		return $A(this.sheet.cssRules || this.sheet.rules);
 	}
-
-});
-
-Hash.each(Hash.prototype, function(method, name){
-	if (typeof method == 'function') Hash.Cookie.implement(name, function(){
-		var value = method.apply(this.hash, arguments);
-		if (this.options.autoSave) this.save();
-		return value;
-	});
+	
 });

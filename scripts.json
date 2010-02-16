@@ -42,7 +42,7 @@
 			"deps": ["Mif.Tree","Mif.Tree.Transform"],
 			"desc": "implements Drag'n'Drop"
 		},
-		"Mif.Tree.Drag.Element":{
+		"Mif.Tree.Drop.Element":{
 			"deps": [],
 			"desc": "dom elements can be used as drop containers"
 		},

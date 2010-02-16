@@ -20,8 +20,8 @@ Mif.Tree.Drop = new Class({
 		group: 'tree',
 		animate: true,
 		open: 600,//time to open node
-		scrollDelay: 100,
-		scrollSpeed: 100,
+		scrollDelay: 10,
+		scrollSpeed: 0.05,
 		modifier: 'control',//copy
 		allowContainerDrop: true
 	},
@@ -53,7 +53,7 @@ Mif.Tree.Drop = new Class({
 		groups = $splat(groups);
 		this.groups.combine(groups);
 		groups.each(function(group){
-			Mif.Tree.Drop.groups[group] = (Mif.Tree.Drop.groups[group] || []).include(this);
+			Mif.Drop.groups[group] = (Mif.Drop.groups[group] || []).include(this);
 		}, this);
 	},
 	
@@ -65,19 +65,17 @@ Mif.Tree.Drop = new Class({
 		this.clean();
 		$clear(this.scrolling);
 		this.scrolling = null;
-		Mif.Tree.Drag.target = false;
+		Mif.Drag.target = false;
 	},
 	
 	onenter: function(){
 		this.onleave()
 	},
 	
-	autoScroll: function(){
-		var y = this.y;
-		if(y == -1) return;
+	overflowScroll: function(){
 		var wrapper = this.tree.wrapper;
-		var top = y-wrapper.scrollTop;
-		var bottom = wrapper.offsetHeight-top;
+		var top = Mif.Drag.coords.y - this.tree.container.getPosition().y;
+		var bottom = wrapper.clientHeight - top;
 		var sign = 0;
 		if(top < this.tree.height){
 			var delta = top;
@@ -85,33 +83,34 @@ Mif.Tree.Drop = new Class({
 		}else if(bottom < this.tree.height){
 			var delta = bottom;
 			sign = -1;
-		}
-		if(sign && !this.scrolling){
-			this.scrolling = function(node){
-				if(y != this.y){
-					y = this.y;
-					delta = (sign == 1 ? (y - wrapper.scrollTop) : (wrapper.offsetHeight - y + wrapper.scrollTop)) || 1;
-				}
-				wrapper.scrollTop = wrapper.scrollTop - sign*this.options.scrollSpeed/delta;
-			}.periodical(this.options.scrollDelay, this, [sign])
-		}
+		};
+		if(delta < 1) sign = 0;
 		if(!sign){
 			$clear(this.scrolling);
 			this.scrolling = null;
+			return;
+		};
+		this.delta = delta;
+		if(!this.scrolling){
+			var start = $time();
+			var scrollTop = wrapper.scrollTop;
+			this.scrolling = function(node){
+				wrapper.scrollTop = wrapper.scrollTop - sign*this.options.scrollSpeed/this.delta * ($time() - start);
+			}.periodical(this.options.scrollDelay, this, [sign])
 		}
 	},
 
 	ondrag: function(event){
-		this.autoScroll();
+		this.overflowScroll();
 		if(!this.checkTarget()) return;
 		this.clean();
-		var where = Mif.Tree.Drag.where;
-		var target = Mif.Tree.Drag.target;
+		var where = Mif.Drag.where;
+		var target = Mif.Drag.target;
 		var ghostType = where;
 		if(where == 'after' && target && (target.getNext()) || where == 'before' && target.getPrevious()){
 			ghostType = 'between';
 		}
-		Mif.Tree.Drag.ghost.firstChild.className = 'mif-tree-ghost-icon mif-tree-ghost-' + ghostType;
+		Mif.Drag.ghost.firstChild.className = 'mif-tree-ghost-icon mif-tree-ghost-' + ghostType;
 		if(where == 'notAllowed'){
 			return;
 		}
@@ -151,23 +150,23 @@ Mif.Tree.Drop = new Class({
 		var target = this.tree.mouse.node;
 		if(!target){
 			if(this.options.allowContainerDrop && (this.tree.forest || !this.tree.root)){
-				Mif.Tree.Drag.target = this.tree.$index.getLast();
+				Mif.Drag.target = this.tree.$index.getLast();
 				this.index = this.tree.$index.length-1;
 				if(this.index == -1){
-					Mif.Tree.Drag.where = 'inside';
-					Mif.Tree.Drag.target = this.tree.root || this.tree;
+					Mif.Drag.where = 'inside';
+					Mif.Drag.target = this.tree.root || this.tree;
 				}else{
-					Mif.Tree.Drag.where = 'after';
+					Mif.Drag.where = 'after';
 				}
 			}else{
-				Mif.Tree.Drag.target = false;
-				Mif.Tree.Drag.where = 'notAllowed';
+				Mif.Drag.target = false;
+				Mif.Drag.where = 'notAllowed';
 			}
 			return true;
 		};
-		if((Mif.Tree.Drag.current instanceof Mif.Tree.Node) && Mif.Tree.Drag.current.contains(target)){
-			Mif.Tree.Drag.target = target;
-			Mif.Tree.Drag.where = 'notAllowed';
+		if((Mif.Drag.current instanceof Mif.Tree.Node) && Mif.Drag.current.contains(target)){
+			Mif.Drag.target = target;
+			Mif.Drag.where = 'notAllowed';
 			return true;
 		};
 		this.index = Math.floor(this.y/this.tree.height);
@@ -202,25 +201,25 @@ Mif.Tree.Drop = new Class({
 				}
 			}
 		};
-		if(Mif.Tree.Drag.where == where && Mif.Tree.Drag.target == target) return false;
-		Mif.Tree.Drag.where = where; 
-		Mif.Tree.Drag.target = target;
+		if(Mif.Drag.where == where && Mif.Drag.target == target) return false;
+		Mif.Drag.where = where; 
+		Mif.Drag.target = target;
 		return true;
 	},
 	
 	beforeDrop: function(){
 		if(this.options.beforeDrop){
-			this.options.beforeDrop.apply(this, [Mif.Tree.Drag.current, Mif.Tree.Drag.target, Mif.Tree.Drag.where]);
+			this.options.beforeDrop.apply(this, [Mif.Drag.current, Mif.Drag.target, Mif.Drag.where]);
 		}else{
 			this.drop();
 		}
 	},
 	
 	drop: function(){
-		var current = Mif.Tree.Drag.current, target = Mif.Tree.Drag.target, where = Mif.Tree.Drag.where;
-		Mif.Tree.Drag.ghost.dispose();
+		var current = Mif.Drag.current, target = Mif.Drag.target, where = Mif.Drag.where;
+		Mif.Drag.ghost.dispose();
 		var action = this.action || (this.tree.key[this.options.modifier] ? 'copy' : 'move');
-		if(Mif.Tree.Drag.where == 'inside' && target.tree && !target.isOpen()){
+		if(Mif.Drag.where == 'inside' && target.tree && !target.isOpen()){
 			if(target.tree) target.toggle();
 			if(target.$loading){
 				var onLoad = function(){
@@ -246,8 +245,6 @@ Mif.Tree.Drop = new Class({
 		$clear(this.scrolling);
 	}
 });
-
-Mif.Tree.Drop.groups={};
 
 Mif.Tree.prototype.options.droppable = true;
 

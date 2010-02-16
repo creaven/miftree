@@ -42,15 +42,15 @@ window.addEvent('domready',function(){
 		}
 	}).makeDraggable({
 		onStart: function(){
-			$('source').innerHTML = Mif.Tree.Drag.current.name;
+			$('source').innerHTML = Mif.Drag.current.name;
 		},
 		onDrag: function(){
 			//inject book inside book not allowed;
-			if(Mif.Tree.Drag.target && Mif.Tree.Drag.target.type == 'book' && Mif.Tree.Drag.current.type == 'book' && Mif.Tree.Drag.where == 'inside'){
-				Mif.Tree.Drag.where = 'notAllowed';
+			if(Mif.Drag.target && Mif.Drag.target.type == 'book' && Mif.Drag.current.type == 'book' && Mif.Drag.where == 'inside'){
+				Mif.Drag.where = 'notAllowed';
 			};
-			$('destination').innerHTML = Mif.Tree.Drag.target ? Mif.Tree.Drag.target.name : '';
-			$('where').innerHTML = Mif.Tree.Drag.where;
+			$('destination').innerHTML = Mif.Drag.target ? Mif.Drag.target.name : '';
+			$('where').innerHTML = Mif.Drag.where;
 		},
 		onComplete: function(){
 			$('destination').innerHTML = '';
@@ -78,23 +78,6 @@ window.addEvent('domready',function(){
 	
 	tree2 = new Mif.Tree({
 		container: $('tree_container2'),
-		initialize: function(){
-			new Mif.Tree.KeyNav(this);
-			/*new Mif.Tree.Drag(this, {
-				onDrag: function(){
-					$('destination').innerHTML=this.target ? this.target.name : '';
-					$('where').innerHTML=this.where;
-				},
-				onStart: function(){
-					$('source').innerHTML=this.current.name;
-				},
-				onComplete: function(){
-					$('destination').innerHTML='';
-					$('where').innerHTML='';
-					$('source').innerHTML='';
-				}
-			});*/
-		},
 		types: {
 			folder:{
 				openIcon: 'mif-tree-open-icon',
@@ -131,6 +114,19 @@ window.addEvent('domready',function(){
 					}
 				});
 			}
+		}
+	}).makeDraggable({
+		onDrag: function(){
+			$('destination').innerHTML = Mif.Drag.target ? Mif.Drag.target.name : '';
+			$('where').innerHTML = this.where;
+		},
+		onStart: function(){
+			$('source').innerHTML = Mif.Drag.current.name;
+		},
+		onComplete: function(){
+			$('destination').innerHTML = '';
+			$('where').innerHTML = '';
+			$('source').innerHTML = '';
 		}
 	});
 

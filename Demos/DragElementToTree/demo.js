@@ -55,9 +55,9 @@ window.addEvent('domready', function(){
 
 			this.setDroppables(this.options.droppables);
 
-			this.current = Mif.Tree.Drag.current;
-			this.target = Mif.Tree.Drag.target;
-			this.where = Mif.Tree.Drag.where;
+			this.current = Mif.Drag.current;
+			this.target = Mif.Drag.target;
+			this.where = Mif.Drag.where;
 
 			this.element = [this.current, this.target, this.where];
 			this.document = this.container.getDocument();
@@ -134,7 +134,7 @@ window.addEvent('domready', function(){
 			var dropZone=Mif.Tree.Drag.dropZone;
 			if(dropZone){
 				dropZone.where='notAllowed';
-				Mif.Tree.Drag.ghost.firstChild.className='mif-tree-ghost-icon mif-tree-ghost-'+dropZone.where;
+				Mif.Drag.ghost.firstChild.className='mif-tree-ghost-icon mif-tree-ghost-'+dropZone.where;
 				if(dropZone.onleave) dropZone.onleave();
 				Mif.Tree.Drag.dropZone=false;
 			}
@@ -152,7 +152,7 @@ window.addEvent('domready', function(){
 			var dropZone=Mif.Tree.Drag.dropZone;
 			if(dropZone && dropZone.onleave) dropZone.onleave();
 			Mif.Tree.Drag.dropZone=zone;
-			zone.current=Mif.Tree.Drag.current;
+			zone.current=Mif.Drag.current;
 			if(zone.onenter) zone.onenter();
 		},
 
@@ -198,7 +198,7 @@ window.addEvent('domready', function(){
 			if(!this.current || this.current.dragDisabled) {
 				return;
 			}
-			Mif.Tree.Drag.current = this.current;
+			Mif.Drag.current = this.current;
 			Mif.Tree.Drag.startZone = this;
 
 			this.mouse = {
@@ -212,7 +212,7 @@ window.addEvent('domready', function(){
 		},
 
 		drag: function(event){
-			Mif.Tree.Drag.ghost.position({x:event.page.x+20,y:event.page.y+20});
+			Mif.Drag.ghost.position({x:event.page.x+20,y:event.page.y+20});
 			var dropZone=Mif.Tree.Drag.dropZone;
 			if(!dropZone||!dropZone.ondrag) return;
 			Mif.Tree.Drag.dropZone.ondrag(event);
@@ -228,15 +228,15 @@ window.addEvent('domready', function(){
 			.inject(document.body).setStyle('position', 'absolute');
 			new Element('span').set('html', Mif.Tree.Draw.zeroSpace).inject(ghost, 'top')
 			.addClass('mif-tree-ghost-icon mif-tree-ghost-notAllowed');
-			Mif.Tree.Drag.ghost=ghost;
+			Mif.Drag.ghost=ghost;
 		},
 		
 		emptydrop: function(){
 			var position = this.source.getPosition();
-			var fx = new Fx.Morph(Mif.Tree.Drag.ghost, {
+			var fx = new Fx.Morph(Mif.Drag.ghost, {
 				duration: 'short',
 				onComplete: function(){
-					Mif.Tree.Drag.ghost.dispose();
+					Mif.Drag.ghost.dispose();
 					this.fireEvent('emptydrop', this.element);
 				}.bind(this)
 			});

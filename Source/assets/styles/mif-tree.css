@@ -32,17 +32,6 @@ cursor:inherit;
 padding-left:18px;
 }
 
-.mif-tree-children .mif-tree-children .mif-tree-node-wrapper{
-padding-left:36px;
-}
-
-.mif-tree-children .mif-tree-children .mif-tree-children .mif-tree-node-wrapper{
-padding-left:54px;
-}
-
-.mif-tree-children .mif-tree-children .mif-tree-children .mif-tree-children .mif-tree-node-wrapper{
-padding-left:72px;
-}
 
 .mif-tree-node{
 position:relative;
@@ -179,6 +168,7 @@ border-radius:4px;
 -webkit-box-shadow:0px 0px 20px #D4D4D4;
 box-shadow:0px 0px 20px #D4D4D4;
 height:20px;
+z-index:10000;
 }
 
 
@@ -196,29 +186,27 @@ padding-bottom:1px;
 
 .mif-tree-ghost-icon{
 padding-left:16px;
-background-color:#fff;
-background-repeat:no-repeat;
-background-image:url('../images/dropzone.gif');
+background:no-repeat center center;
 }
 
 .mif-tree-ghost-after{
-background-position:-64px 2px;
+background-image:url('../images/drop-after.gif');
 }
 
 .mif-tree-ghost-before{
-background-position:-48px 2px;
+background-image:url('../images/drop-before.gif');
 }
 
 .mif-tree-ghost-between{
-background-position:-16px 2px;
+background-image:url('../images/drop-between.gif');
 }
 
 .mif-tree-ghost-inside{
-background-position:-0px 2px;
+background-image:url('../images/plus-circle.png');
 }
 
 .mif-tree-ghost-notAllowed{
-background-position:-32px 2px;
+background-image:url('../images/slash.png');
 }
 
 .mif-tree-drag-current{
