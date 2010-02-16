@@ -229,6 +229,7 @@ Mif.Tree.implement({
 	
 	makeDraggable: function(options){
 		new Mif.Tree.Drag(this, options);
+		if(this.options.droppable && Mif.Tree.Drop) new Mif.Tree.Drop(this, this.options.droppable); 
 		return this;
 	}
 	

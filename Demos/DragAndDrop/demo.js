@@ -57,7 +57,7 @@ window.addEvent('domready',function(){
 			$('where').innerHTML = '';
 			$('source').innerHTML = '';
 		}
-	}).makeDroppable();
+	});
 
 	//tree.initSortable();
 	tree.load({
@@ -132,7 +132,7 @@ window.addEvent('domready',function(){
 				});
 			}
 		}
-	}).makeDroppable();
+	});
 
 	var json=[	
 		{

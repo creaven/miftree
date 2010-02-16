@@ -249,6 +249,8 @@ Mif.Tree.Drop = new Class({
 
 Mif.Tree.Drop.groups={};
 
+Mif.Tree.prototype.options.droppable = true;
+
 Mif.Tree.implement({
 	
 	makeDroppable: function(options){
