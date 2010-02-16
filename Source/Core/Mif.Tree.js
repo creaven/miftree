@@ -31,8 +31,7 @@ Mif.Tree = new Class({
 		forest: false,
 		animateScroll: true,
 		height: 18,
-		expandTo: true,
-		selectable: ['input']
+		expandTo: true
 	},
 	
 	initialize: function(options){
@@ -64,7 +63,7 @@ Mif.Tree = new Class({
 		if(this.options.expandTo) this.initExpandTo();
 		this.DOMidPrefix='mif-tree-';
 		this.wrapper = new Element('div').addClass('mif-tree-wrapper').injectInside(this.container);
-		this.initEvents();
+		this.events();
 		this.initScroll();
 		this.initSelection();
 		this.initHover();
@@ -81,40 +80,34 @@ Mif.Tree = new Class({
 		if (MooTools.version >= '1.2.2' && this.options.initialize) this.options.initialize.call(this);
 	},
 	
-	initEvents: function(){
+	bound: function(){
+		Array.each(arguments, function(name){
+			this.bound[name] = this[name].bind(this);
+		}, this);
+	},
+	
+	events: function(){
+		this.bound('mouse', 'mouseleave', 'mousedown', 'preventDefault', 'toggleClick', 'toggleDblclick', 'focus', 'blurOnClick', 'keyDown', 'keyUp');
+		
 		this.wrapper.addEvents({
-			mousemove: this.mouse.bindWithEvent(this),
-			mouseover: this.mouse.bindWithEvent(this),
-			mouseout: this.mouse.bindWithEvent(this),
-			mouseleave: this.mouseleave.bind(this),
-			mousedown: function(event){
-				if(event.rightClick) return;
-				event.preventDefault();
-				this.fireEvent('mousedown');
-				this.stopSelection(event);
-			}.bind(this),
-			click: this.toggleClick.bindWithEvent(this),
-			dblclick: this.toggleDblclick.bindWithEvent(this)
+			mousemove: this.bound.mouse,
+			mouseover: this.bound.mouse,
+			mouseout: this.bound.mouse,
+			mouseleave: this.bound.mouseleave,
+			mousedown: this.bound.mousedown,
+			click: this.bound.toggleClick,
+			dblclick: this.bound.toggleDblclick,
+			selectstart: this.bound.preventDefault
 		});
-		if(Browser.Engine.trident){
-			this.wrapper.addEvent('selectstart', this.stopSelection.bind(this));
-		}        
-		this.container.addEvent('click', this.focus.bind(this));
-		document.addEvent('click', this.blurOnClick.bind(this));
+		
+		this.container.addEvent('click', this.bound.focus);
+		document.addEvent('click', this.bound.blurOnClick);
+		
 		document.addEvents({
-			keydown: this.keyDown.bindWithEvent(this),
-			keyup: this.keyUp.bindWithEvent(this)
+			keydown: this.bound.keyDown,
+			keyup: this.bound.keyUp
 		});
     },
-	
-	stopSelection: function(event){
-		var target = $(event.target);
-		var selectable = this.options.selectable;
-		for(var i = 0, l = selectable.length; i < l; i++){
-			if(target.match(selectable[i])) return true;
-		}
-		event.preventDefault();
-	},
     
 	blurOnClick: function(event){
 		var target = event.target;
@@ -155,8 +148,18 @@ Mif.Tree = new Class({
 		}
 	},
 	
+	preventDefault: function(event){
+		event.preventDefault();
+	},
+	
+	mousedown: function(event){
+		if(event.rightClick) return;
+		event.preventDefault();
+		this.fireEvent('mousedown');
+	},
+	
 	mouseleave: function(){
-		this.mouse.coords = {x:null,y:null};
+		this.mouse.coords = {x: null,y: null};
 		this.mouse.target = false;
 		this.mouse.node = false;
 		if(this.hover) this.hover();
@@ -201,8 +204,8 @@ Mif.Tree = new Class({
 	
 	getCoords: function(event){
 		var position = this.wrapper.getPosition();
-		var x = event.page.x-position.x;
-		var y = event.page.y-position.y;
+		var x = event.page.x - position.x;
+		var y = event.page.y - position.y;
 		var wrapper = this.wrapper;
 		if((y-wrapper.scrollTop > wrapper.clientHeight)||(x - wrapper.scrollLeft > wrapper.clientWidth)){//scroll line
 			y = -1;
@@ -224,7 +227,7 @@ Mif.Tree = new Class({
 	
 	toggleDblclick: function(event){
 		var target = this.mouse.target;
-		if(!(target == 'name'||target == 'icon')) return;
+		if(!(target == 'name' || target == 'icon')) return;
 		this.mouse.node.toggle();
 	},
 	
@@ -241,7 +244,7 @@ Mif.Tree = new Class({
 		var position = node.getVisiblePosition();
 		var top = position*this.height;
 		var up = (top < this.wrapper.scrollTop);
-		var down = (top > (this.wrapper.scrollTop+this.wrapper.clientHeight-this.height));
+		var down = (top > (this.wrapper.scrollTop + this.wrapper.clientHeight - this.height));
 		if(position == -1 || ( !up && !down ) ) {
 			this.scroll.fireEvent('complete');
 			return false;
@@ -309,9 +312,9 @@ Mif.Tree.UID = 0;
 Array.implement({
 	
 	inject: function(added, current, where){//inject added after or before current;
-		var pos = this.indexOf(current)+(where=='before' ? 0 : 1);
+		var pos = this.indexOf(current) + (where == 'before' ? 0 : 1);
 		for(var i = this.length-1; i >= pos; i--){
-			this[i+1] = this[i];
+			this[i + 1] = this[i];
 		}
 		this[pos] = added;
 		return this;

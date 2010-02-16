@@ -83,10 +83,14 @@ var Demos = {
 	},
 
 	local: function() {
+		Browser.Request = function(){
+			return $try(function(){
+				return new ActiveXObject('MSXML2.XMLHTTP');
+			}, function(){
+				return new XMLHttpRequest();
+			});
+		};
 		Request.implement({
-			getXHR: function(){
-				return (window.ActiveXObject) ? new ActiveXObject('Microsoft.XMLHTTP') : new XMLHttpRequest();
-			},
 			isSuccess: function() {
 				return (!this.status || (this.status >= 200) && (this.status < 300));
 			}
