@@ -77,6 +77,7 @@ Mif.Tree = new Class({
 		var id = this.options.id;
 		this.id = id;
 		if(id != null) Mif.ids[id] = this;
+		if(Mif.Tree.KeyNav) new Mif.Tree.KeyNav(this);
 		if (MooTools.version >= '1.2.2' && this.options.initialize) this.options.initialize.call(this);
 	},
 	
@@ -87,7 +88,7 @@ Mif.Tree = new Class({
 			mouseout: this.mouse.bindWithEvent(this),
 			mouseleave: this.mouseleave.bind(this),
 			mousedown: function(event){
-				if(event.which != 1) return;
+				if(event.rightClick) return;
 				this.fireEvent('mousedown');
 				return this.stopSelection(event);
 			}.bind(this),

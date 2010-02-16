@@ -26,7 +26,7 @@ var Builder = {
 	scripts: {
 		source: {
 			'Core'      : ['Mif.Tree', 'Mif.Tree.Node', 'Mif.Tree.Hover', 'Mif.Tree.Selection', 'Mif.Tree.Load', 'Mif.Tree.Draw'],
-			'More'   : ['Mif.Tree.KeyNav', 'Mif.Tree.Sort', 'Mif.Tree.Transform', 'Mif.Tree.Drag', 'Mif.Tree.Drag.Element', 'Mif.Tree.Checkbox', 'Mif.Tree.Rename', 'Mif.Tree.CookieStorage']
+			'More'   : ['Mif.Tree.KeyNav', 'Mif.Tree.Sort', 'Mif.Tree.Transform', 'Mif.Tree.Drag', 'Mif.Tree.Drop',  'Mif.Tree.Drag.Element', 'Mif.Tree.Checkbox', 'Mif.Tree.Rename', 'Mif.Tree.CookieStorage']
 		},
 
 		docs: {

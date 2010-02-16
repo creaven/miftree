@@ -1,28 +1,8 @@
 window.addEvent('domready',function(){
+	
 	tree = new Mif.Tree({
 		container: $('tree_container'),
 		forest: true,
-		initialize: function(){
-			new Mif.Tree.KeyNav(this);
-			new Mif.Tree.Drag(this, {
-				onDrag: function(){
-					//inject book inside book not allowed;
-					if(this.target && this.target.type=='book' && this.current.type=='book' && this.where=='inside'){
-						this.where='notAllowed';
-					}
-					$('destination').innerHTML=this.target ? this.target.name : '';
-					$('where').innerHTML=this.where;
-				},
-				onStart: function(){
-					$('source').innerHTML=this.current.name;
-				},
-				onComplete: function(){
-					$('destination').innerHTML='';
-					$('where').innerHTML='';
-					$('source').innerHTML='';
-				}
-			});
-		},
 		types: {
 			folder:{
 				openIcon: 'mif-tree-open-icon',
@@ -60,6 +40,24 @@ window.addEvent('domready',function(){
 				});
 			}
 		}
+	}).makeDraggable({
+		onStart: function(){
+			$('source').innerHTML = Mif.Tree.Drag.current.name;
+		},
+		onComplete: function(){
+			$('destination').innerHTML = '';
+			$('where').innerHTML = '';
+			$('source').innerHTML = '';
+		}
+	}).makeDroppable({
+		onDrag: function(){
+			//inject book inside book not allowed;
+			if(Mif.Tree.Drag.target && Mif.Tree.Drag.target.type == 'book' && Mif.Tree.Drag.current.type == 'book' && Mif.Tree.Drag.where == 'inside'){
+				Mif.Tree.Drag.where = 'notAllowed';
+			};
+			$('destination').innerHTML = Mif.Tree.Drag.target ? Mif.Tree.Drag.target.name : '';
+			$('where').innerHTML = Mif.Tree.Drag.where;
+		}
 	});
 
 	//tree.initSortable();
@@ -83,7 +81,7 @@ window.addEvent('domready',function(){
 		container: $('tree_container2'),
 		initialize: function(){
 			new Mif.Tree.KeyNav(this);
-			new Mif.Tree.Drag(this, {
+			/*new Mif.Tree.Drag(this, {
 				onDrag: function(){
 					$('destination').innerHTML=this.target ? this.target.name : '';
 					$('where').innerHTML=this.where;
@@ -96,7 +94,7 @@ window.addEvent('domready',function(){
 					$('where').innerHTML='';
 					$('source').innerHTML='';
 				}
-			});
+			});*/
 		},
 		types: {
 			folder:{
