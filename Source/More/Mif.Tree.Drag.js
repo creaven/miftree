@@ -233,10 +233,10 @@ Mif.Tree.Drag = new Class({
 	},
 	
 	start: function(event){//mousedown
+		if(event.rightClick) return;
 		if (this.options.preventDefault) event.preventDefault();
 		this.fireEvent('beforeStart', this.element);
-		//
-		
+
 		var target = this.tree.mouse.target;
 		if(!target) return;
 		this.current = $splat(this.options.startPlace).contains(target) ? this.tree.mouse.node : false;

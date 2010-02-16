@@ -88,9 +88,10 @@ Mif.Tree = new Class({
 			mouseout: this.mouse.bindWithEvent(this),
 			mouseleave: this.mouseleave.bind(this),
 			mousedown: function(event){
-				if(event.which != 1) return;
+				if(event.rightClick) return;
+				event.preventDefault();
 				this.fireEvent('mousedown');
-				return this.stopSelection(event);
+				this.stopSelection(event);
 			}.bind(this),
 			click: this.toggleClick.bindWithEvent(this),
 			dblclick: this.toggleDblclick.bindWithEvent(this)
@@ -112,7 +113,7 @@ Mif.Tree = new Class({
 		for(var i = 0, l = selectable.length; i < l; i++){
 			if(target.match(selectable[i])) return true;
 		}
-		return false;
+		event.preventDefault();
 	},
     
 	blurOnClick: function(event){
