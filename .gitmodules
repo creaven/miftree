@@ -1,0 +1,9 @@
+[submodule "packages/mifcore"]
+	path = packages/mifcore
+	url = git://github.com/creaven/mifcore.git
+[submodule "packages/stylesheet"]
+	path = packages/stylesheet
+	url = git://github.com/creaven/stylesheet.git
+[submodule "packages/mifdrag"]
+	path = packages/mifdrag
+	url = git://github.com/creaven/mifdrag.git

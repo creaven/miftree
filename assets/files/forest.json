@@ -3,7 +3,10 @@
 		"property": {
 			"name": "<b>node1.1</b>"
 		},
-		"type": "book"
+		"type": "book",
+		"state": {
+			"checked": "partially"
+		}
 	},
 	{
 		"property": {
