@@ -1,3 +1,5 @@
+/*
+
 Request.implement({
 
 	processScripts: function(text){
@@ -174,5 +176,38 @@ var Demos = {
 		}
 	}
 };
+*/
+if(document.location.protocol == 'file:'){
 
-window.addEvent('load', Demos.start);
+	Browser.Request = function(){
+		return $try(function(){
+			return new ActiveXObject('MSXML2.XMLHTTP');
+		}, function(){
+			return new XMLHttpRequest();
+		});
+	};
+	Request.implement({
+		isSuccess: function() {
+			return (!this.status || (this.status >= 200) && (this.status < 300));
+		}
+	});
+
+}
+
+var Demos = new Class({
+	
+	initialize: function(){
+		this.getJSON();
+	},
+	
+	getJSON: function(){
+		var request = new Request.JSON({url: 'demos.json', onComplete: this.prepare.bind(this)}).GET();
+	},
+	
+	prepare: function(json){
+		console.log(json);
+	}
+	
+});
+
+window.addEvent('load', new Demos);

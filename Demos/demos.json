@@ -1,81 +1,77 @@
 {
-	"Tree":{
-		"SimpleTree":{
-			"title": "Simple Tree"
-		},
-		"Select":{
-			"title": "Tree select event demo"
-		},
-		"Toggle":{
-			"title": "Tree toggle event demo"
-		},
-		"TreeOtherStyle":{
-			"title": "Tree other style"
-		},
-		"changeType":{
-			"title": "Add/remove node type demo"
-		},
-		"IconUrl":{
-			"title": "set icon using url instead class"
-		},
-		"FileTree":{
-			"title": "File tree"
-		},
-		"DOMTree":{
-			"title": "DOM Tree"
-		},
-		"HTMLTree":{
-			"title": "HTML Tree"
-		},
-		"ExpandTo":{
-			"title": "Using expandTo property demo"
-		},
-		"Hide":{
-			"title": "Hidden property"
-		}
+	"SimpleTree":{
+		"title": "Simple Tree"
 	},
-	"More":{
-		"KeyNav":{
-			"title": "Key navigation implementation demo"
-		},
-		"CheckboxSimple":{
-			"title": "Tree simple checkboxes"
-		},
-		"CheckboxDeps":{
-			"title": "Tree dependences checkboxes"
-		},
-		"DragAndDrop":{
-			"title": "Tree drag'n'drop"
-		},
-		"DnD":{
-			"title": "D'n'd with drop container"
-		},
-		"DropConfirm":{
-			"title": "D'n'd with drop confirmation"
-		},
-		"DragElementToTree":{
-			"title": "Element to Tree Drag And Drop demo"
-		},
-		"Rename":{
-			"title": "Rename node"
-		},
-		"SortableTree":{
-			"title": "sortable tree"
-		},
-		"AddNode":{
-			"title": "Add node"
-		},
-		"AddNode2":{
-			"title": "Another add node demo"
-		},
-		"reloadChildren":{
-			"title": "reload children and update clicked node name"
-		},
-		"CookieStorage":{
-			"title": "cookie storage"
-		},
-		"ProtectedNode":{
-			"title": "protected from change node"
-		}		
+	"Select":{
+		"title": "Tree select event demo"
+	},
+	"Toggle":{
+		"title": "Tree toggle event demo"
+	},
+	"TreeOtherStyle":{
+		"title": "Tree other style"
+	},
+	"changeType":{
+		"title": "Add/remove node type demo"
+	},
+	"IconUrl":{
+		"title": "set icon using url instead class"
+	},
+	"FileTree":{
+		"title": "File tree"
+	},
+	"DOMTree":{
+		"title": "DOM Tree"
+	},
+	"HTMLTree":{
+		"title": "HTML Tree"
+	},
+	"ExpandTo":{
+		"title": "Using expandTo property demo"
+	},
+	"Hide":{
+		"title": "Hidden property"
+	},
+	"KeyNav":{
+		"title": "Key navigation implementation demo"
+	},
+	"CheckboxSimple":{
+		"title": "Tree simple checkboxes"
+	},
+	"CheckboxDeps":{
+		"title": "Tree dependences checkboxes"
+	},
+	"DragAndDrop":{
+		"title": "Tree drag'n'drop"
+	},
+	"DnD":{
+		"title": "D'n'd with drop container"
+	},
+	"DropConfirm":{
+		"title": "D'n'd with drop confirmation"
+	},
+	"DragElementToTree":{
+		"title": "Element to Tree Drag And Drop demo"
+	},
+	"Rename":{
+		"title": "Rename node"
+	},
+	"SortableTree":{
+		"title": "sortable tree"
+	},
+	"AddNode":{
+		"title": "Add node"
+	},
+	"AddNode2":{
+		"title": "Another add node demo"
+	},
+	"reloadChildren":{
+		"title": "reload children and update clicked node name"
+	},
+	"CookieStorage":{
+		"title": "cookie storage"
+	},
+	"ProtectedNode":{
+		"title": "protected from change node"
 	}
 }
