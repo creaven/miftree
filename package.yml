@@ -31,6 +31,8 @@ sources:
   - "Source/More/Mif.Tree.Rename.js"
   - "Source/More/Mif.Tree.Checkbox.js"
   - "Source/More/Mif.Tree.CookieStorage.js"
+  - "Source/Style/Mif.Tree.Sheet.js"
+  - "Source/Image/Mif.Tree.Image.js"
   
 
 demo: http://mifjs.net/tree/Demos/index.html

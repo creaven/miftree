@@ -9,89 +9,51 @@ Note:
 	If you use this script in your own page, you must be out of your mind.
 */
 
-var Builder = {
+var Build = new Class({
 
-	root: '../',
+	url: '../list',
 
-	paths: {
-		source: 'Source',
-		docs: 'Source'
-	},
-
-	included: {
-		source: {},
-		docs: {}
-	},
-
-	scripts: {
-		source: {
-			'Core'      : ['Mif.Tree', 'Mif.Tree.Node', 'Mif.Tree.Hover', 'Mif.Tree.Selection', 'Mif.Tree.Load', 'Mif.Tree.Draw', 'Mif.Tree.Sheet'],
-			'DragAndDrop': ['Mif.Drag', 'Mif.Drop'],
-			'More'   : ['Mif.Tree.KeyNav', 'Mif.Tree.Sort', 'Mif.Tree.Transform', 'Mif.Tree.Drag', 'Mif.Tree.Drop',  'Mif.Tree.Drop.Element', 'Mif.Tree.Checkbox', 'Mif.Tree.Rename', 'Mif.Tree.CookieStorage']
-		},
-
-		docs: {
-			'Core'      : ['Mif.Tree', 'Mif.Tree.Node', 'Mif.Tree.Hover', 'Mif.Tree.Selection', 'Mif.Tree.Load', 'Mif.Tree.Draw'],
-			'More'   : ['Mif.Tree.KeyNav', 'Mif.Tree.Sort', 'Mif.Tree.Transform', 'Mif.Tree.Drag', 'Mif.Tree.Checkbox', 'Mif.Tree.Rename',  'Mif.Tree.CookieStorage']
-		}
-	},
-
-	initialize: function(root){
-		if (root) this.root = root;
-		this.includeType('source');
+	initialize: function(url){
+		this.url = url || this.url;
+		this.local();
+		this.getList();
+		this.loadScripts();
 		return this;
 	},
-
-	getFolder: function(type, file){
-		var scripts = this.scripts[type];
-		for (var folder in scripts){
-			for (var i = 0; i < scripts[folder].length; i++){
-				var script = scripts[folder][i];
-				if (script == file) return folder;
+	
+	local: function(){
+		Browser.Request = function(){
+			return $try(function(){
+				return new ActiveXObject('MSXML2.XMLHTTP');
+			}, function(){
+				return new XMLHttpRequest();
+			});
+		};
+		Request.implement({
+			isSuccess: function() {
+				return (!this.status || (this.status >= 200) && (this.status < 300));
 			}
-		}
-		return false;
+		});
 	},
-
-	getRequest: function(){
-		var pairs = window.location.search.substring(1).split('&');
-		var obj = {};
-		for (var i = 0, l = pairs.length; i < l; i++){
-			var pair = pairs[i].split('=');
-			obj[pair[0]] = pair[1];
-		}
-		return obj;
+	
+	getList: function(){
+		new Request({
+			url: this.url,
+			method: 'get',
+			async: false,
+			onComplete: function(result){
+				this.list = result.split('\n');
+			}.bind(this)
+		}).send();
 	},
-
-	includeFile: function(type, folder, file){
-		folder = folder || this.getFolder(type, file);
-		if (!folder) return false;
-		this.included[type][folder] = this.included[type][folder] || [];
-		var files = this.included[type][folder];
-		for (var i = 0; i < files.length; i++){
-			if (files[i] == file) return false;
-		}
-		this.included[type][folder].push(file);
-		return document.writeln('\t<script type="text/javascript" src="' + this.root + this.paths[type] + '/' + folder + '/' + file + '.js"></script>');
-	},
-
-	includeFolder: function(type, folder){
-		var scripts = this.scripts[type][folder];
-		for (var i = 0, l = scripts.length; i < l; i++) this.includeFile(type, folder, scripts[i]);
-	},
-
-	includeType: function(type){
-		for (var folder in this.scripts[type]) this.includeFolder(type, folder);
-	},
-
-	includeRequest: function(type){
-		var req = this.getRequest();
-		if (!req.files && !req.folders) return false;
-		var files = (req.files) ? req.files.split('+') : [];
-		var folders = (req.folders) ? req.folders.split('+') : [];
-		for (var j = 0; j < files.length; j++) this.includeFile(type, null, files[j]);
-		for (var i = 0; i < folders.length; i++) this.includeFolder(type, folders[i]);
-		return true;
+	
+	loadScripts: function(){
+		document.writeln('\t<script type="text/javascript" src="../image.js"></script>');
+		this.list.each(function(src){
+			document.writeln('\t<script type="text/javascript" src="' + src + '"></script>');
+		});
 	}
 
-};
+});
+
+new Build();

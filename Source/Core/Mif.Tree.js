@@ -6,17 +6,11 @@ description: Mif.Tree base Class
 license: MIT-Style License (http://mifjs.net/license.txt)
 copyright: Anton Samoylov (http://mifjs.net)
 authors: Anton Samoylov (http://mifjs.net)
-requires: [Mif/Mif]
+requires: [Mif/Mif, Mif/Mif.Util, Core/Class, More/Fx.Scroll, Mif.Tree.Sheet]
 provides: Mif.Tree
  
 ...
 */
-
-if(!Mif) var Mif = {};
-if(!Mif.ids) Mif.ids = {};
-if(!Mif.id) Mif.id = function(id){
-	return Mif.ids[id];
-}
 
 Mif.Tree = new Class({
 	
@@ -157,7 +151,7 @@ Mif.Tree = new Class({
 	},
 	
 	mouseleave: function(){
-		this.mouse.coords = {x:null,y:null};
+		this.mouse.coords = {x: null, y: null};
 		this.mouse.target = false;
 		this.mouse.node = false;
 		if(this.hover) this.hover();

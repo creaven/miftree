@@ -7,3 +7,6 @@
 [submodule "packages/mifdrag"]
 	path = packages/mifdrag
 	url = git://github.com/creaven/mifdrag.git
+[submodule "packager"]
+	path = packager
+	url = git://github.com/kamicane/packager.git

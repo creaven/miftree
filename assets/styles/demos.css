@@ -1,47 +1,66 @@
-/*
-File: Style.css
-	Slick Style for MooTools Demos.
-License:
-	Copyright (c)2007 Valerio Proietti, <http://mad4milk.net>.
-*/
 
-body{/*opera 9.5 fix*/
-position:absolute;
+* {
+margin: 0;
+padding: 0;
 }
 
-/*@group Mif*/
+html, body{
+	width:100%;
+	height:100%;
+}
 
-#title h1 .mif-m{
+body {
+position:absolute;/*opera 9.5 fix*/
+font: 11px/1.5 Lucida Grande, Helvetica, Arial, sans-serif;
+}
+
+
+/*@mif*/
+
+#menu h1 .mif-m{
 color:#e76f01;
 }
 
-#title h1 .mif-i{
+#menu h1 .mif-i{
 color:#375b8f;
 }
 
-#title h1 .mif-f{
+#menu h1 .mif-f{
 color:#e74747;
 }
 
-#title h1 .mif-tree{
+#menu h1 .mif-tree{
 color:#2cad59;
 }
 
-#title h1 .mif-dot{
+#menu h1 .mif-dot{
 color:#588ed1;
 }
 
-#title h1 a:hover .mif-dot{
+#menu h1 a{
+	text-decoration:none;
+}
+
+#menu h1 a:hover .mif-dot{
 color:#db4f6a;
 }
+
+
+#menu h1 {
+	font: 25px/1.1 Arial, sans-serif;
+	font-weight: bolder;
+	margin: 1px 0 2px 20px;
+	text-shadow: 0 2px 2px rgba(0,0,0,0.4);
+	
+}
+
+#menu h1 span{
+	color: #D2E0E6;
+}
+
 /*@end*/
 
 /* @group Reset */
-
-* {
-	margin: 0;
-	padding: 0;
-}
 
 .clear {
 	clear: both;
@@ -58,51 +77,23 @@ color:#db4f6a;
 	list-style-type: square;
 }
 
-/* @end */
-
-/* @group Base */
-
-html {
-	overflow: hidden;
-}
-
-body {
-	font: 11px/1.5 Lucida Grande, Helvetica, Arial, sans-serif;
-	background: #F3F1F1;
-	color: #41464D;
-}
-
-body, #container {
-	width: 100%;
-	height: 100%;
-	overflow: hidden;
-}
-
-a {
+#menu a{
 	text-decoration:none;
 }
 
-#title {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	padding: 5px 0;
-	background: #aaa;
-	background: #41464D;
-	color: #F3F1F1;
-	height: 30px;
-}
+/* @end */
 
 #menu {
 	position: absolute;
 	width: 30%;
-	overflow-y: auto;
 	overflow-x: hidden;
-	top: 40px;
-	left: 0;
+	overflow-y: auto;
+	top: 0px;
+	right: 0;
 	bottom: 0;
-	height: expression(document.body.clientHeight-40);
+	height: expression(document.body.clientHeight);
+	background:#fff;
+	z-index:10000;
 }
 
 #demos {
@@ -131,7 +122,7 @@ span.spc {
 }
 
 #menu-wrapper {
-	margin: 16px 8px 0 16px;
+	margin: 0;
 }
 
 .success a:link, .success a:visited {
@@ -149,29 +140,6 @@ a:link, a:visited {
 a:hover, a:active {
 	color: #41464D !important;
 	cursor: pointer !important;
-}
-
-#title h1 {
-	font: 25px/1.1 Arial, sans-serif;
-	font-weight: bolder;
-	float: left;
-	margin: 1px 0 2px 20px;
-	text-shadow: 0 2px 2px rgba(0,0,0,0.4);
-}
-
-#title h1 span {
-	color: #D2E0E6;
-}
-
-#title ul li {
-	font-weight: bold;
-	font-size: 12px;
-	float: right;
-	margin: 10px 5px 0;
-}
-
-#title ul {
-	margin-right: 20px;
 }
 
 #menu h2 {
@@ -306,3 +274,18 @@ padding-left:1em;
 
 
 /* @end */
+
+#menu .toggle, #menu .collapse{
+	width:100%;
+	height:10px;
+	background:url('../image/control-090.png') center center no-repeat #DFDFDF;
+	cursor:pointer;
+}
+
+#menu .toggle:hover, #menu .collapse:hover{
+	background-color:#B7B7B7;
+}
+
+#menu .collapse{
+	background-image:url('../image/control-270.png');
+}

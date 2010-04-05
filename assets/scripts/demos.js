@@ -12,16 +12,19 @@ var Demos = {
 	start: function() {
 		if (location.protocol == 'file:') Demos.local();
 		Demos.getList();
-		var hash=document.location.hash;
+		var hash = document.location.hash;
 		if(hash){
-			var demo=hash.replace('#','');
-			this.demo=demo;
-			Demos.load(demo)
+			var demo = hash.replace('#','');
+			this.demo = demo;
+			Demos.load(demo);
 		}
+		Demos.toggler = document.getElement('#menu .toggle');
+		Demos.menu = document.id('menu');
+		Demos.toggler.addEvent('click', Demos.toggle);
 	},
 	
 	categories: function(json) {
-		var menu = $('menu-wrapper'), list = new Hash(json);
+		var menu = document.id('menu-wrapper'), list = new Hash(json);
 		list.getKeys().each(function(group) {
 			var demos = new Hash(list[group]);
 			
@@ -46,16 +49,19 @@ var Demos = {
 	
 	load: function(folder) {
 		window.demo_path = folder + '/';
-		var wrapper = $('demos-wrapper');
+		var wrapper = document.body;
 		var demo = new Request.HTML({
 			url: folder + '/index.html',
 			onSuccess: function(tree) {
-				wrapper.empty().adopt(Demos.parse(tree, folder));
+				Demos.menu.dispose();
+				wrapper.empty();
+				Demos.menu.inject(document.body);
+				wrapper.adopt(Demos.parse(tree, folder));
 				var assets = $(document.head).getElements('#demo-css, #demo-js');
 				if (assets) assets.dispose();
 				new Element('link', {'id': 'demo-css', 'type': 'text/css', 'rel': 'stylesheet', 'href': folder + '/demo.css'}).inject(document.head);
 				new Element('script', {'id': 'demo-js', 'type': 'text/javascript', 'src': folder + '/demo.js'}).inject(document.head);
-				Demos.setInformer(folder);
+				//Demos.setInformer(folder);
 			}
 		}).GET();
 	},
@@ -148,6 +154,24 @@ var Demos = {
 				};
 			}).injectInside(info);
 		});
+	},
+	
+	toggle: function(){
+		var toggle = Demos.toggler;
+		var menu = toggle.getParent();
+		if(toggle.hasClass('collapse')){
+			toggle.removeClass('collapse').addClass('toggle');
+			menu.setStyles({
+				height: 'auto',
+				bottom: 0
+			});
+		}else{
+			toggle.addClass('collapse').removeClass('toggle');
+			menu.setStyles({
+				height: 10,
+				bottom: 'auto'
+			});
+		}
 	}
 };
 
