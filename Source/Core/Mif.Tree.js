@@ -7,8 +7,8 @@ license: MIT-Style License (http://mifjs.net/license.txt)
 copyright: Anton Samoylov (http://mifjs.net)
 authors: Anton Samoylov (http://mifjs.net)
 requires: 
-  - core:1.2.4:*
-  - more:/Fx.Scroll
+  - Core:1.2.4/*
+  - More/Fx.Scroll
 provides: Mif.Tree
  
 ...
@@ -22,7 +22,7 @@ if(!Mif.id) Mif.id = function(id){
 
 Mif.Tree = new Class({
 	
-	version: '1.2.6.1dev',
+	version: '1.2.6.1',
 
 	Implements: [new Events, new Options],
 		
