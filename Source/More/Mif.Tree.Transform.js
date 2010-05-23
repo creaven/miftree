@@ -24,6 +24,7 @@ Mif.Tree.Node.implement({
 				if(!previous) return null;
 				if(!previous.hidden) return previous;
 			}
+			return null;
 		}
 		var previousVisible = getPreviousVisible(this);
 		var type = elements ? 'copy' : 'move';
@@ -77,7 +78,7 @@ Mif.Tree.Node.implement({
 	},
 	
 	copy: function(node, where){
-		if (this.copyDenied) return;
+		if (this.copyDenied) return this;
 		function copy(structure){
 			var node = structure.node;
 			var tree = structure.tree;

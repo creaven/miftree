@@ -60,7 +60,7 @@ Mif.sheet.addRules({
 		'margin-left': '4px'
 	},
 	
-	/*@toggles*/
+	/*toggles*/
 	'.mif-tree-toggle': {
 		'width': '18px',
 		'margin-right': '4px',
@@ -128,7 +128,6 @@ Mif.sheet.addRules({
 	
 	'.mif-tree-node-selected' :{
 		'background-color': '#5C97FB',
-		//'background': '-moz-linear-gradient(center top , blue, #B0D2F4)',
 		'color': '#fff'
 	},
 	

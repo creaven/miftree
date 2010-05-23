@@ -16,11 +16,12 @@ Mif.Tree.Draw = {
 
 	getHTML: function(node,html){
 		var prefix = 'mif-tree-';
-		if($defined(node.property.checked)){
+		var checkbox;
+		if(node.property.checked != undefined){
 			if(!node.hasCheckbox) node.property.checked='nochecked';
-			var checkbox = '<span class="mif-tree-checkbox mif-tree-node-'+node.property.checked+'" uid="'+node.UID+'"></span>';
+			checkbox = '<span class="mif-tree-checkbox mif-tree-node-'+node.property.checked+'" uid="'+node.UID+'"></span>';
 		}else{
-			var checkbox = '';
+			checkbox = '';
 		}
 		html = html || [];
 		html.push(
@@ -78,7 +79,7 @@ Mif.Tree.Draw = {
 	},
 	
 	update: function(node){
-		if(!this.isUpdatable(node)) return;
+		if(!this.isUpdatable(node)) return null;
 		if(!node.hasChildren()) node.property.open=false;
 		node.getDOM('toggle').className = 'mif-tree-toggle mif-tree-toggle-'+node.getToggleType();
 		if (node.property.closeIconUrl) {
@@ -87,7 +88,7 @@ Mif.Tree.Draw = {
 			node.getDOM('icon').className='mif-tree-icon '+node.property[node.isOpen() ? 'openIcon' : 'closeIcon'];
 		}
 		node.getDOM('node')[(node.isLastVisible() ?'add' : 'remove')+'Class']('mif-tree-node-last');
-		if(node.$loading) return;
+		if(node.$loading) return null;
 		var children = node.getDOM('children');
 		if(node.isOpen() && !node.property.hidden){
 			if(!node.$draw) Mif.Tree.Draw.children(node);

@@ -27,7 +27,7 @@ Mif.Tree.implement({
 					this.property.checked='checked';
 				});
 			}else{
-				node.getFirst().setParentCheckbox(1)
+				node.getFirst().setParentCheckbox(1);
 			}
 		});
 
@@ -52,7 +52,7 @@ Mif.Tree.implement({
 Mif.Tree.Node.implement({
 
 	'switch' : function(state){
-		if(this.property.checked==state||!this.hasCheckbox) return;
+		if(this.property.checked==state||!this.hasCheckbox) return this;
 		var type=this.tree.checkboxType;
 		var checked=(this.property.checked=='checked') ? 'unchecked' : 'checked';
 		if(type=='simple'){

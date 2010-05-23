@@ -69,7 +69,7 @@ Mif.Tree.Drop = new Class({
 	},
 	
 	onenter: function(){
-		this.onleave()
+		this.onleave();
 	},
 	
 	overflowScroll: function(){
@@ -77,11 +77,12 @@ Mif.Tree.Drop = new Class({
 		var top = Mif.Drag.coords.y - this.tree.container.getPosition().y;
 		var bottom = wrapper.clientHeight - top;
 		var sign = 0;
+		var delta;
 		if(top < this.tree.height){
-			var delta = top;
+			delta = top;
 			sign = 1;
 		}else if(bottom < this.tree.height){
-			var delta = bottom;
+			delta = bottom;
 			sign = -1;
 		};
 		if(delta < 1) sign = 0;
@@ -96,7 +97,7 @@ Mif.Tree.Drop = new Class({
 			var scrollTop = wrapper.scrollTop;
 			this.scrolling = function(node){
 				wrapper.scrollTop = wrapper.scrollTop - sign*this.options.scrollSpeed/this.delta * ($time() - start);
-			}.periodical(this.options.scrollDelay, this, [sign])
+			}.periodical(this.options.scrollDelay, this, [sign]);
 		}
 	},
 

@@ -5562,7 +5562,6 @@ Element.implement({
 Array.implement({
 	
 	inject: function(added, current, where){//inject added after or before current;
-		console.log(added, current, where);
 		var pos = this.indexOf(current) + (where == 'before' ? 0 : 1);
 		for(var i = this.length - 1; i >= pos; i--){
 			this[i + 1] = this[i];

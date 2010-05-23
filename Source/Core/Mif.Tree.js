@@ -176,7 +176,7 @@ Mif.Tree = new Class({
 	getTarget: function(event){
 		var target = event.target;
 		var node;
-		while(!/mif-tree/.test(target.className)){
+		while(!(/mif-tree/).test(target.className)){
 			target = target.parentNode;
 		};
 		var test = target.className.match(/mif-tree-(toggle)-[^n]|mif-tree-(icon)|mif-tree-(name)|mif-tree-(checkbox)/);
@@ -249,7 +249,7 @@ Mif.Tree = new Class({
 		var down = (top > (this.wrapper.scrollTop + this.wrapper.clientHeight - this.height));
 		if(position == -1 || ( !up && !down ) ) {
 			this.scroll.fireEvent('complete');
-			return false;
+			return;
 		}
 		if(this.animateScroll){
 			this.scroll.start(this.wrapper.scrollLeft, top - (down ? this.wrapper.clientHeight - this.height : this.height));
@@ -282,7 +282,7 @@ Mif.Tree = new Class({
 			path.unshift(node);
 		};
 		path.each(function(el){
-			el.toggle(true)
+			el.toggle(true);
 		});
 		return this;
 	},
@@ -314,7 +314,6 @@ Mif.Tree.UID = 0;
 Array.implement({
 	
 	inject: function(added, current, where){//inject added after or before current;
-		console.log(added, current, where);
 		var pos = this.indexOf(current) + (where == 'before' ? 0 : 1);
 		for(var i = this.length-1; i >= pos; i--){
 			this[i + 1] = this[i];

@@ -62,7 +62,7 @@ Mif.Tree.KeyNav = new Class({
 
 	goForward: function(current){
 		var forward = current.getNextVisible();
-		if( forward ) this.tree.select(forward)
+		if( forward ) this.tree.select(forward);
 	},
 	
 	goBack: function(current){
@@ -85,6 +85,7 @@ Mif.Tree.KeyNav = new Class({
 				return this.tree.select(current.getParent());
 			}
 		}
+		return true;
 	},
 	
 	goRight: function(current){

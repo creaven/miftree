@@ -45,7 +45,7 @@ Mif.Tree.implement({
 	getInput: function(){
 		if(!this.input){
 			this.input = new Element('input').addClass('mif-tree-rename');
-			this.input.addEvent('focus',function(){this.select()});
+			this.input.addEvent('focus',function(){this.select();});
 			Mif.Tree.Rename.autoExpand(this.input);
 		}
 		return this.input;
@@ -109,7 +109,7 @@ Mif.Tree.Node.implement({
 	
 });
 
-Mif.Tree.Rename={
+Mif.Tree.Rename = {
 	
 	autoExpand: function(input){
 		var span = new Element('span').addClass('mif-tree-rename').setStyles({

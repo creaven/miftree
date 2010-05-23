@@ -12,4 +12,4 @@ provides: Mif.Drag
 ...
 */
 
-Mif.Drag = {}
+Mif.Drag = {};

@@ -16,6 +16,6 @@ Content-Type: multipart/related; boundary="SEPARATOR"
 
 */
 if(!window.MifImg) MifImg = {};
-$extend(MifImg, 
+$extend(MifImg, {
 
 });
