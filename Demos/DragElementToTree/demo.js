@@ -226,7 +226,7 @@ window.addEvent('domready', function(){
 			var ghost=new Element('span').addClass('mif-tree-ghost');
 			ghost.adopt(this.current.toElement())
 			.inject(document.body).setStyle('position', 'absolute');
-			new Element('span').set('html', Mif.Tree.Draw.zeroSpace).inject(ghost, 'top')
+			new Element('span').inject(ghost, 'top')
 			.addClass('mif-tree-ghost-icon mif-tree-ghost-notAllowed');
 			Mif.Drag.ghost=ghost;
 		},

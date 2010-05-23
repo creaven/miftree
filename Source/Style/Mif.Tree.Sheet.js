@@ -48,7 +48,7 @@ Mif.sheet.addRules({
 	},
 	
 	'.mif-tree-children .mif-tree-node-wrapper': {
-		'padding-left': '18px'
+		'display': 'block'
 	},
 
 	'.mif-tree-node': {
@@ -140,6 +140,6 @@ Mif.sheet.addRules({
 (function(){
 	for(var i = 1; i < 30; i++){
 		var rule = '.mif-tree-children '.repeat(i) + ' .mif-tree-node-wrapper';
-		Mif.sheet.addRule(rule, 'padding-left: ' + 22*i + 'px');
+		Mif.sheet.addRule(rule, 'margin-left: ' + 22*i + 'px');
 	}
 })();

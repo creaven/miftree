@@ -31,7 +31,8 @@ Mif.Tree = new Class({
 			loadable: false,
 			hidden: false,
 			open: false
-		}
+		},
+		className: ''
 	},
 	
 	initialize: function(options){
@@ -47,7 +48,7 @@ Mif.Tree = new Class({
 		});
 		this.updateOpenState();
 		if(this.options.expandTo) this.initExpandTo();
-		this.wrapper = new Element('div').addClass('mif-tree-wrapper');
+		this.wrapper = new Element('div').addClass('mif-tree-wrapper').addClass(this.options.className);
 		if(this.options.container) this.wrapper.inject(this.options.container);
 		this.events();
 		this.initScroll();
@@ -63,7 +64,8 @@ Mif.Tree = new Class({
 		var id = this.options.id;
 		this.id = id;
 		if(id != null) Mif.ids[id] = this;
-		if(Mif.Tree.KeyNav) new Mif.Tree.KeyNav(this);
+		var KeyNav = this.KeyNav;
+		if(KeyNav) new KeyNav(this);
 		if (MooTools.version >= '1.2.2' && this.options.initialize) this.options.initialize.call(this);
 	},
 	
@@ -139,6 +141,7 @@ Mif.Tree = new Class({
 			}
 			node = node._getNextVisible();
 		}
+		return this;
 	},
 	
 	preventDefault: function(event){
@@ -242,19 +245,25 @@ Mif.Tree = new Class({
 		this.scroll = new Fx.Scroll(this.wrapper, {link: 'cancel'});
 	},
 	
-	scrollTo: function(node){
-		var position = node.getVisiblePosition();
-		var top = position*this.height;
+	scrollTo: function(node, animate){
+		var top = 0;
+		var element = node.getDOM('node');
+		while(element != this.wrapper){
+			top += element.offsetTop;
+			element = element.offsetParent;
+		}
+		var height = node.getDOM('node').offsetHeight;
 		var up = (top < this.wrapper.scrollTop);
-		var down = (top > (this.wrapper.scrollTop + this.wrapper.clientHeight - this.height));
-		if(position == -1 || ( !up && !down ) ) {
+		var down = (top > (this.wrapper.scrollTop + this.wrapper.clientHeight - height));
+		if(!up && !down) {
 			this.scroll.fireEvent('complete');
 			return;
 		}
-		if(this.animateScroll){
-			this.scroll.start(this.wrapper.scrollLeft, top - (down ? this.wrapper.clientHeight - this.height : this.height));
+		var pos = top - (down ? this.wrapper.clientHeight - height : 0);
+		if(this.animateScroll && animate != false){
+			this.scroll.start(this.wrapper.scrollLeft, pos);
 		}else{
-			this.scroll.set(this.wrapper.scrollLeft, top - (down ? this.wrapper.clientHeight - this.height : this.height));
+			this.scroll.set(this.wrapper.scrollLeft, pos);
 			this.scroll.fireEvent('complete');
 		}
 	},

@@ -12,47 +12,47 @@ provides: Mif.Tree.Load
 ...
 */
 
-Mif.Tree.Load = {
+Mif.Tree.implement({
 		
-	children: function(children, parent, tree){
+	readJSON: function(children, parent){
 		for( var i = children.length; i--; ){
 			var child = children[i];
 			var subChildren = child.children;
-			var node = new Mif.Tree.Node({
-				tree: tree,
+			var node = new this.Node({
+				tree: this,
 				parentNode: parent
 			}, child);
-			if( tree.forest || parent != undefined){
+			if( this.forest || parent != undefined){
 				parent.children.unshift(node);
 			}else{
-				tree.root = node;
+				this.root = node;
 			}
 			if(subChildren && subChildren.length){
-				arguments.callee(subChildren, node, tree);
+				this.readJSON(subChildren, node);
 			}
 		}
 		if(parent) parent.property.loaded = true;
-		tree.fireEvent('loadChildren', parent);
+		//this.fireEvent('loadChildren', parent);
 	}
 	
-};
+});
 
 Mif.Tree.implement({
 
 	load: function(options){
 		var tree = this;
-		this.loadOptions = this.loadOptions||$lambda({});
+		this.loadOptions = this.loadOptions || $lambda({});
 		function success(json){
 			var parent = null;
 			if(tree.forest){
-				tree.root = new Mif.Tree.Node({
+				tree.root = new tree.Node({
 					tree: tree,
 					parentNode: null
 				}, {});
 				parent = tree.root;
 			}
-			Mif.Tree.Load.children(json, parent, tree);
-			Mif.Tree.Draw[tree.forest ? 'forestRoot' : 'root'](tree);
+			tree.readJSON(json, parent);
+			tree['draw' + (tree.forest ? 'ForestRoot' : 'Root')]();
 			tree.$getIndex();
 			tree.fireEvent('load');
 			return tree;
@@ -75,19 +75,19 @@ Mif.Tree.Node.implement({
 	load: function(options){
 		this.$loading = true;
 		options = options||{};
-		this.addType('loader');
+		//this.addType('loader');
 		var self = this;
 		function success(json){
-			Mif.Tree.Load.children(json, self, self.tree);
+			self.tree.readJSON(json, self);
 			delete self.$loading;
 			self.property.loaded = true;
-			self.removeType('loader');
-			Mif.Tree.Draw.update(self);
+			//self.removeType('loader');
+			self.tree.update(self);
 			self.fireEvent('load');
 			self.tree.fireEvent('loadNode', self);
 			return self;
 		}
-		options=$extend($extend($extend({
+		options = $extend($extend($extend({
 			isSuccess: $lambda(true),
 			secure: true,
 			onSuccess: success,

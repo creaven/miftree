@@ -41,11 +41,11 @@ Mif.Tree.KeyNav = new Class({
 	
 	action: function(event){
 		if(!['down','left','right','up', 'pgup', 'pgdown', 'end', 'home'].contains(event.key)) return;
-		var tree=this.tree;
+		var tree = this.tree;
 		if(!tree.selected){
 			tree.select(tree.forest ? tree.root.getFirst() : tree.root);
 		}else{
-			var current=tree.selected;
+			var current = tree.selected;
 			switch (event.key){
 				case 'down': this.goForward(current);event.stop();break;  
 				case 'up': this.goBack(current);event.stop();break;   
@@ -57,12 +57,12 @@ Mif.Tree.KeyNav = new Class({
 				case 'pgdown': this.goPageDown(current);event.stop();break;
 			}
 		}
-		tree.scrollTo(tree.selected);
+		tree.scrollTo(tree.selected, false);
 	},
 
 	goForward: function(current){
 		var forward = current.getNextVisible();
-		if( forward ) this.tree.select(forward);
+		if(forward) this.tree.select(forward);
 	},
 	
 	goBack: function(current){
@@ -89,7 +89,7 @@ Mif.Tree.KeyNav = new Class({
 	},
 	
 	goRight: function(current){
-		if(!current.hasChildren(true)&&!current.loadable){
+		if(!current.hasChildren(true) && !current.property.loadable){
 			return false;
 		}else if(!current.isOpen()){
 			return current.toggle();
@@ -121,6 +121,8 @@ Mif.Tree.KeyNav = new Class({
 	}
 	
 });
+
+Mif.Tree.prototype.KeyNav = Mif.Tree.KeyNav;
 
 Event.Keys.extend({
 	'pgdown': 34,

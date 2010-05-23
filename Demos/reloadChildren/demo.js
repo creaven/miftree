@@ -9,7 +9,7 @@ window.addEvent('domready',function(){
 			this.$draw=false;
 			this.tree.$getIndex();
 			this.getDOM('children').innerHTML='';
-			Mif.Tree.Draw.update(this);
+			this.tree.update(this);
 			return this;
 		}       
 

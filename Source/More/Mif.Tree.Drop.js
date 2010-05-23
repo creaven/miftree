@@ -116,7 +116,7 @@ Mif.Tree.Drop = new Class({
 			return;
 		}
 		if(where == 'inside'){
-			if(target.tree && !target.isOpen() && !this.openTimer && (target.loadable || target.hasChildren()) ){
+			if(target.tree && !target.isOpen() && !this.openTimer && (target.property.loadable || target.hasChildren()) ){
 				this.wrapper = target.getDOM('wrapper').setStyle('cursor', 'progress');
 				this.openTimer = function(){
 					target.toggle();
@@ -165,7 +165,7 @@ Mif.Tree.Drop = new Class({
 			}
 			return true;
 		};
-		if((Mif.Drag.current instanceof Mif.Tree.Node) && Mif.Drag.current.contains(target)){
+		if((Mif.Drag.current instanceof this.tree.Node) && Mif.Drag.current.contains(target)){
 			Mif.Drag.target = target;
 			Mif.Drag.where = 'notAllowed';
 			return true;
@@ -233,7 +233,7 @@ Mif.Tree.Drop = new Class({
 				return;
 			};
 		};
-		if(!(current instanceof Mif.Tree.Node )){
+		if(!(current instanceof this.tree.Node )){
 			current = current.toNode(this.tree);
 		}
 		this.tree[action](current, target, where);

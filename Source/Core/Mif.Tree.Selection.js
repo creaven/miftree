@@ -63,7 +63,7 @@ Mif.Tree.Node.implement({
 		
 	select: function(state) {
 		this.property.selected = state;
-		if(!Mif.Tree.Draw.isUpdatable(this)) return;
+		if(!this.tree.isUpdatable(this)) return;
 		this.getDOM('node')[(state ? 'add' : 'remove')+'Class'](this.selectClass||'mif-tree-node-selected');
 	},
 	

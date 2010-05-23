@@ -32,7 +32,7 @@ Mif.Tree.implement({
 		var cnode = this.mouse.node;
 		var ctarget = this.mouse.target;
 		$each(this.hoverState, function(node, target, state){
-			if(node == cnode && (target == 'node'||target==ctarget)) return;
+			if(node == cnode && (target == 'node' || target == ctarget)) return;
 			if(node) {
 				Mif.Tree.Hover.out(node, target);
 				state[target] = false;
@@ -59,14 +59,14 @@ Mif.Tree.Hover = {
 	
 	over: function(node, target){
 		var nodeEl = node.getDOM('node');
-		nodeEl.addClass((node.hoverClass || 'mif-tree-hover') + '-' + target);
+		nodeEl.addClass((node.property.hoverClass || 'mif-tree-hover') + '-' + target);
 		if(node.property.selected) nodeEl.addClass((node.hoverClass || 'mif-tree-hover') + '-selected-' + target);
 	},
 	
 	out: function(node, target){
 		node.getDOM('node')
-		.removeClass((node.hoverClass || 'mif-tree-hover') + '-' + target)
-		.removeClass((node.hoverClass || 'mif-tree-hover') + '-selected-' + target);
+		.removeClass((node.property.hoverClass || 'mif-tree-hover') + '-' + target)
+		.removeClass((node.property.hoverClass || 'mif-tree-hover') + '-selected-' + target);
 	}
 	
 };

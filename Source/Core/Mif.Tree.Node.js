@@ -73,8 +73,7 @@ Mif.Tree.Node = new Class({
 	},
 	
 	drawToggle: function(){
-		this.tree.$getIndex();
-		Mif.Tree.Draw.update(this);
+		this.tree.$getIndex().update(this);
 	},
 	
 	recursive: function(fn, args){
@@ -239,7 +238,8 @@ Mif.Tree.Node = new Class({
 			if(nv) Mif.ids[nv]=this;
 			return this;
 		}
-		if(!Mif.Tree.Draw.isUpdatable(this)) return this;
+		var tree = this.tree;
+		if(!tree.isUpdatable(this)) return this;
 		switch(p){
 			case 'name':
 				this.getDOM('name').set('html', nv);
@@ -268,7 +268,7 @@ Mif.Tree.Node = new Class({
 				var previous = this.getPreviousVisible();
 				var next = this.getNextVisible();
 				[_previous, _next, previous, next, parent, this].each(function(node){
-					Mif.Tree.Draw.update(node);
+					treeF.update(node);
 				});
 				return this;
 		}
@@ -283,6 +283,8 @@ Mif.Tree.Node = new Class({
 	}
 	
 });
+
+Mif.Tree.prototype.Node = Mif.Tree.Node;
 
 Mif.Tree.Node.UID = 0;
 Mif.Tree.Nodes = {};

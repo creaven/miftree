@@ -11,8 +11,8 @@ window.addEvent('domready',function(){
 		height:20
 	})
 	.addEvent('load', function(){
-		var root=this.root;
-		var newNode=new Mif.Tree.Node({
+		var root = this.root;
+		var newNode = new Mif.Tree.Node({
             parentNode: root,
             tree: tree
             }, {property:{name: 'node1'}});

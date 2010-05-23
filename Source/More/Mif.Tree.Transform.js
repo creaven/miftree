@@ -70,9 +70,9 @@ Mif.Tree.Node.implement({
 		tree.fireEvent('structureChange', [this, node, where, type]);
 		tree.$getIndex();
 		if(oldTree)	oldTree.$getIndex();
-		Mif.Tree.Draw.inject(this, elements);
+		tree.updateInject(this, elements);
 		[node, this, parent, previousVisible, getPreviousVisible(this)].each(function(node){
-			Mif.Tree.Draw.update(node);
+			tree.update(node);
 		});
 		return this;
 	},
@@ -89,7 +89,7 @@ Mif.Tree.Node.implement({
 				data: node.data
 			});
 			options.property.open = false;
-			var nodeCopy = new Mif.Tree.Node({
+			var nodeCopy = new tree.Node({
 				parentNode: structure.parentNode,
 				children: [] ,
 				tree: tree
@@ -110,7 +110,7 @@ Mif.Tree.Node.implement({
 			parentNode: null,
 			tree: node.tree
 		});
-		return nodeCopy.inject(node, where, Mif.Tree.Draw.node(nodeCopy));
+		return nodeCopy.inject(node, where, this.tree.drawNode(nodeCopy));
 	},
 	
 	remove: function(){
@@ -125,8 +125,8 @@ Mif.Tree.Node.implement({
 		this.tree.selected = false;
 		this.getDOM('node').destroy();
 		this.tree.$getIndex();
-		Mif.Tree.Draw.update(parent);
-		Mif.Tree.Draw.update(previousVisible);
+		this.tree.update(parent);
+		this.tree.update(previousVisible);
 		this.recursive(function(){
 			if(this.id) delete Mif.ids[this.id];
 		});
@@ -160,13 +160,13 @@ Mif.Tree.implement({
 	},
 	
 	add: function(node, current, where){
-		if(!(node instanceof Mif.Tree.Node)){
-			node = new Mif.Tree.Node({
+		if(!(node instanceof this.Node)){
+			node = new this.Node({
 				parentNode: null,
 				tree: this
 			}, node);
 		};
-		node.inject(current, where, Mif.Tree.Draw.node(node));
+		node.inject(current, where, this.drawNode(node));
 		this.fireEvent('add', [node, current, where]);
 		return this;
 	}

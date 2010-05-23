@@ -192,10 +192,10 @@ Mif.Tree.Drag = new Class({
 	
 	addGhost: function(){
 		var ghost = new Element('span').addClass('mif-tree-ghost');
-		var el = Mif.Tree.Draw.node(Mif.Drag.current).getFirst()[0].removeClass('mif-tree-node-selected');
+		var el = this.tree.drawNode(Mif.Drag.current).getFirst()[0].removeClass('mif-tree-node-selected');
 		ghost.adopt(el)
 		.inject(document.body).setStyle('position', 'absolute');
-		new Element('span').set('html',Mif.Tree.Draw.zeroSpace).inject(ghost, 'top').addClass('mif-tree-ghost-notAllowed');
+		new Element('span').inject(ghost, 'top').addClass('mif-tree-ghost-notAllowed');
 		ghost.getLast().getFirst().className = '';
 		Mif.Drag.ghost = ghost;
 	},
