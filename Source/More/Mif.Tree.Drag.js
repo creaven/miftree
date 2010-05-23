@@ -177,7 +177,7 @@ Mif.Tree.Drag = new Class({
 	},
 	
 	onenter: function(){
-		this.onleave()
+		this.onleave();
 	},
 	
 	getZone: function(target){//private leave/enter
@@ -210,11 +210,12 @@ Mif.Tree.Drag = new Class({
 		var top = y-wrapper.scrollTop;
 		var bottom = wrapper.offsetHeight-top;
 		var sign = 0;
+		var delta;
 		if(top < this.tree.height){
-			var delta = top;
+			delta = top;
 			sign = 1;
 		}else if(bottom < this.tree.height){
-			var delta = bottom;
+			delta = bottom;
 			sign = -1;
 		}
 		if(sign && !this.scrolling){
@@ -224,7 +225,7 @@ Mif.Tree.Drag = new Class({
 					delta = (sign == 1 ? (y - wrapper.scrollTop) : (wrapper.offsetHeight - y + wrapper.scrollTop)) || 1;
 				}
 				wrapper.scrollTop = wrapper.scrollTop - sign*this.options.scrollSpeed/delta;
-			}.periodical(this.options.scrollDelay, this, [sign])
+			}.periodical(this.options.scrollDelay, this, [sign]);
 		}
 		if(!sign){
 			$clear(this.scrolling);

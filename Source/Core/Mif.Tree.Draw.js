@@ -16,11 +16,12 @@ Mif.Tree.Draw = {
 
 	getHTML: function(node,html){
 		var prefix = node.tree.DOMidPrefix;
+		var checkbox;
 		if($defined(node.state.checked)){
 			if(!node.hasCheckbox) node.state.checked='nochecked';
-			var checkbox = '<span class="mif-tree-checkbox mif-tree-node-'+node.state.checked+'" uid="'+node.UID+'">'+Mif.Tree.Draw.zeroSpace+'</span>';
+			checkbox = '<span class="mif-tree-checkbox mif-tree-node-'+node.state.checked+'" uid="'+node.UID+'">'+Mif.Tree.Draw.zeroSpace+'</span>';
 		}else{
-			var checkbox = '';
+			checkbox = '';
 		}
 		html = html||[];
 		html.push(
@@ -76,16 +77,16 @@ Mif.Tree.Draw = {
 	},
 	
 	update: function(node){
-		if(!this.isUpdatable(node)) return;
-		if(!node.hasChildren()) node.state.open=false;
+		if(!this.isUpdatable(node)) return null;
+		if(!node.hasChildren()) node.state.open = false;
 		node.getDOM('gadjet').className = 'mif-tree-gadjet mif-tree-gadjet-'+node.getGadjetType();
 		if (node.closeIconUrl) {
 			node.getDOM('icon').setStyle('background-image', 'url('+(node.isOpen() ? node.openIconUrl : node.closeIconUrl)+')');
 		} else {
-			node.getDOM('icon').className='mif-tree-icon '+node[node.isOpen() ? 'openIcon' : 'closeIcon'];
+			node.getDOM('icon').className = 'mif-tree-icon '+node[node.isOpen() ? 'openIcon' : 'closeIcon'];
 		}
 		node.getDOM('node')[(node.isLastVisible() ?'add' : 'remove')+'Class']('mif-tree-node-last');
-		if(node.$loading) return;
+		if(node.$loading) return null;
 		var children = node.getDOM('children');
 		if(node.isOpen()){
 			if(!node.$draw) Mif.Tree.Draw.children(node);

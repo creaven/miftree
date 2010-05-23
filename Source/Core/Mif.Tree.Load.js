@@ -43,14 +43,13 @@ Mif.Tree.implement({
 		var tree = this;
 		this.loadOptions = this.loadOptions||$lambda({});
 		function success(json){
+			var parent = null;
 			if(tree.forest){
 				tree.root = new Mif.Tree.Node({
 					tree: tree,
 					parentNode: null
 				}, {});
-				var parent = tree.root;
-			}else{
-				var parent = null;
+				parent = tree.root;
 			}
 			Mif.Tree.Load.children(json, parent, tree);
 			Mif.Tree.Draw[tree.forest ? 'forestRoot' : 'root'](tree);

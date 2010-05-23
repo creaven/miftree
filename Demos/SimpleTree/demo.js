@@ -11,7 +11,7 @@ window.addEvent('domready',function(){
 		height: 18//node height
 	});
 
-	var json=[
+	var json = [
 		{
 			"property": {
 				"name": "root"

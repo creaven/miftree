@@ -15,12 +15,12 @@ provides: Mif.Tree.KeyNav
 Mif.Tree.KeyNav=new Class({
 	
 	initialize: function(tree){
-		this.tree=tree;
-		this.bound={
+		this.tree = tree;
+		this.bound = {
 			action: this.action.bind(this),
 			attach: this.attach.bind(this),
 			detach: this.detach.bind(this)
-		}
+		};
 		tree.addEvents({
 			'focus': this.bound.attach,
 			'blur': this.bound.detach
@@ -28,43 +28,43 @@ Mif.Tree.KeyNav=new Class({
 	},
 	
 	attach: function(){
-		var event=Browser.Engine.trident||Browser.Engine.webkit ? 'keydown' : 'keypress';
+		var event = Browser.Engine.trident || Browser.Engine.webkit ? 'keydown' : 'keypress';
 		document.addEvent(event, this.bound.action);
 	},
 	
 	detach: function(){
-		var event=Browser.Engine.trident||Browser.Engine.webkit ? 'keydown' : 'keypress';
+		var event = Browser.Engine.trident || Browser.Engine.webkit ? 'keydown' : 'keypress';
 		document.removeEvent(event, this.bound.action);
 	},
 	
 	action: function(event){
 		if(!['down','left','right','up', 'pgup', 'pgdown', 'end', 'home'].contains(event.key)) return;
-		var tree=this.tree;
+		var tree = this.tree;
 		if(!tree.selected){
 			tree.select(tree.forest ? tree.root.getFirst() : tree.root);
 		}else{
-			var current=tree.selected;
+			var current = tree.selected;
 			switch (event.key){
-				case 'down': this.goForward(current);event.stop();break;  
-				case 'up': this.goBack(current);event.stop();break;   
-				case 'left': this.goLeft(current);event.stop();break;
-				case 'right': this.goRight(current);event.stop();break;
-				case 'home': this.goStart(current);event.stop();break;
-				case 'end': this.goEnd(current);event.stop();break;
-				case 'pgup': this.goPageUp(current);event.stop();break;
-				case 'pgdown': this.goPageDown(current);event.stop();break;
+				case 'down': this.goForward(current); event.stop(); break;  
+				case 'up': this.goBack(current); event.stop(); break;   
+				case 'left': this.goLeft(current); event.stop(); break;
+				case 'right': this.goRight(current); event.stop(); break;
+				case 'home': this.goStart(current); event.stop(); break;
+				case 'end': this.goEnd(current); event.stop(); break;
+				case 'pgup': this.goPageUp(current); event.stop(); break;
+				case 'pgdown': this.goPageDown(current); event.stop(); break;
 			}
 		}
 		tree.scrollTo(tree.selected);
 	},
 
 	goForward: function(current){
-		var forward=current.getNextVisible();
-		if( forward ) this.tree.select(forward)
+		var forward = current.getNextVisible();
+		if(forward) this.tree.select(forward);
 	},
 	
 	goBack: function(current){
-		var back=current.getPreviousVisible();
+		var back = current.getPreviousVisible();
 		if (back) this.tree.select(back);
 	},
 	
@@ -83,10 +83,11 @@ Mif.Tree.KeyNav=new Class({
 				return this.tree.select(current.getParent());
 			}
 		}
+		return true;
 	},
 	
 	goRight: function(current){
-		if(!current.hasChildren(true)&&!current.loadable){
+		if(!current.hasChildren(true) && !current.loadable){
 			return false;
 		}else if(!current.isOpen()){
 			return current.toggle();
@@ -104,16 +105,16 @@ Mif.Tree.KeyNav=new Class({
 	},
 	
 	goPageDown: function(current){
-		var tree=this.tree;
-		var count=(tree.container.clientHeight/tree.height).toInt()-1;
-		var newIndex=Math.min(tree.$index.indexOf(current)+count, tree.$index.length-1);
+		var tree = this.tree;
+		var count = (tree.container.clientHeight/tree.height).toInt() - 1;
+		var newIndex = Math.min(tree.$index.indexOf(current) + count, tree.$index.length - 1);
 		tree.select(tree.$index[newIndex]);
 	},
 	
 	goPageUp: function(current){
-		var tree=this.tree;
-		var count=(tree.container.clientHeight/tree.height).toInt()-1;
-		var newIndex=Math.max(tree.$index.indexOf(current)-count, 0);
+		var tree = this.tree;
+		var count = (tree.container.clientHeight/tree.height).toInt() - 1;
+		var newIndex = Math.max(tree.$index.indexOf(current) - count, 0);
 		tree.select(tree.$index[newIndex]);
 	}
 	

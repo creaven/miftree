@@ -31,7 +31,7 @@ window.addEvent('domready',function(){
 				closeIcon: 'mif-tree-bin-close-icon'
 			}
 		},
-		dfltType:'folder'
+		dfltType: 'folder'
 	});
 
 	//tree.initSortable();
@@ -41,22 +41,22 @@ window.addEvent('domready',function(){
 
 	tree.loadOptions=function(node){
 		// if node name 'empty' load from url 'empty.json'
-		if(node.name=='empty'){
+		if(node.name == 'empty'){
 			return {
 				url: '../assets/files/empty.json'
-			}
+			};
 		}
 		return {
 			url: '../assets/files/mediumTree.json'
 		};
-	}
+	};
 	
 	$('getChecked').addEvent('click', function(){
-		var checked='';
+		var checked = '';
 		tree.getChecked().each(function(node){
-			checked+='<p>'+node.name+'</p>';
+			checked += '<p>' + node.name + '</p>';
 		});
-		$('checked').innerHTML=checked;
+		$('checked').innerHTML = checked;
 	});
 	
 });

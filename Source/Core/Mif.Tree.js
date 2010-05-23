@@ -18,7 +18,7 @@ if(!Mif) var Mif = {};
 if(!Mif.ids) Mif.ids = {};
 if(!Mif.id) Mif.id = function(id){
 	return Mif.ids[id];
-}
+};
 
 Mif.Tree = new Class({
 	
@@ -174,7 +174,7 @@ Mif.Tree = new Class({
 	
 	getTarget: function(event){
 		var target = event.target, node;
-		while(!/mif-tree/.test(target.className)){
+		while(!(/mif-tree/).test(target.className)){
 			target = target.parentNode;
 		}
 		var test = target.className.match(/mif-tree-(gadjet)-[^n]|mif-tree-(icon)|mif-tree-(name)|mif-tree-(checkbox)/);
@@ -255,6 +255,7 @@ Mif.Tree = new Class({
 			this.scroll.set(this.wrapper.scrollLeft, top - (down ? this.wrapper.clientHeight - this.height : this.height));
 			this.scroll.fireEvent('complete');
 		}
+		return this;
 	},
 	
 	updateOpenState: function(){
@@ -280,7 +281,7 @@ Mif.Tree = new Class({
 			path.unshift(node);
 		};
 		path.each(function(el){
-			el.toggle(true)
+			el.toggle(true);
 		});
 		return this;
 	},

@@ -7,55 +7,55 @@ window.addEvent('domready',function(){
 			new Mif.Tree.Drag(this, {
 				onDrag: function(){
 					//inject book inside book not allowed;
-					if(this.target && this.target.type=='book' && this.current.type=='book' && this.where=='inside'){
-						this.where='notAllowed';
+					if(this.target && this.target.type == 'book' && this.current.type == 'book' && this.where == 'inside'){
+						this.where = 'notAllowed';
 					}
-					$('destination').innerHTML=this.target ? this.target.name : '';
-					$('where').innerHTML=this.where;
+					$('destination').innerHTML = this.target ? this.target.name : '';
+					$('where').innerHTML = this.where;
 				},
 				onStart: function(){
-					$('source').innerHTML=this.current.name;
+					$('source').innerHTML = this.current.name;
 				},
 				onComplete: function(){
-					$('destination').innerHTML='';
-					$('where').innerHTML='';
-					$('source').innerHTML='';
+					$('destination').innerHTML = '';
+					$('where').innerHTML = '';
+					$('source').innerHTML = '';
 				}
 			});
 		},
 		types: {
-			folder:{
+			folder: {
 				openIcon: 'mif-tree-open-icon',
 				closeIcon: 'mif-tree-close-icon'
 			},
-			loader:{
+			loader: {
 				openIcon: 'mif-tree-loader-open-icon',
 				closeIcon: 'mif-tree-loader-close-icon',
 				dropDenied: ['inside','after']
 			},
-			disabled:{
+			disabled: {
 				openIcon: 'mif-tree-open-icon',
 				closeIcon: 'mif-tree-close-icon',
 				dragDisabled: true,
 				cls: 'disabled'
 			},
-			book:{
+			book: {
 				openIcon: 'mif-tree-book-icon',
 				closeIcon: 'mif-tree-book-icon',
 				loadable: true
 			},
-			bin:{
+			bin: {
 				openIcon: 'mif-tree-bin-open-icon',
 				closeIcon: 'mif-tree-bin-close-icon'
 			}
 		},
-		dfltType:'folder',
+		dfltType: 'folder',
 		height: 18,
 		onCopy: function(from, to, where, copy){
-			if(from.getParent()==copy.getParent()){
+			if(from.getParent() == copy.getParent()){
 				copy.set({
 					property: {
-						name: 'copy '+from.name
+						name: 'copy ' + from.name
 					}
 				});
 			}
@@ -67,17 +67,17 @@ window.addEvent('domready',function(){
 		url: '../assets/files/forest.json'
 	});
 
-	tree.loadOptions=function(node){
+	tree.loadOptions = function(node){
 		// if node name 'empty' load from url 'empty.json'
-		if(node.name=='empty'){
+		if(node.name == 'empty'){
 			return {
 				url: '../assets/files/empty.json'
-			}
+			};
 		}
 		return {
 			url: '../assets/files/mediumTree.json'
 		};
-	}
+	};
 	
 	tree2 = new Mif.Tree({
 		container: $('tree_container2'),
@@ -85,59 +85,59 @@ window.addEvent('domready',function(){
 			new Mif.Tree.KeyNav(this);
 			new Mif.Tree.Drag(this, {
 				onDrag: function(){
-					$('destination').innerHTML=this.target ? this.target.name : '';
-					$('where').innerHTML=this.where;
+					$('destination').innerHTML = this.target ? this.target.name : '';
+					$('where').innerHTML = this.where;
 				},
 				onStart: function(){
-					$('source').innerHTML=this.current.name;
+					$('source').innerHTML = this.current.name;
 				},
 				onComplete: function(){
-					$('destination').innerHTML='';
-					$('where').innerHTML='';
-					$('source').innerHTML='';
+					$('destination').innerHTML = '';
+					$('where').innerHTML = '';
+					$('source').innerHTML = '';
 				}
 			});
 		},
 		types: {
-			folder:{
+			folder: {
 				openIcon: 'mif-tree-open-icon',
 				closeIcon: 'mif-tree-close-icon'
 			},
-			loader:{
+			loader: {
 				openIcon: 'mif-tree-loader-open-icon',
 				closeIcon: 'mif-tree-loader-close-icon',
 				dropDenied: ['inside','after']
 			},
-			disabled:{
+			disabled: {
 				openIcon: 'mif-tree-open-icon',
 				closeIcon: 'mif-tree-close-icon',
 				dragDisbled: true,
 				cls: 'disabled'
 			},
-			book:{
+			book: {
 				openIcon: 'mif-tree-book-icon',
 				closeIcon: 'mif-tree-book-icon',
 				loadable: true
 			},
-			bin:{
+			bin: {
 				openIcon: 'mif-tree-bin-open-icon',
 				closeIcon: 'mif-tree-bin-close-icon'
 			}
 		},
-		dfltType:'folder',
+		dfltType: 'folder',
 		height: 18,
 		onCopy: function(from, to, where, copy){
-			if(from.getParent()==copy.getParent()){
+			if(from.getParent() == copy.getParent()){
 				copy.set({
 					property: {
-						name: 'copy '+from.name
+						name: 'copy ' + from.name
 					}
 				});
 			}
 		}
 	});
 
-	var json=[	
+	var json = [	
 		{
 			"property": {
 				"name": "root"
@@ -178,6 +178,7 @@ window.addEvent('domready',function(){
 			]
 		}
 	];
+	
 	tree2.load({
 		json: json
 	});

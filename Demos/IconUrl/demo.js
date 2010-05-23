@@ -2,16 +2,16 @@ window.addEvent('domready',function(){
 	tree = new Mif.Tree({
 		container: $('tree_container'),// tree container
 		types: {// node types
-			folder:{
+			folder: {
 				openIcon: 'mif-tree-open-icon',//css class open icon
 				closeIcon: 'mif-tree-close-icon'// css class close icon
 			}
 		},
-		dfltType:'folder',//default node type
+		dfltType: 'folder',//default node type
 		height: 18//node height
 	});
 
-	var json=[
+	var json = [
 		{
 			"property": {
 				"name": "root"

@@ -6,16 +6,16 @@ window.addEvent('domready',function(){
 		container: $('tree_container'),// tree container
 		forest: true,
 		types: {// node types
-			folder:{
+			folder: {
 				openIcon: 'mif-tree-open-icon',//css class open icon
 				closeIcon: 'mif-tree-close-icon'// css class close icon
 			}
 		},
-		dfltType:'folder',//default node type
+		dfltType: 'folder',//default node type
 		height: 18//node height
 	});
 	
-	var jsonChildren=[
+	var jsonChildren = [
 		{
 			"property":{
 				"name": "nodeA"
@@ -58,7 +58,7 @@ window.addEvent('domready',function(){
 		}
 	];
 
-	var json=[
+	var json = [
 		{
 			"property": {
 				"name": "root"

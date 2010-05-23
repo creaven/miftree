@@ -15,11 +15,11 @@ provides: Mif.Tree.Sort
 Mif.Tree.implement({
 	
 	initSortable: function(sortFunction){
-		this.sortable=true;
-		this.sortFunction=sortFunction||function(node1, node2){
-			if(node1.name>node2.name){
+		this.sortable = true;
+		this.sortFunction = sortFunction||function(node1, node2){
+			if(node1.name > node2.name){
 				return 1;
-			}else if(node1.name<node2.name){
+			}else if(node1.name < node2.name){
 				return -1;
 			}else{
 				return 0;

@@ -7,43 +7,43 @@ window.addEvent('domready',function(){
 			new Mif.Tree.KeyNav(this);
 		},
 		types: {
-			folder:{
+			folder: {
 				openIcon: 'mif-tree-open-icon',
 				closeIcon: 'mif-tree-close-icon'
 			},
-			loader:{
+			loader: {
 				openIcon: 'mif-tree-loader-open-icon',
 				closeIcon: 'mif-tree-loader-close-icon',
 				dropDenied: ['inside','after']
 			},
-			disabled:{
+			disabled: {
 				openIcon: 'mif-tree-open-icon',
 				closeIcon: 'mif-tree-close-icon',
 				dragDisabled: true,
 				cls: 'disabled'
 			},
-			book:{
+			book: {
 				openIcon: 'mif-tree-book-icon',
 				closeIcon: 'mif-tree-book-icon',
 				loadable: true
 			},
-			bin:{
+			bin: {
 				openIcon: 'mif-tree-bin-open-icon',
 				closeIcon: 'mif-tree-bin-close-icon'
 			}
 		},
-		dfltType:'folder',
+		dfltType: 'folder',
 		height: 18,
 		onCheck: function(node){
-			$('log').adopt(new Element('li').set('html', node.name+' checked'));
+			$('log').adopt(new Element('li').set('html', node.name + ' checked'));
 		},
 		onUnCheck: function(node){
-			$('log').adopt(new Element('li').set('html', node.name+' unchecked'));
+			$('log').adopt(new Element('li').set('html', node.name + ' unchecked'));
 		}
 	});
 
 	//tree.initSortable();
-	var json=[	
+	var json = [	
 		{
 			"property": {
 				"name": "root"
@@ -83,7 +83,7 @@ window.addEvent('domready',function(){
 				{
 					"property": {
 						"name": "node3",
-						hasCheckbox: false
+						"hasCheckbox": false
 					}
 				}
 			]

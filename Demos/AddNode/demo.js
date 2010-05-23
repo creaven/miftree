@@ -10,8 +10,8 @@ window.addEvent('domready',function(){
 				closeIcon: 'mif-tree-close-icon'
 			}
 		},
-		dfltType:'folder',
-		height:20
+		dfltType: 'folder',
+		height: 20
 	})
 	.load({
 		url: '../assets/files/simpleTree.json'
@@ -24,8 +24,8 @@ window.addEvent('domready',function(){
 	
 	
 	$('add_node').addEvent('click', function(){
-		var current=SimpleTree.getSelected();
-		if(!current) return;
+		var current = SimpleTree.getSelected();
+		if(!current) return true;
 		SimpleTree.add({
 			property: {
 				name: $('node_name').value

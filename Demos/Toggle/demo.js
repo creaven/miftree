@@ -2,12 +2,12 @@ window.addEvent('domready',function(){
 	SimpleTree = new Mif.Tree({
 		container: $('tree_container'),
 		types: {
-			folder:{
+			folder: {
 				openIcon: 'mif-tree-open-icon',
 				closeIcon: 'mif-tree-close-icon'
 			}
 		},
-		dfltType:'folder',
+		dfltType: 'folder',
 		height: 18
 	})
 	.load({

@@ -1,52 +1,52 @@
 Mif.Tree.implement({
 
 	getTarget: function(event){
-		var target=event.target;
-		var cls=target.className;
-		while(!/mif-tree/.test(target.className)){
-			target=target.parentNode;
+		var target = event.target;
+		var cls = target.className;
+		while(!(/mif-tree/).test(target.className)){
+			target = target.parentNode;
 		}
-		var test=target.className.match(/mif-tree-(gadjet)-[^n]|mif-tree-(name)/);
+		var test = target.className.match(/mif-tree-(gadjet)-[^n]|mif-tree-(name)/);
 		if(!test){
 			return {
 				node: false,
 				target: 'node'
-			}
+			};
 		}
-		for(var i=3;i>0;i--){
+		for(var i = 3; i > 0; i--){
 			if(test[i]){
-				var type=test[i];
+				var type = test[i];
 				break;
 			}
 		}
-		if(type=='name' && cls!='tag'){
+		if(type == 'name' && cls != 'tag'){
 			return {
 				node: false,
 				target: 'node'
-			}
+			};
 		}
 		return {
 			node: Mif.Tree.Nodes[target.getAttribute('uid')],
 			target: type
-		}
+		};
 	}
 
 });
 
 
-Mif.Tree.Node.prototype.getNextVisible_=Mif.Tree.Node.prototype.getNextVisible;
-Mif.Tree.Node.prototype.getPreviousVisible_=Mif.Tree.Node.prototype.getPreviousVisible;
+Mif.Tree.Node.prototype.getNextVisible_ = Mif.Tree.Node.prototype.getNextVisible;
+Mif.Tree.Node.prototype.getPreviousVisible_ = Mif.Tree.Node.prototype.getPreviousVisible;
 
 Mif.Tree.Node.implement({
 
 	hide: function(){
-		this.state.hidden=true;
-		this.getDOM('node').style.display='none';
+		this.state.hidden = true;
+		this.getDOM('node').style.display = 'none';
 	},
 	
 	show: function(){
-		this.state.hidden=false;
-		this.getDOM('node').style.display='block';
+		this.state.hidden = false;
+		this.getDOM('node').style.display = 'block';
 	},
 	
 	isHide: function(){
@@ -54,18 +54,18 @@ Mif.Tree.Node.implement({
 	},
 	
 	getNextVisible: function(){
-		var node=this;
+		var node = this;
 		do{
-			node=node.getNextVisible_();
+			node = node.getNextVisible_();
 			if(!node) return false;
 		}while(node.isHide())
 		return node;
 	},
 	
 	getPreviousVisible: function(){
-		var node=this;
+		var node = this;
 		do{
-			node=node.getPreviousVisible_();
+			node = node.getPreviousVisible_();
 			if(!node) return false;
 		}while(node.isHide())
 		return node;
@@ -77,20 +77,20 @@ Mif.Tree.Node.implement({
 Mif.Tree.KeyNav.implement({
 
 	goForward: function(current){
-		var forward=current;
+		var forward = current;
 		do{
-			forward=forward.getNextVisible();
+			forward = forward.getNextVisible();
 			if(!forward) return;
-		}while(forward.type=='close');
-		if( forward ) this.tree.select(forward)
+		}while(forward.type == 'close');
+		if( forward ) this.tree.select(forward);
 	},
 	
 	goBack: function(current){
-		var back=current;
+		var back = current;
 		do{
-			back=back.getPreviousVisible();
+			back = back.getPreviousVisible();
 			if(!back) return;
-		}while(back.type=='close');
+		}while(back.type == 'close');
 		if (back) this.tree.select(back);
 	}
 
@@ -110,24 +110,24 @@ DOMTree = new Mif.Tree({
 			cls: 'tag-close'
 		}
 	},
-	dfltType:'open',
+	dfltType: 'open',
 	height: 18,
 	initialize: function(){
 		new Mif.Tree.KeyNav(this);
 	},
 	onToggle: function(node, state){
-		var next=node.getNext();
+		var next = node.getNext();
 		if(!next) return;
 		next[state ? 'show' : 'hide']();
 	},
 	onDrawChildren: function(parent){
 		parent.children.each(function(child){
-			if(child.type!='close') return;
+			if(child.type != 'close') return;
 			child.hide();
 		});
 	},
 	onSelect: function(node){
-		if(node.type=='close'){
+		if(node.type == 'close'){
 			node.tree.select(node.getPrevious());
 		}
 		this.wrapper.focus();
@@ -149,44 +149,43 @@ DOMTree = new Mif.Tree({
 		type: 'close'
 	}]
 });
-DOMTree.loadOptions=function(node){
-	var json=[];
-	var el=node.data.el;
+DOMTree.loadOptions = function(node){
+	var json = [];
+	var el = node.data.el;
 	el.getChildren().each(function(child){
-		var attrs='';
+		var attrs = '';
 		$A(child.attributes).each(function(attr){
-			attrs+=" "+attr.nodeName+'="<span class="attr-value">'+attr.nodeValue+'</span>"';
+			attrs += " " + attr.nodeName + '="<span class="attr-value">' + attr.nodeValue + '</span>"';
 		});
-		var hasChildren=child.getChildren().length>0;
+		var hasChildren = child.getChildren().length > 0;
+		var name;
 		if(!hasChildren){
-			var text=child.firstChild ? child.firstChild.nodeValue : '';
-			var name= '&lt;<span class="tag">'+child.get('tag')+'</span>'+attrs+'&gt;<span class="value">'+text+ '</span>&lt;/<span class="tag">'+child.get('tag')+'</span>&gt;';
-			var loadable=false;
+			var text = child.firstChild ? child.firstChild.nodeValue : '';
+			name = '&lt;<span class="tag">' + child.get('tag') + '</span>' + attrs + '&gt;<span class="value">' + text +  '</span>&lt;/<span class="tag">' + child.get('tag') + '</span>&gt;';
+			var loadable = false;
 		}else{
-			var name= '&lt;<span class="tag">'+child.get('tag')+'</span>'+attrs+'&gt;';
-			loadable=true;
+			name = '&lt;<span class="tag">' + child.get('tag') + '</span>' + attrs + '&gt;';
+			loadable = true;
 		}
 		json.push({
-			property:{
+			property: {
 				name: name,
 				loadable: loadable
 			},
-			data:{
+			data: {
 				el: child
 			}
 		});
-		json.push(
-			{
-			property:{
-				name: '&lt;/<span class="tag">'+child.get('tag')+'</span>&gt;'
+		json.push({
+			property: {
+				name: '&lt;/<span class="tag">' + child.get('tag') + '</span>&gt;'
 			},
 			type: 'close'
-		}
-		);
+		});
 	});
 	return {json: json};
-}
+};
 
 if(Browser.Engine.trident){
 	(new Element('div', {styles:{color: 'red', fontSize: '20px', paddingLeft: '20px'}}).set('html', 'LOL IE')).injectBefore($('tree_container'));
-}
+};

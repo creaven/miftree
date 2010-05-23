@@ -13,9 +13,9 @@ window.addEvent('domready',function(){
 		container: $('tree_container'),// tree container
 		initialize: function(){
 			this.initCheckbox('simple');
-			var storage=new Mif.Tree.CookieStorage(this);
-			var switchStorage=new Mif.Tree.CookieStorage(this, {event: 'switch', action: 'switch'});
-			var selectStorage=new Mif.Tree.CookieStorage(this, {event: 'selectChange', action: 'switchSelect'});
+			var storage = new Mif.Tree.CookieStorage(this);
+			var switchStorage = new Mif.Tree.CookieStorage(this, {event: 'switch', action: 'switch'});
+			var selectStorage = new Mif.Tree.CookieStorage(this, {event: 'selectChange', action: 'switchSelect'});
 			this.addEvent('load', function(){
 				storage.restore();
 				switchStorage.restore();
@@ -27,12 +27,12 @@ window.addEvent('domready',function(){
 			});
 		},
 		types: {// node types
-			folder:{
+			folder: {
 				openIcon: 'mif-tree-open-icon',//css class open icon
 				closeIcon: 'mif-tree-close-icon'// css class close icon
 			}
 		},
-		dfltType:'folder',//default node type
+		dfltType: 'folder',//default node type
 		height: 18//node height
 	});
 	
@@ -41,9 +41,9 @@ window.addEvent('domready',function(){
 		container: $('tree_container2'),// tree container
 		initialize: function(){
 			this.initCheckbox('simple');
-			var storage=new Mif.Tree.CookieStorage(this);
-			var switchStorage=new Mif.Tree.CookieStorage(this, {event: 'switch', action: 'switch'});
-			var selectStorage=new Mif.Tree.CookieStorage(this, {event: 'selectChange', action: 'switchSelect'});
+			var storage = new Mif.Tree.CookieStorage(this);
+			var switchStorage = new Mif.Tree.CookieStorage(this, {event: 'switch', action: 'switch'});
+			var selectStorage = new Mif.Tree.CookieStorage(this, {event: 'selectChange', action: 'switchSelect'});
 			this.addEvent('load', function(){
 				storage.restore();
 				switchStorage.restore();
@@ -55,16 +55,16 @@ window.addEvent('domready',function(){
 			});
 		},
 		types: {// node types
-			folder:{
+			folder: {
 				openIcon: 'mif-tree-open-icon',//css class open icon
 				closeIcon: 'mif-tree-close-icon'// css class close icon
 			}
 		},
-		dfltType:'folder',//default node type
+		dfltType: 'folder',//default node type
 		height: 18//node height
 	});
 	
-	var children=[
+	var children = [
 		{
 			"property": {
 				"name": "cnode1",
@@ -185,7 +185,7 @@ window.addEvent('domready',function(){
 						"name": "node3 loadable",
 						"id": "node3",
 						"loadable": true,
-						"loadOptions": {json: children}
+						"loadOptions": {"json": children}
 					}
 				}
 			]
@@ -276,6 +276,6 @@ window.addEvent('domready',function(){
 	
 	tree2.load({
 		json: json2
-	})
+	});
 	
 });

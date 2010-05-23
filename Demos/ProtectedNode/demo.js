@@ -2,13 +2,13 @@ window.addEvent('domready',function(){
 	tree = new Mif.Tree({
 		container: $('tree_container'),
 		types: {
-			folder:{
+			folder: {
 				openIcon: 'mif-tree-open-icon',
 				closeIcon: 'mif-tree-close-icon'
 			}
 		},
-		dfltType:'folder',
-		height:20
+		dfltType: 'folder',
+		height: 20
 	})
 	.load({
 		url: '../assets/files/simpleTree.json'
@@ -22,24 +22,24 @@ window.addEvent('domready',function(){
 	
 	
 	$('rename').addEvent('click', function(){
-		var node=tree.getSelected();
+		var node = tree.getSelected();
 	    if(!node) return;
 	    node.rename();
 	});
 	
 	
 	$('remove').addEvent('click', function(){
-		var node=tree.getSelected();
+		var node = tree.getSelected();
 	    if(!node) return;
 	    node.remove();
 	});	
 
 
 	$('protect').addEvent('click', function(){
-		var node=tree.getSelected();
+		var node = tree.getSelected();
 	    if(!node) return;
 	    node.set({
-			property:{
+			property: {
 				renameDenied: node.property.renameDenied ? false : true, 
 				removeDenied: node.property.removeDenied ? false : true,
 				name: node.property.renameDenied ? node.property.name.replace(/ protected/, '') : node.property.name+' protected'

@@ -5,13 +5,13 @@ window.addEvent('domready',function(){
 		},
 		container: $('tree_container'),
 		types: {
-			folder:{
+			folder: {
 				openIcon: 'mif-tree-open-icon',
 				closeIcon: 'mif-tree-close-icon'
 			}
 		},
-		dfltType:'folder',
-		height:20
+		dfltType: 'folder',
+		height: 20
 	})
 	.load({
 		url: '../assets/files/simpleTree.json'
@@ -22,4 +22,5 @@ window.addEvent('domready',function(){
 		});
 		this.select(this.root);
 	});
+	
 });

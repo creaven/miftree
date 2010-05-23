@@ -1,21 +1,21 @@
 DOMTree = new Mif.Tree({
 	container: $('tree_container'),
 	types: {
-		folder:{
+		folder: {
 			cls: 'dom-object',
 			loadable: true
 		},
-		array:{
+		array: {
 			loadable: true,
 			cls: 'dom-array'
 		},
-		string:{
+		string: {
 			hoverClass: 'empty',
 			selectClass: 'empty',
 			loadable: true,
 			cls: 'dom-string'
 		},
-		number:{
+		number: {
 			hoverClass: 'empty',
 			selectClass: 'empty',
 			loadable: true,
@@ -23,7 +23,7 @@ DOMTree = new Mif.Tree({
 		}
 	},
 	sortable: true,
-	dfltType:'folder',
+	dfltType: 'folder',
 	height: 18,
 	initialize: function(){
 		this.initSortable();
@@ -40,16 +40,16 @@ DOMTree = new Mif.Tree({
 		}
 	}]
 });
-DOMTree.loadOptions=function(node){
-	var json=[];
-	var dom=node.data.dom;
+DOMTree.loadOptions = function(node){
+	var json = [];
+	var dom = node.data.dom;
 	$try(function(){
-		var type=$type(dom);
+		var type = $type(dom);
 		switch(type){
 			case 'string':
 			case 'number':
 			json.push({
-				property:{
+				property: {
 					name: dom,
 					loadable: false
 				},
@@ -59,11 +59,11 @@ DOMTree.loadOptions=function(node){
 			case 'array':
 			dom.each(function(el, i){
 				json.push({
-					property:{
+					property: {
 						name: i
 					},
 					type: 'array',
-					data:{
+					data: {
 						dom: el
 					}
 				});
@@ -72,19 +72,19 @@ DOMTree.loadOptions=function(node){
 			default:
 			for(var p in dom){
 				$try(function(){
-					var child={
+					var child = {
 						property:{
 							name: p
 						},
-						data:{
+						data: {
 							dom: dom[p]
 						}
-					}
-					if(typeof dom=='function') child.property.cls='dom-function';
+					};
+					if(typeof dom == 'function') child.property.cls = 'dom-function';
 					json.push(child);
 				});
 			}
 		}
 	});
 	return {json: json};
-}
+};

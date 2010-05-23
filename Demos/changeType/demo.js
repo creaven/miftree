@@ -12,11 +12,11 @@ window.addEvent('domready',function(){
 				cls: 'green'
 			}
 		},
-		dfltType:'folder',//default node type
+		dfltType: 'folder',//default node type
 		height: 18//node height
 	});
 
-	var json=[
+	var json = [
 		{
 			"property": {
 				"name": "root added green type"
@@ -69,7 +69,5 @@ window.addEvent('domready',function(){
 	tree.load({
 		json: json
 	});
-	
-	
 	
 });

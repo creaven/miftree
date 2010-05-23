@@ -2,13 +2,13 @@ window.addEvent('domready',function(){
 
 	Mif.Tree.Node.implement({
 		reloadChildren: function() {
-			this.state.loaded=false;
-			this.state.open=false;
-			this.state.loadable=true;
-			this.children=[];
-			this.$draw=false;
+			this.state.loaded = false;
+			this.state.open = false;
+			this.state.loadable = true;
+			this.children = [];
+			this.$draw = false;
 			this.tree.$getIndex();
-			this.getDOM('children').innerHTML='';
+			this.getDOM('children').innerHTML = '';
 			Mif.Tree.Draw.update(this);
 			return this;
 		}       
@@ -23,43 +23,43 @@ window.addEvent('domready',function(){
 			new Mif.Tree.Drag(this);
 		},
 		types: {
-			folder:{
+			folder: {
 				openIcon: 'mif-tree-open-icon',
 				closeIcon: 'mif-tree-close-icon'
 			},
-			loader:{
+			loader: {
 				openIcon: 'mif-tree-loader-open-icon',
 				closeIcon: 'mif-tree-loader-close-icon',
 				dropDenied: ['inside','after']
 			},
-			disabled:{
+			disabled: {
 				openIcon: 'mif-tree-open-icon',
 				closeIcon: 'mif-tree-close-icon',
 				dragDisabled: true,
 				cls: 'disabled'
 			},
-			book:{
+			book: {
 				openIcon: 'mif-tree-book-icon',
 				closeIcon: 'mif-tree-book-icon',
 				loadable: true
 			},
-			bin:{
+			bin: {
 				openIcon: 'mif-tree-bin-open-icon',
 				closeIcon: 'mif-tree-bin-close-icon'
 			}
 		},
-		dfltType:'folder',
+		dfltType: 'folder',
 		height: 18
 	});
 	
 	tree.addEvent('loadChildren', function(parent){
 		if(!parent) return;
 		if(!parent.$name){
-			parent.$name=parent.name;
+			parent.$name = parent.name;
 		}
 		parent.set({
-			property:{
-				name: parent.$name+' ('+parent.children.length+')'
+			property: {
+				name: parent.$name + ' (' + parent.children.length + ')'
 			}
 		});
 	});
@@ -70,14 +70,14 @@ window.addEvent('domready',function(){
 		}]
 	});
 
-	tree.loadOptions=function(node){
+	tree.loadOptions = function(node){
 		return {
-			url: 'reloadChildren/get_json.php?'+$time()
+			url: 'reloadChildren/get_json.php?' + $time()
 		};
-	}
+	};
 	
 	$('reload').addEvent('click', function(){
-		var selected=tree.getSelected();
+		var selected = tree.getSelected();
 		if(!selected) return;
 		selected.reloadChildren().toggle(true);
 	});

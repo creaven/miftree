@@ -2,16 +2,16 @@ window.addEvent('domready',function(){
 	SimpleTree = new Mif.Tree({
 		container: $('tree_container'),
 		types: {
-			folder:{
+			folder: {
 				openIcon: 'mif-tree-open-icon',
 				closeIcon: 'mif-tree-close-icon'
 			}
 		},
-		dfltType:'folder',
+		dfltType: 'folder',
 		animate: {
 			toggle: false
 		},
-		height:20
+		height: 20
 	})
 	.load({
 		url: '../assets/files/simpleTree.json'

@@ -10,11 +10,11 @@ window.addEvent('domready',function(){
 				closeIcon: 'mif-tree-close-icon'// css class close icon
 			}
 		},
-		dfltType:'folder',//default node type
+		dfltType: 'folder',//default node type
 		height: 18//node height
 	});
 
-	var json=[	
+	var json = [	
 		{
 			"property": {
 				"name": "root"
