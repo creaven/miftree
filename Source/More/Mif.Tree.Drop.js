@@ -6,7 +6,7 @@ description: tree droppable
 license: MIT-Style License (http://mifjs.net/license.txt)
 copyright: Anton Samoylov (http://mifjs.net)
 authors: Anton Samoylov (http://mifjs.net)
-requires: [Mif.Tree, Mif.Tree.Transform, more:/Drag.Move]
+requires: [Mif.Tree, Mif.Tree.Transform, More/Drag.Move]
 provides: Mif.Tree.Drop
  
 ...
@@ -14,7 +14,7 @@ provides: Mif.Tree.Drop
 
 Mif.Tree.Drop = new Class({
 	
-	Implements: [new Events, new Options],
+	Implements: [Events, Options],
 	
 	options:{
 		group: 'tree',

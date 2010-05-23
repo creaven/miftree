@@ -6,7 +6,7 @@ description: Mif.Tree base Class
 license: MIT-Style License (http://mifjs.net/license.txt)
 copyright: Anton Samoylov (http://mifjs.net)
 authors: Anton Samoylov (http://mifjs.net)
-requires: [Mif/Mif, Mif/Mif.Util, Core/Class, More/Fx.Scroll, Mif.Tree.Sheet]
+requires: [Mif/Mif, Mif/Mif.Util, Core/Class, Mif.Tree.Sheet, More/Fx.Scroll]
 provides: Mif.Tree
  
 ...
@@ -16,44 +16,39 @@ Mif.Tree = new Class({
 	
 	version: '1.3dev',
 
-	Implements: [new Events, new Options],
+	Implements: [Events, Options],
 		
 	options:{
-		types: {},
 		forest: false,
 		animateScroll: true,
 		height: 18,
-		expandTo: true
+		expandTo: true,
+		defaults: {
+			name: '',
+			cls: '',
+			openIcon: 'mif-tree-icon-expanded',
+			closeIcon: 'mif-tree-icon-collapsed',
+			loadable: false,
+			hidden: false,
+			open: false
+		}
 	},
 	
 	initialize: function(options){
 		this.setOptions(options);
 		$extend(this, {
-			types: this.options.types,
 			forest: this.options.forest,
 			animateScroll: this.options.animateScroll,
-			dfltType: this.options.dfltType,
 			height: this.options.height,
-			container: $(options.container),
 			UID: ++Mif.Tree.UID,
 			key: {},
-			expanded: []
+			expanded: [],
+			$index: []
 		});
-		this.defaults = {
-			name: '',
-			cls: '',
-			openIcon: 'mif-tree-empty-icon',
-			closeIcon: 'mif-tree-empty-icon',
-			loadable: false,
-			hidden: false
-		};
-		this.dfltState = {
-			open: false
-		};
-		this.$index = [];
 		this.updateOpenState();
 		if(this.options.expandTo) this.initExpandTo();
-		this.wrapper = new Element('div').addClass('mif-tree-wrapper').injectInside(this.container);
+		this.wrapper = new Element('div').addClass('mif-tree-wrapper');
+		if(this.options.container) this.wrapper.inject(this.options.container);
 		this.events();
 		this.initScroll();
 		this.initSelection();
@@ -72,6 +67,11 @@ Mif.Tree = new Class({
 		if (MooTools.version >= '1.2.2' && this.options.initialize) this.options.initialize.call(this);
 	},
 	
+	inject: function(element, how){
+		this.wrapper.inject(element, how);
+		return this;
+	},
+	
 	bound: function(){
 		Array.each(arguments, function(name){
 			this.bound[name] = this[name].bind(this);
@@ -79,7 +79,7 @@ Mif.Tree = new Class({
 	},
 	
 	events: function(){
-		this.bound('mouse', 'mouseleave', 'mousedown', 'preventDefault', 'toggleClick', 'toggleDblclick', 'focus', 'blurOnClick', 'keyDown', 'keyUp');
+		this.bound('mouse', 'mouseleave', 'mousedown', 'mouseup', 'preventDefault', 'toggleClick', 'toggleDblclick', 'focus', 'blurOnClick', 'keyDown', 'keyUp');
 		
 		this.wrapper.addEvents({
 			mousemove: this.bound.mouse,
@@ -87,12 +87,13 @@ Mif.Tree = new Class({
 			mouseout: this.bound.mouse,
 			mouseleave: this.bound.mouseleave,
 			mousedown: this.bound.mousedown,
+			mouseup: this.bound.mouseup,
 			click: this.bound.toggleClick,
 			dblclick: this.bound.toggleDblclick,
 			selectstart: this.bound.preventDefault
 		});
 		
-		this.container.addEvent('click', this.bound.focus);
+		this.wrapper.addEvent('click', this.bound.focus);
 		document.addEvent('click', this.bound.blurOnClick);
 		
 		document.addEvents({
@@ -104,7 +105,7 @@ Mif.Tree = new Class({
 	blurOnClick: function(event){
 		var target = event.target;
 		while(target){
-			if(target == this.container) return;
+			if(target == this.wrapper) return;
 			target = target.parentNode;
 		}
 		this.blur();
@@ -115,7 +116,7 @@ Mif.Tree = new Class({
 		if(Mif.Focus) Mif.Focus.blur();
 		Mif.Focus = this;
 		this.focused = true;
-		this.container.addClass('mif-tree-focused');
+		this.wrapper.addClass('mif-tree-focused');
 		return this.fireEvent('focus');
 	},
     
@@ -123,7 +124,7 @@ Mif.Tree = new Class({
 		Mif.Focus = null;
 		if(!this.focused) return this;
 		this.focused = false;
-		this.container.removeClass('mif-tree-focused');
+		this.wrapper.removeClass('mif-tree-focused');
 		return this.fireEvent('blur');
 	},
 	
@@ -147,8 +148,16 @@ Mif.Tree = new Class({
 	mousedown: function(event){
 		if(event.rightClick) return;
 		event.preventDefault();
+		window.focus();
+		this.mouse.active = document.id(event.target).addClass('active');
 		this.fireEvent('mousedown');
 	},
+	
+	mouseup: function(event){
+		if(this.mouse.active) this.mouse.active.removeClass('active');
+		this.mouse.active = null;
+		return this;
+	},	
 	
 	mouseleave: function(){
 		this.mouse.coords = {x: null, y: null};
@@ -170,7 +179,7 @@ Mif.Tree = new Class({
 		while(!/mif-tree/.test(target.className)){
 			target = target.parentNode;
 		};
-		var test = target.className.match(/mif-tree-(gadjet)-[^n]|mif-tree-(icon)|mif-tree-(name)|mif-tree-(checkbox)/);
+		var test = target.className.match(/mif-tree-(toggle)-[^n]|mif-tree-(icon)|mif-tree-(name)|mif-tree-(checkbox)/);
 		if(!test){
 			var y = this.mouse.coords.y;
 			if(y == -1 || !this.$index){
@@ -208,13 +217,13 @@ Mif.Tree = new Class({
 	
 	keyDown: function(event){
 		this.key = event;
-		this.key.state = 'down';
+		this.key.property = 'down';
 		if(this.focused) this.fireEvent('keydown', [event]);
 	},
 	
 	keyUp: function(event){
 		this.key = {};
-		this.key.state = 'up';
+		this.key.property = 'up';
 		if(this.focused) this.fireEvent('keyup', [event]);
 	},
 	
@@ -225,7 +234,7 @@ Mif.Tree = new Class({
 	},
 	
 	toggleClick: function(event){
-		if(this.mouse.target != 'gadjet') return;
+		if(this.mouse.target != 'toggle') return;
 		this.mouse.node.toggle();
 	},
 	
@@ -305,6 +314,7 @@ Mif.Tree.UID = 0;
 Array.implement({
 	
 	inject: function(added, current, where){//inject added after or before current;
+		console.log(added, current, where);
 		var pos = this.indexOf(current) + (where == 'before' ? 0 : 1);
 		for(var i = this.length-1; i >= pos; i--){
 			this[i + 1] = this[i];

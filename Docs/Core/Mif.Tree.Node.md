@@ -32,7 +32,7 @@ MIf.Tree.Node Method: constructor {#Mif.Tree.Node:constructor}
 * openIconUrl - url for open icon
 * closeIconUrl- url for close icon
 * cls         - extra css class addes to node wrapper. See also html node structure in Mif.Tree.Draw.
-* loadable    - Load nodes on expand using Mif.Tree.Node load method if node.state.loaded=false.
+* loadable    - Load nodes on expand using Mif.Tree.Node load method if node.property.loaded=false.
 * id          - id. If id exists, we can get node using Mif.id(node_id) function.
 
 **state**

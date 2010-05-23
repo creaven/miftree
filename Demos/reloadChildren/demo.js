@@ -2,9 +2,9 @@ window.addEvent('domready',function(){
 
 	Mif.Tree.Node.implement({
 		reloadChildren: function() {
-			this.state.loaded=false;
-			this.state.open=false;
-			this.state.loadable=true;
+			this.property.loaded=false;
+			this.property.open=false;
+			this.property.loadable=true;
 			this.children=[];
 			this.$draw=false;
 			this.tree.$getIndex();

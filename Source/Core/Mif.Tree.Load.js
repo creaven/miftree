@@ -20,7 +20,7 @@ Mif.Tree.Load = {
 			var subChildren = child.children;
 			var node = new Mif.Tree.Node({
 				tree: tree,
-				parentNode: parent||undefined
+				parentNode: parent
 			}, child);
 			if( tree.forest || parent != undefined){
 				parent.children.unshift(node);
@@ -31,7 +31,7 @@ Mif.Tree.Load = {
 				arguments.callee(subChildren, node, tree);
 			}
 		}
-		if(parent) parent.state.loaded = true;
+		if(parent) parent.property.loaded = true;
 		tree.fireEvent('loadChildren', parent);
 	}
 	
@@ -81,7 +81,7 @@ Mif.Tree.Node.implement({
 		function success(json){
 			Mif.Tree.Load.children(json, self, self.tree);
 			delete self.$loading;
-			self.state.loaded = true;
+			self.property.loaded = true;
 			self.removeType('loader');
 			Mif.Tree.Draw.update(self);
 			self.fireEvent('load');

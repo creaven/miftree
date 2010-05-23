@@ -6,7 +6,7 @@ Mif.Tree.implement({
 		while(!/mif-tree/.test(target.className)){
 			target=target.parentNode;
 		}
-		var test=target.className.match(/mif-tree-(gadjet)-[^n]|mif-tree-(name)/);
+		var test=target.className.match(/mif-tree-(toggle)-[^n]|mif-tree-(name)/);
 		if(!test){
 			return {
 				node: false,
@@ -40,17 +40,17 @@ Mif.Tree.Node.prototype.getPreviousVisible_=Mif.Tree.Node.prototype.getPreviousV
 Mif.Tree.Node.implement({
 
 	hide: function(){
-		this.state.hidden=true;
+		this.property.hidden=true;
 		this.getDOM('node').style.display='none';
 	},
 	
 	show: function(){
-		this.state.hidden=false;
+		this.property.hidden=false;
 		this.getDOM('node').style.display='block';
 	},
 	
 	isHide: function(){
-		return this.state.hidden;
+		return this.property.hidden;
 	},
 	
 	getNextVisible: function(){

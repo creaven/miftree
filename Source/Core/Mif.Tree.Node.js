@@ -16,35 +16,20 @@ Mif.Tree.Node = new Class({
 
 	Implements: [Events],
 	
-	initialize: function(structure, options) {
+	initialize: function(structure, property) {
 		$extend(this, structure);
 		this.children = [];
-		this.type = options.type || this.tree.dfltType;
-		this.property = options.property || {};
-		this.data = options.data;
-		this.state = $extend($unlink(this.tree.dfltState), options.state);
-		this.$calculate();
+		this.property = $extend($unlink(this.tree.options.defaults), property);
 		this.UID = Mif.Tree.Node.UID++;
 		Mif.Tree.Nodes[this.UID] = this;
-		var id = this.id;
+		var id = this.property.id;
 		if(id != null) Mif.ids[id] = this;
 		this.tree.fireEvent('nodeCreate', [this]);
 		this._property = ['id', 'name', 'cls', 'openIcon', 'closeIcon', 'openIconUrl', 'closeIconUrl', 'hidden'];
 	},
 	
-	$calculate: function(){
-		$extend(this, $unlink(this.tree.defaults));
-		this.type = $splat(this.type);
-		this.type.each(function(type){
-			var props = this.tree.types[type];
-			if(props) $extend(this, props);
-		}, this);
-		$extend(this, this.property);
-		return this;
-	},
-	
 	getDOM: function(what){
-		var node = $('mif-tree-' + this.UID);
+		var node = document.id('mif-tree-' + this.UID);
 		if(!node) return;
 		if(what == 'node') return node;
 		var wrapper = node.getFirst();
@@ -53,28 +38,28 @@ Mif.Tree.Node = new Class({
 		return wrapper.getElement('.mif-tree-' + what);
 	},
 	
-	getGadjetType: function(){
-		return (this.loadable && !this.isLoaded()) ? 'plus' : (this.hasVisibleChildren() ? (this.isOpen() ? 'minus' : 'plus') : 'none');
+	getToggleType: function(){
+		return (this.property.loadable && !this.isLoaded()) ? 'collapsed' : (this.hasVisibleChildren() ? (this.isOpen() ? 'expanded' : 'collapsed') : 'none');
 	},
 	
 	toggle: function(state) {
-		if(this.state.open == state || this.$loading || this.$toggling) return this;
+		if(this.property.open == state || this.$loading || this.$toggling) return this;
 		var parent = this.getParent();
 		function toggle(type){
-			this.state.open = !this.state.open;
+			this.property.open = !this.property.open;
 			if(type == 'drawed'){
 				this.drawToggle();
 			}else{
-				parent._toggle = (parent._toggle||[])[this.state.open ? 'include' : 'erase'](this)
+				parent._toggle = (parent._toggle||[])[this.property.open ? 'include' : 'erase'](this)
 			}
-			this.fireEvent('toggle', [this.state.open]);
-			this.tree.fireEvent('toggle', [this, this.state.open]);
+			this.fireEvent('toggle', [this.property.open]);
+			this.tree.fireEvent('toggle', [this, this.property.open]);
 			return this;
 		}
 		if(parent && !parent.$draw){
 			return toggle.apply(this, []);
 		}
-		if(this.loadable && !this.state.loaded) {
+		if(this.property.loadable && !this.property.loaded) {
             if(!this.load_event){
                 this.load_event = true;
                 this.addEvent('load',function(){
@@ -105,11 +90,11 @@ Mif.Tree.Node = new Class({
 	},
 	
 	isOpen: function(){
-		return this.state.open;
+		return this.property.open;
 	},
 	
 	isLoaded: function(){
-		return this.state.loaded;
+		return this.property.loaded;
 	},
 	
 	isLast: function(){
@@ -229,53 +214,27 @@ Mif.Tree.Node = new Class({
 		};
 		return false;
 	},
-
-	addType: function(type){
-		return this.processType(type, 'add');
-	},
-
-	removeType: function(type){
-		return this.processType(type, 'remove');
+	
+	get: function(prop){
+		return this.property.prop;
 	},
 	
-	setType: function(type){
-		return this.processType(type, 'set');
-	},
-	
-	processType: function(type, action){
-		switch(action){
-			case 'add': this.type.include(type); break;
-			case 'remove': this.type.erase(type); break;
-			case 'set': this.type = type; break;
-		}
-		var current = {};
-		this._property.each(function(p){
-			current[p] = this[p];
-		}, this);
-		this.$calculate();
-		this._property.each(function(p){
-			this.updateProperty(p, current[p], this[p]);
-		}, this);
-		return this;
-	},
-	
-	set: function(obj){
-		this.tree.fireEvent('beforeSet', [this, obj]);
-		var property = obj.property||obj||{};
-		for(var p in property){
-			var nv = property[p];
-			var cv = this[p];
+	set: function(props){
+		this.tree.fireEvent('beforeSet', [this, props]);
+		for(var p in props){
+			var nv = props[p];
+			var cv = this.property[p];
 			this.updateProperty(p, cv, nv);
-			this[p] = this.property[p] = nv;
+			this.property[p] = nv;
 		}
-		this.tree.fireEvent('set', [this, obj]);
+		this.tree.fireEvent('set', [this, props]);
 		return this;
 	},
 	
 	updateProperty: function(p, cv, nv){
 		if(nv == cv) return this;
 		if(p == 'id'){
-			delete Mif.ids[cv];
+			Mif.ids[cv] = null;
 			if(nv) Mif.ids[nv]=this;
 			return this;
 		}
@@ -303,7 +262,7 @@ Mif.Tree.Node = new Class({
 				var _previous = this.getPreviousVisible();
 				var _next = this.getNextVisible();
 				var parent = this.getParent();
-				this[p] = this.property[p] = nv;
+				this.property[p] = nv;
 				this.tree.$getIndex();
 				var previous = this.getPreviousVisible();
 				var next = this.getNextVisible();
@@ -315,8 +274,8 @@ Mif.Tree.Node = new Class({
 	},
 	
 	updateOpenState: function(){
-		if(this.state.open){
-			this.state.open = false;
+		if(this.property.open){
+			this.property.open = false;
 			this.toggle();
 		}
 	}

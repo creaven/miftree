@@ -17,14 +17,14 @@ Mif.Tree.implement({
 	attachRenameEvents: function(){
 		this.wrapper.addEvents({
 			click: function(event){
-				if($(event.target).get('tag')=='input') return;
+				if($(event.target).get('tag') == 'input') return;
 				this.beforeRenameComplete();
 			}.bind(this),
 			keydown: function(event){
-				if(event.key=='enter'){
+				if(event.key == 'enter'){
 					this.beforeRenameComplete();
 				}
-				if(event.key=='esc'){
+				if(event.key == 'esc'){
 					this.renameCancel();
 				}
 			}.bind(this)
@@ -32,7 +32,7 @@ Mif.Tree.implement({
 	},
 	
 	disableEvents: function(){
-		if(!this.eventStorage) this.eventStorage=new Element('div');
+		if(!this.eventStorage) this.eventStorage = new Element('div');
 		this.eventStorage.cloneEvents(this.wrapper);
 		this.wrapper.removeEvents();
 	},
@@ -44,7 +44,7 @@ Mif.Tree.implement({
 	
 	getInput: function(){
 		if(!this.input){
-			this.input=new Element('input').addClass('mif-tree-rename');
+			this.input = new Element('input').addClass('mif-tree-rename');
 			this.input.addEvent('focus',function(){this.select()});
 			Mif.Tree.Rename.autoExpand(this.input);
 		}
@@ -55,10 +55,10 @@ Mif.Tree.implement({
 		this.unselect();
 		this.disableEvents();
 		this.attachRenameEvents();
-		var input=this.getInput();
-		input.value=node.name;
-		this.renameName=node.getDOM('name');
-		this.renameNode=node;
+		var input = this.getInput();
+		input.value = node.name;
+		this.renameName = node.getDOM('name');
+		this.renameNode = node;
 		input.setStyle('width', this.renameName.offsetWidth+15);
 		input.replaces(this.renameName);
 		input.focus();
@@ -70,8 +70,8 @@ Mif.Tree.implement({
 	
 	beforeRenameComplete: function(){
 		if(this.options.beforeRename){
-			var newName=this.getInput().value;
-			var node=this.renameNode;
+			var newName = this.getInput().value;
+			var node = this.renameNode;
 			this.options.beforeRename.apply(this, [node, node.name, newName]);
 		}else{
 			this.renameComplete();
@@ -81,8 +81,8 @@ Mif.Tree.implement({
 	renameComplete: function(){
 		this.enableEvents();
 		this.finishRename();
-		var node=this.renameNode;
-		var oldName=node.name;
+		var node = this.renameNode;
+		var oldName = node.name;
 		node.set({
 			property:{
 				name: this.getInput().value
@@ -112,7 +112,7 @@ Mif.Tree.Node.implement({
 Mif.Tree.Rename={
 	
 	autoExpand: function(input){
-		var span=new Element('span').addClass('mif-tree-rename').setStyles({
+		var span = new Element('span').addClass('mif-tree-rename').setStyles({
 			position: 'absolute',
 			left: -2000,
 			top:0,

@@ -1,13 +1,13 @@
 /*
 ---
  
-name: Mif.Tree.Drag.Element
+name: Mif.Tree.Drop.Element
 description: dom element droppable
 license: MIT-Style License (http://mifjs.net/license.txt)
 copyright: Anton Samoylov (http://mifjs.net)
 authors: Anton Samoylov (http://mifjs.net)
-requires: Mif.Tree.Drag
-provides: Mif.Tree.Drag.Element
+requires: Mif.Tree.Drop
+provides: Mif.Tree.Drop.Element
  
 ...
 */

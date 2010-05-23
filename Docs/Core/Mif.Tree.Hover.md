@@ -3,9 +3,9 @@ Mif.Tree.Hover {#Mif.Tree}
 
 Implements hover functionality.
 
-	<span class="mif-tree-node-wrapper mif-tree-hover-{{gadjet|icon|name|node}}|node.hoverClass-{{gadjet|icon|name|node}}">
-		<span class="mif-tree-gadjet mif-tree-gadjet-{{(minus|plus|none)}}"></span>
-		<span class="mif-tree-checkbox mif-tree-checkbox-{{(node.state.checkbox)}}"></span>
+	<span class="mif-tree-node-wrapper mif-tree-hover-{{toggle|icon|name|node}}|node.hoverClass-{{toggle|icon|name|node}}">
+		<span class="mif-tree-toggle mif-tree-toggle-{{(minus|plus|none)}}"></span>
+		<span class="mif-tree-checkbox mif-tree-checkbox-{{(node.property.checkbox)}}"></span>
 		<span class="mif-tree-icon {{(node.openIcon|node.closeIcon|node.middleIcon)}}"></span>          
 		<span class="mif-tree-name"></span>
 	</span>
@@ -19,9 +19,9 @@ If node selected will be also added class
 
 ### Examples:
 
-If mouseover gadjet:
+If mouseover toggle:
 
-	<span class="mif-tree-node-wrapper mif-tree-hover-gadjet mif-tree-hover-node">
+	<span class="mif-tree-node-wrapper mif-tree-hover-toggle mif-tree-hover-node">
 		...
 	</span>
 	
@@ -37,7 +37,7 @@ If mouseover name and node.hoverClass='myhover':
 		...
 	</span>
 
-If mouseover node, but not over icon, name or gadjet:
+If mouseover node, but not over icon, name or toggle:
 
 	<span class="mif-tree-node-wrapper mif-tree-hover-node">
 		...
@@ -48,4 +48,4 @@ Mif.Tree {#Mif.Tree::hover}
 
 ### Events
 
-hover(node, target, state) - Function to execute when state changed. target=node||gadjet||icon||name, state=out||over;
+hover(node, target, state) - Function to execute when state changed. target=node||toggle||icon||name, state=out||over;

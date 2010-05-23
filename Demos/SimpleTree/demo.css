@@ -1,8 +1,18 @@
-@import url(../../Source/assets/styles/mif-tree.css);
+/*@import url(../../Source/assets/styles/mif-tree.css);*/
 
-#tree_container{
+html, body{
+	width:100%;
+	height:100%;
+	background:#FFFBF8;
+}
+
+*{
+	margin:0;
+	padding:0;
+}
+
+#tree{
 height:200px;
 width:200px;
 position:relative;
-border:solid 1px #b7b7b7;
 }

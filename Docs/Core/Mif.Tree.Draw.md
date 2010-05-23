@@ -12,8 +12,8 @@ Html structure is:
 
 	<div class="mif-tree-node">
 		 <span class="mif-tree-node-wrapper node.cls">
-			<span class="mif-tree-gadjet mif-tree-gadjet-(minus|plus|none)"></span>
-			<span class="mif-tree-checkbox mif-tree-checkbox-(node.state.checkbox)"></span>
+			<span class="mif-tree-toggle mif-tree-toggle-(minus|plus|none)"></span>
+			<span class="mif-tree-checkbox mif-tree-checkbox-(node.property.checkbox)"></span>
 			<span class="mif-tree-icon (node.openIcon|node.closeIcon)"></span>          
 			<span class="mif-tree-name"></span>
 		</span>

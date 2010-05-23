@@ -88,10 +88,10 @@ color:blue;
 background:url('../../Source/assets/images/horizontal-line.gif') no-repeat 9px center;
 }
 
-/*@gadjets*/
+/*@toggles*/
 
-.mif-tree-gadjet{
-background-image:url('../../Source/assets/images/gadjets.gif');
+.mif-tree-toggle{
+background-image:url('../../Source/assets/images/toggles.gif');
 padding-right: 16px;
 z-index:1;
 overflow:hidden;
@@ -99,31 +99,31 @@ background-repeat:no-repeat;
 cursor:default;
 }
 
-.mif-tree-gadjet-none{
+.mif-tree-toggle-none{
 background:none;
 }
 
-.mif-tree-gadjet-minus{
+.mif-tree-toggle-minus{
 background-position: 0px 50%;
 }
 
-.mif-tree-gadjet-plus{
+.mif-tree-toggle-plus{
 background-position: -18px 50%;
 }
 
 
-.mif-tree-gadjet-hover .mif-tree-gadjet-minus{
+.mif-tree-toggle-hover .mif-tree-toggle-minus{
 background-position: -54px 50%;
 }
 
-.mif-tree-gadjet-hover .mif-tree-gadjet-plus{
+.mif-tree-toggle-hover .mif-tree-toggle-plus{
 background-position: -72px 50%;
 }
 
 
 
-/*.mif-tree-gadjet-hover{
-background-image:url('../../Source/assets/images/gadjets-hover.gif');
+/*.mif-tree-toggle-hover{
+background-image:url('../../Source/assets/images/toggles-hover.gif');
 }*/
 
 

@@ -22,9 +22,9 @@ Mif.Tree.implement({
 		if(this.checkboxType=='simple') return;
 		this.addEvent('loadChildren', function(node){
 			if(!node) return;
-			if(node.state.checked=='checked'){
+			if(node.property.checked=='checked'){
 				node.recursive(function(){
-					this.state.checked='checked';
+					this.property.checked='checked';
 				});
 			}else{
 				node.getFirst().setParentCheckbox(1)
@@ -41,7 +41,7 @@ Mif.Tree.implement({
 	getChecked: function(includePartially){
 		var checked=[];
 		this.root.recursive(function(){
-			var condition = includePartially ? this.state.checked!=='unchecked' : this.state.checked=='checked';
+			var condition = includePartially ? this.property.checked!=='unchecked' : this.property.checked=='checked';
 			if(this.hasCheckbox && condition) checked.push(this);
 		});
 		return checked;
@@ -52,9 +52,9 @@ Mif.Tree.implement({
 Mif.Tree.Node.implement({
 
 	'switch' : function(state){
-		if(this.state.checked==state||!this.hasCheckbox) return;
+		if(this.property.checked==state||!this.hasCheckbox) return;
 		var type=this.tree.checkboxType;
-		var checked=(this.state.checked=='checked') ? 'unchecked' : 'checked';
+		var checked=(this.property.checked=='checked') ? 'unchecked' : 'checked';
 		if(type=='simple'){
 			this.setCheckboxState(checked);
 			this.tree.fireEvent(checked=='checked' ? 'check' : 'unCheck', this);
@@ -72,8 +72,8 @@ Mif.Tree.Node.implement({
 	
 	setCheckboxState: function(state){
 		if(!this.hasCheckbox) return;
-		var oldState=this.state.checked;
-		this.state.checked=state;
+		var oldState=this.property.checked;
+		this.property.checked=state;
 		if((!this.parentNode&&this.tree.$draw) || (this.parentNode && this.parentNode.$draw)){
 			this.getDOM('checkbox').removeClass('mif-tree-node-'+oldState).addClass('mif-tree-node-'+state);
 		}
@@ -87,7 +87,7 @@ Mif.Tree.Node.implement({
 		for(var i=children.length; i--; i>0){
 			var child=children[i];
 			if(!child.hasCheckbox) continue;
-			var childState=child.state.checked;
+			var childState=child.property.checked;
 			if(childState=='partially'){
 				state='partially';
 				break;
@@ -106,7 +106,7 @@ Mif.Tree.Node.implement({
 				}
 			}
 		}
-		if(parent.state.checked==state ||(s && state=='partially' && parent.state.checked=='checked')){return;};
+		if(parent.property.checked==state ||(s && state=='partially' && parent.property.checked=='checked')){return;};
 		parent.setCheckboxState(state);
 		parent.setParentCheckbox(s);
 	}

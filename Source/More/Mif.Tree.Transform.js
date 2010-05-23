@@ -45,7 +45,7 @@ Mif.Tree.Node.implement({
 				if(node.tree){
 					if(!node.hasChildren()){
 						node.$draw = true;
-						node.state.open = true;
+						node.property.open = true;
 					}
 					node.children.push(this);
 					this.parentNode = node;
@@ -84,10 +84,10 @@ Mif.Tree.Node.implement({
 			var options = $unlink({
 				property: node.property,
 				type: node.type,
-				state: node.state,
+				state: node.property,
 				data: node.data
 			});
-			options.state.open = false;
+			options.property.open = false;
 			var nodeCopy = new Mif.Tree.Node({
 				parentNode: structure.parentNode,
 				children: [] ,

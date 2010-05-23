@@ -1,23 +1,4 @@
 
-/*@icons*/
-.mif-tree-icon{
-padding-right:18px;
-background-position:0 50%;
-background-repeat:no-repeat;
-cursor:inherit;
-}
-
-.mif-tree-open-icon{
-background-image:url('../images/openicon.png')
-}
-
-.mif-tree-close-icon{
-background-image:url('../images/closeicon.png')
-}
-
-.mif-tree-loader-open-icon,.mif-tree-loader-close-icon{
-background-image:url('../images/loader.gif');
-}
 
 /*TODO remove*/
 .mif-tree-book-icon{
@@ -39,11 +20,6 @@ background-image:url('../images/bin_middle_icon.gif');
 
 /*@selection*/
 
-.mif-tree-node-selected{
-background-color: #4094F8;
-color:#fff;
-text-transform:italic;
-}
 
 /*@d'n'd*/
 .mif-tree-pointer{

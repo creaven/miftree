@@ -15,7 +15,7 @@ provides: Mif.Tree.Selection
 Mif.Tree.implement({
 	
 	initSelection: function(){
-		this.defaults.selectClass = '';
+		this.options.defaults.selectClass = '';
 		this.wrapper.addEvent('mousedown', this.attachSelect.bindWithEvent(this));
 	},
 	
@@ -62,13 +62,13 @@ Mif.Tree.implement({
 Mif.Tree.Node.implement({
 		
 	select: function(state) {
-		this.state.selected = state;
+		this.property.selected = state;
 		if(!Mif.Tree.Draw.isUpdatable(this)) return;
 		this.getDOM('node')[(state ? 'add' : 'remove')+'Class'](this.selectClass||'mif-tree-node-selected');
 	},
 	
 	isSelected: function(){
-		return this.state.selected;
+		return this.property.selected;
 	}
 	
 });

@@ -13,7 +13,7 @@
 	<h1><a href=".."><span class="mif-m">M</span><span class="mif-i">i</span><span class="mif-f">f</span><span class="mif-dot">.</span><span class="mif-tree">Tree</span></a> <span>Demos</span></h1>
 	<div class="demos">
 	<?php
-	$demos = json_decode(file_get_contents(dirname(__FILE__).'/../../Demos/demos.json'));
+	$demos = json_decode(file_get_contents(dirname(__FILE__).'/../Demos/demos.json'));
 	foreach($demos as $demo=>$v):?>
 		<div class="demo">
 			<a href="<?=$demo?>/index.html">
@@ -26,8 +26,6 @@
 </body>
 </html>
 <?php
-$content = ob_get_contents();
-ob_clean();
-ob_flush();
-file_put_contents(dirname(__FILE__).'/../../Demos/index.html', $content);
+$content = ob_get_contents(); ob_clean(); ob_flush();
+file_put_contents(dirname(__FILE__).'/../Demos/index.html', $content);
 ?>

@@ -15,11 +15,11 @@ provides: Mif.Tree.Hover
 Mif.Tree.implement({
 	
 	initHover: function(){
-		this.defaults.hoverClass = '';
+		this.options.defaults.hoverClass = '';
 		this.wrapper.addEvent('mousemove', this.hover.bind(this));
 		this.wrapper.addEvent('mouseout', this.hover.bind(this));
 		this.defaultHoverState = {
-			gadjet: false,
+			toggle: false,
 			checkbox: false,
 			icon: false,
 			name: false,
@@ -60,7 +60,7 @@ Mif.Tree.Hover = {
 	over: function(node, target){
 		var nodeEl = node.getDOM('node');
 		nodeEl.addClass((node.hoverClass || 'mif-tree-hover') + '-' + target);
-		if(node.state.selected) nodeEl.addClass((node.hoverClass || 'mif-tree-hover') + '-selected-' + target);
+		if(node.property.selected) nodeEl.addClass((node.hoverClass || 'mif-tree-hover') + '-selected-' + target);
 	},
 	
 	out: function(node, target){

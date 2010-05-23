@@ -59,4 +59,4 @@ provides: %s
 		jsfile = dir + '.js'
 		open(jsfile, 'w').write(result)
 
-makeImage(os.path.join(os.path.dirname(__file__), '../../Source/Image'));
+makeImage(os.path.join(os.path.dirname(__file__), '../Source/Image'));
