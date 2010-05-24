@@ -61,12 +61,15 @@ Mif.Tree = new Class({
 			}
 			parent._toggle = [];
 		});
-		var id = this.options.id;
-		this.id = id;
-		if(id != null) Mif.ids[id] = this;
-		var KeyNav = this.KeyNav;
-		if(KeyNav) new KeyNav(this);
+		this.setId(this.options.id);
+		if(this.KeyNav) new this.KeyNav(this);
 		if (MooTools.version >= '1.2.2' && this.options.initialize) this.options.initialize.call(this);
+	},
+	
+	setId: function(id){
+		this.id = id;
+		Mif.id(this, this.id);
+		return this;
 	},
 	
 	inject: function(element, how){
@@ -202,7 +205,7 @@ Mif.Tree = new Class({
 			}
 		}
 		return {
-			node: Mif.Tree.Nodes[target.getAttribute('uid')],
+			node: Mif.uid(target.getAttribute('uid')),
 			target: type
 		};
 	},

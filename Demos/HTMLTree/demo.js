@@ -32,7 +32,7 @@ var htmlTree = new Class({
 			};
 		}
 		return {
-			node: Mif.Tree.Nodes[target.getAttribute('uid')],
+			node: Mif.uid(target.getAttribute('uid')),
 			target: type
 		};
 	}
@@ -63,7 +63,7 @@ Mif.sheet.addRules({
 	
 });
 
-htmlTree.Node = new Class({
+htmlTree.Node = htmlTree.prototype.Node = new Class({
 
 	Extends: Mif.Tree.Node,
 	
@@ -101,10 +101,8 @@ htmlTree.Node = new Class({
 
 });
 
-htmlTree.prototype.Node = htmlTree.Node;
 
-
-htmlTree.KeyNav = new Class({
+htmlTree.KeyNav = htmlTree.prototype.KeyNav = new Class({
 	
 	Extends: Mif.Tree.KeyNav,
 
@@ -127,8 +125,6 @@ htmlTree.KeyNav = new Class({
 	}
 
 });
-
-htmlTree.prototype.KeyNav = htmlTree.KeyNav;
 
 window.addEvent('domready', function(){
 

@@ -128,7 +128,7 @@ Mif.Tree.Node.implement({
 		this.tree.update(parent);
 		this.tree.update(previousVisible);
 		this.recursive(function(){
-			if(this.id) delete Mif.ids[this.id];
+			Mif.id(null, this.id);
 		});
 		this.tree.mouse.node = false;
 		this.tree.updateHover();

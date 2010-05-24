@@ -12,7 +12,7 @@ provides: Mif.Tree.Node
 ...
 */
 
-Mif.Tree.Node = new Class({
+Mif.Tree.prototype.Node = Mif.Tree.Node = new Class({
 
 	Implements: [Events],
 	
@@ -20,10 +20,7 @@ Mif.Tree.Node = new Class({
 		$extend(this, structure);
 		this.children = [];
 		this.property = $extend($unlink(this.tree.options.defaults), property);
-		this.UID = Mif.Tree.Node.UID++;
-		Mif.Tree.Nodes[this.UID] = this;
-		var id = this.property.id;
-		if(id != null) Mif.ids[id] = this;
+		Mif.store(this).id(this, this.property.id);
 		this.tree.fireEvent('nodeCreate', [this]);
 		this._property = ['id', 'name', 'cls', 'openIcon', 'closeIcon', 'openIconUrl', 'closeIconUrl', 'hidden'];
 	},
@@ -234,8 +231,7 @@ Mif.Tree.Node = new Class({
 	updateProperty: function(p, cv, nv){
 		if(nv == cv) return this;
 		if(p == 'id'){
-			Mif.ids[cv] = null;
-			if(nv) Mif.ids[nv]=this;
+			Mif.id(null, cv).id(this, nv);
 			return this;
 		}
 		var tree = this.tree;
@@ -255,7 +251,7 @@ Mif.Tree.Node = new Class({
 			case 'closeIconUrl':
 				var icon = this.getDOM('icon');
 				icon.setStyle('background-image', 'none');
-				if(nv) icon.setStyle('background-image', 'url('+nv+')');
+				if(nv) icon.setStyle('background-image', 'url(' + nv + ')');
 				return this;
 			case 'hidden':
 				this.getDOM('node').setStyle('display', nv ? 'none' : 'block');
@@ -268,7 +264,7 @@ Mif.Tree.Node = new Class({
 				var previous = this.getPreviousVisible();
 				var next = this.getNextVisible();
 				[_previous, _next, previous, next, parent, this].each(function(node){
-					treeF.update(node);
+					tree.update(node);
 				});
 				return this;
 		}
@@ -283,8 +279,3 @@ Mif.Tree.Node = new Class({
 	}
 	
 });
-
-Mif.Tree.prototype.Node = Mif.Tree.Node;
-
-Mif.Tree.Node.UID = 0;
-Mif.Tree.Nodes = {};

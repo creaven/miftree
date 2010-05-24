@@ -12,7 +12,7 @@ provides: Mif.Tree.KeyNav
 ...
 */
 
-Mif.Tree.KeyNav = new Class({
+Mif.Tree.prototype.KeyNav = Mif.Tree.KeyNav = new Class({
 	
 	initialize: function(tree){
 		this.tree = tree;
@@ -120,13 +120,4 @@ Mif.Tree.KeyNav = new Class({
 		tree.select(tree.$index[newIndex]);
 	}
 	
-});
-
-Mif.Tree.prototype.KeyNav = Mif.Tree.KeyNav;
-
-Event.Keys.extend({
-	'pgdown': 34,
-	'pgup': 33,
-	'home': 36,
-	'end': 35
 });
