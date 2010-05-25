@@ -41,14 +41,14 @@ Mif.Tree = new Class({
 			forest: this.options.forest,
 			animateScroll: this.options.animateScroll,
 			height: this.options.height,
-			UID: ++Mif.Tree.UID,
 			key: {},
 			expanded: [],
 			$index: []
 		});
+		Mif.store(this);
 		this.updateOpenState();
 		if(this.options.expandTo) this.initExpandTo();
-		this.wrapper = new Element('div').addClass('mif-tree-wrapper').addClass(this.options.className);
+		this.wrapper = new Element('div').addClass('mif-tree-wrapper').addClass(this.options.className).addClass('mif-tree-' + this.UID);
 		if(this.options.container) this.wrapper.inject(this.options.container);
 		this.events();
 		this.initScroll();
@@ -321,7 +321,6 @@ Mif.Tree = new Class({
 	}
 	
 });
-Mif.Tree.UID = 0;
 
 Array.implement({
 	

@@ -48,7 +48,7 @@ Mif.sheet.addRules({
 	},
 	
 	'.mif-tree-children .mif-tree-node-wrapper': {
-		'display': 'block'
+		
 	},
 
 	'.mif-tree-node': {
