@@ -22,7 +22,7 @@ if(!Mif.id) Mif.id = function(id){
 
 Mif.Tree = new Class({
 	
-	version: '1.2.6.2',
+	version: '1.2.6.3',
 
 	Implements: [new Events, new Options],
 		

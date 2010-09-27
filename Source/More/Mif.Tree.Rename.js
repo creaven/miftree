@@ -45,13 +45,16 @@ Mif.Tree.implement({
 	getInput: function(){
 		if(!this.input){
 			this.input = new Element('input').addClass('mif-tree-rename');
-			this.input.addEvent('focus',function(){this.select();});
+			this.input.addEvent('focus',function(){this.select();}).addEvent('click', function(event) {
+				event.stop();
+			});
 			Mif.Tree.Rename.autoExpand(this.input);
 		}
 		return this.input;
 	},
 	
 	startRename: function(node){
+		this.focus();
 		this.unselect();
 		this.disableEvents();
 		this.attachRenameEvents();
