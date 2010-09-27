@@ -35,7 +35,7 @@ Mif.sheet.addRules({
 	
 	'.mif-tree-wrapper span': {
 		'padding': '2px auto',
-		'cursor': 'inherit',
+		'cursor': 'default',
 		'display': 'inline-block',
 		'height': '100%',
 		'vertical-align': 'top',

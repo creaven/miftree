@@ -19,18 +19,18 @@ Mif.Tree.implement({
 		var checkbox;
 		if(node.property.checked != undefined){
 			if(!node.hasCheckbox) node.property.checked='nochecked';
-			checkbox = '<span class="mif-tree-checkbox mif-tree-node-' + node.property.checked+'" uid="' + node.UID + '"></span>';
+			checkbox = '<span class="mif-tree-checkbox mif-tree-node-' + node.property.checked+'"></span>';
 		}else{
 			checkbox = '';
 		}
 		html = html || [];
 		html.push(
-		'<div class="mif-tree-node ',(node.isLast() ? 'mif-tree-node-last' : ''),'"'+(node.property.hidden ? ' style="display:none"' : '') + ' id="',prefix,node.UID,'">',
-			'<span class="mif-tree-node-wrapper ',node.property.cls,(node.property.selected ? ' mif-tree-node-selected' : ''),'" uid="',node.UID,'">',
-				'<span class="mif-tree-toggle mif-tree-toggle-',node.getToggleType(),'" uid="',node.UID,'"></span>',
+		'<div class="mif-tree-node ',(node.isLast() ? 'mif-tree-node-last' : ''),'"'+(node.property.hidden ? ' style="display:none"' : '') + ' id="',prefix,node.UID,'" uid="',node.UID,'">',
+			'<span class="mif-tree-node-wrapper ',node.property.cls,(node.property.selected ? ' mif-tree-node-selected' : ''),'">',
+				'<span class="mif-tree-toggle mif-tree-toggle-',node.getToggleType(),'"></span>',
 				checkbox,
-				'<span class="mif-tree-icon ',(node.property.closeIconUrl?'" style="background-image: url(' + node.property.closeIconUrl + ')" ': node.property.closeIcon+'"'),' uid="',node.UID,'"></span>',
-				'<span class="mif-tree-name" uid="',node.UID,'">',node.property.name,'</span>',
+				'<span class="mif-tree-icon ',(node.property.closeIconUrl?'" style="background-image: url(' + node.property.closeIconUrl + ')" ': node.property.closeIcon+'"'),'></span>',
+				'<span class="mif-tree-name">',node.property.name,'</span>',
 			'</span>',
 		'</div>',
 		'<div class="mif-tree-children ',(node.isLast() ? 'mif-tree-children-last' : ''),'" style="display:none"></div>'
@@ -62,7 +62,6 @@ Mif.Tree.implement({
 	
 	drawForestRoot: function(){
 		var container = new Element('div').addClass('mif-tree-children-root').inject(this.wrapper);
-		console.log(container);
 		this.drawChildren(this.root, container);
 	},
 	

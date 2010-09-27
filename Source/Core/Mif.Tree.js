@@ -49,7 +49,7 @@ Mif.Tree = new Class({
 		this.updateOpenState();
 		if(this.options.expandTo) this.initExpandTo();
 		this.wrapper = new Element('div').addClass('mif-tree-wrapper').addClass(this.options.className).addClass('mif-tree-' + this.UID);
-		if(this.options.container) this.wrapper.inject(this.options.container);
+		if(this.options.container) this.inject(this.options.container);
 		this.events();
 		this.initScroll();
 		this.initSelection();
@@ -185,27 +185,23 @@ Mif.Tree = new Class({
 		while(!(/mif-tree/).test(target.className)){
 			target = target.parentNode;
 		};
-		var test = target.className.match(/mif-tree-(toggle)-[^n]|mif-tree-(icon)|mif-tree-(name)|mif-tree-(checkbox)/);
+		var re = (/mif-tree-(toggle|icon|name|checkbox|node)/);
+		var test = target.className.match(re);
 		if(!test){
-			var y = this.mouse.coords.y;
-			if(y == -1 || !this.$index){
-				node = false;
-			}else{
-				node = this.$index[((y)/this.height).toInt()];
-			}
 			return {
-				node: node,
+				node: null,
 				target: 'node'
 			};
-		};
-		for(var i = 5; i > 0; i--){
+		}
+		for(var i = 6; i > 0; i--){
 			if(test[i]){
 				var type = test[i];
 				break;
 			}
 		}
+		target = document.id(target);
 		return {
-			node: Mif.uid(target.getAttribute('uid')),
+			node: Mif.uid(target.getAncestor('.mif-tree-node').getAttribute('uid')),
 			target: type
 		};
 	},

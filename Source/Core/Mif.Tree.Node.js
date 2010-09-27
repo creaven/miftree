@@ -22,14 +22,13 @@ Mif.Tree.prototype.Node = Mif.Tree.Node = new Class({
 		this.property = $extend($unlink(this.tree.options.defaults), property);
 		Mif.store(this).id(this, this.property.id);
 		this.tree.fireEvent('nodeCreate', [this]);
-		this._property = ['id', 'name', 'cls', 'openIcon', 'closeIcon', 'openIconUrl', 'closeIconUrl', 'hidden'];
 	},
 	
 	getDOM: function(what){
 		var node = document.id('mif-tree-' + this.UID);
 		if(!node) return null;
 		if(what == 'node') return node;
-		var wrapper = node.getFirst();
+		var wrapper = node.getElement('.mif-tree-node-wrapper');
 		if(what == 'wrapper') return wrapper;
 		if(what == 'children') return node.getNext();
 		return wrapper.getElement('.mif-tree-' + what);
@@ -74,7 +73,7 @@ Mif.Tree.prototype.Node = Mif.Tree.Node = new Class({
 	},
 	
 	recursive: function(fn, args){
-		args=$splat(args);
+		args = $splat(args);
 		if(fn.apply(this, args) !== false){
 			this.children.each(function(node){
 				if(node.recursive(fn, args) === false){

@@ -20,7 +20,7 @@ Mif.Tree.implement({
 	},
 	
 	attachSelect: function(event){
-		if(!['icon', 'name', 'node'].contains(this.mouse.target)) return;
+		if(this.mouse.target == 'toggle' && this.mouse.node.getToggleType() != 'none') return;
 		var node = this.mouse.node;
 		if(!node) return;
 		this.select(node);
