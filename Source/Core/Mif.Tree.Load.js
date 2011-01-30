@@ -15,9 +15,10 @@ provides: Mif.Tree.Load
 Mif.Tree.Load = {
 		
 	children: function(children, parent, tree){
-		for( var i = children.length; i--; ){
+	    var i, l;
+	    var subChildrens = [];
+		for(i = children.length; i--; ){
 			var child = children[i];
-			var subChildren = child.children;
 			var node = new Mif.Tree.Node({
 				tree: tree,
 				parentNode: parent||undefined
@@ -27,9 +28,14 @@ Mif.Tree.Load = {
 			}else{
 				tree.root = node;
 			}
+			var subChildren = child.children;
 			if(subChildren && subChildren.length){
-				arguments.callee(subChildren, node, tree);
+			    subChildrens.push({children: subChildren, parent: node});
 			}
+		}
+		for(i = 0, l = subChildrens.length; i < l; i++) {
+		    var sub = subChildrens[i];
+		    arguments.callee(sub.children, sub.parent, tree);
 		}
 		if(parent) parent.state.loaded = true;
 		tree.fireEvent('loadChildren', parent);
