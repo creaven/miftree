@@ -17,7 +17,7 @@ Mif.Tree.Draw = {
 	getHTML: function(node,html){
 		var prefix = node.tree.DOMidPrefix;
 		var checkbox;
-		if($defined(node.state.checked)){
+		if(node.state.checked != null){
 			if(!node.hasCheckbox) node.state.checked='nochecked';
 			checkbox = '<span class="mif-tree-checkbox mif-tree-node-'+node.state.checked+'" uid="'+node.UID+'">'+Mif.Tree.Draw.zeroSpace+'</span>';
 		}else{
@@ -59,7 +59,7 @@ Mif.Tree.Draw = {
 	},
 	
 	forestRoot: function(tree){
-		var container = new Element('div').addClass('mif-tree-children-root').injectInside(tree.wrapper);
+		var container = new Element('div').addClass('mif-tree-children-root').inject(tree.wrapper, 'inside');
 		Mif.Tree.Draw.children(tree.root, container);
 	},
 	
@@ -119,5 +119,5 @@ Mif.Tree.Draw = {
 	
 };
 
-Mif.Tree.Draw.zeroSpace = Browser.Engine.trident ? '&shy;' : (Browser.Engine.webkit ? '&#8203' : '');
+Mif.Tree.Draw.zeroSpace = Browser.ie ? '&shy;' : ((Browser.chrome || Browser.safari) ? '&#8203' : '');
 

@@ -47,7 +47,7 @@ Mif.Tree.implement({
 
 	load: function(options){
 		var tree = this;
-		this.loadOptions = this.loadOptions||$lambda({});
+		this.loadOptions = this.loadOptions||Function.from({});
 		function success(json){
 			var parent = null;
 			if(tree.forest){
@@ -63,8 +63,8 @@ Mif.Tree.implement({
 			tree.fireEvent('load');
 			return tree;
 		}
-		options = $extend($extend({
-			isSuccess: $lambda(true),
+		options = Object.append(Object.append({
+			isSuccess: Function.from(true),
 			secure: true,
 			onSuccess: success,
 			method: 'get'
@@ -93,8 +93,8 @@ Mif.Tree.Node.implement({
 			self.tree.fireEvent('loadNode', self);
 			return self;
 		}
-		options=$extend($extend($extend({
-			isSuccess: $lambda(true),
+		options=Object.append(Object.append(Object.append({
+			isSuccess: Function.from(true),
 			secure: true,
 			onSuccess: success,
 			method: 'get'

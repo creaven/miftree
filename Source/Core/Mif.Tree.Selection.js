@@ -16,7 +16,9 @@ Mif.Tree.implement({
 	
 	initSelection: function(){
 		this.defaults.selectClass = '';
-		this.wrapper.addEvent('mousedown', this.attachSelect.bindWithEvent(this));
+ 		this.wrapper.addEvent('mousedown', function(event) {
+                  this.attachSelect(event);
+                }.bind(this));
 	},
 	
 	attachSelect: function(event){
