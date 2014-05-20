@@ -17,12 +17,12 @@ Mif.Tree.Node = new Class({
 	Implements: [Events],
 	
 	initialize: function(structure, options) {
-		$extend(this, structure);
+		Object.append(this, structure);
 		this.children = [];
 		this.type = options.type || this.tree.dfltType;
 		this.property = options.property || {};
 		this.data = options.data;
-		this.state = $extend($unlink(this.tree.dfltState), options.state);
+		this.state = Object.append(Object.clone(this.tree.dfltState), options.state);
 		this.$calculate();
 		this.UID = Mif.Tree.Node.UID++;
 		Mif.Tree.Nodes[this.UID] = this;
@@ -33,13 +33,13 @@ Mif.Tree.Node = new Class({
 	},
 	
 	$calculate: function(){
-		$extend(this, $unlink(this.tree.defaults));
-		this.type = $splat(this.type);
+		Object.append(this, Object.clone(this.tree.defaults));
+		this.type = Array.from(this.type);
 		this.type.each(function(type){
 			var props = this.tree.types[type];
-			if(props) $extend(this, props);
+			if(props) Object.append(this, props);
 		}, this);
-		$extend(this, this.property);
+		Object.append(this, this.property);
 		return this;
 	},
 	
@@ -92,7 +92,7 @@ Mif.Tree.Node = new Class({
 	},
 	
 	recursive: function(fn, args){
-		args=$splat(args);
+		args=Array.from(args);
 		if(fn.apply(this, args) !== false){
 			this.children.each(function(node){
 				if(node.recursive(fn, args) === false){

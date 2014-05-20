@@ -24,7 +24,7 @@ Mif.Tree = new Class({
 	
 	version: '1.2.2',
 
-	Implements: [new Events, new Options],
+	Implements: [Events, Options],
 		
 	options:{
 		types: {},
@@ -37,7 +37,7 @@ Mif.Tree = new Class({
 	
 	initialize: function(options){
 		this.setOptions(options);
-		$extend(this, {
+		Object.append(this, {
 			types: this.options.types,
 			forest: this.options.forest,
 			animateScroll: this.options.animateScroll,
@@ -63,7 +63,7 @@ Mif.Tree = new Class({
 		this.updateOpenState();
 		if(this.options.expandTo) this.initExpandTo();
 		this.DOMidPrefix='mif-tree-';
-		this.wrapper = new Element('div').addClass('mif-tree-wrapper').injectInside(this.container);
+		this.wrapper = new Element('div').addClass('mif-tree-wrapper').inject(this.container, 'inside');
 		this.initEvents();
 		this.initScroll();
 		this.initSelection();
