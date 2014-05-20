@@ -25,13 +25,13 @@ Mif.Tree.implement({
 			name: false,
 			node: false
 		};
-		this.hoverState = $unlink(this.defaultHoverState);
+		this.hoverState = Object.clone(this.defaultHoverState);
 	},
 	
 	hover: function(){
 		var cnode = this.mouse.node;
 		var ctarget = this.mouse.target;
-		$each(this.hoverState, function(node, target, state){
+		Object.each(this.hoverState, function(node, target, state){
 			if(node == cnode && (target == 'node'||target==ctarget)) return;
 			if(node) {
 				Mif.Tree.Hover.out(node, target);
@@ -49,7 +49,7 @@ Mif.Tree.implement({
 	},
 	
 	updateHover: function(){
-		this.hoverState = $unlink(this.defaultHoverState);
+		this.hoverState = Object.clone(this.defaultHoverState);
 		this.hover();
 	}
 	
